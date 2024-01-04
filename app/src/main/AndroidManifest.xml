@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Xenon"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.Home"
+            android:name=".Activity.Main"
             android:exported="false" />
         <activity
             android:name=".Activity.GetStarted"
@@ -26,6 +26,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
 
         <meta-data

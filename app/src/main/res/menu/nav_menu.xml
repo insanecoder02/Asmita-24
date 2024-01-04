@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:title="Home"/>
+
+        <item
+            android:id="@+id/nav_event"
+            android:title="Events"/>
+
+        <item
+            android:id="@+id/nav_team"
+            android:title="Team"/>
+
+        <item
+            android:id="@+id/nav_sponsor"
+            android:title="Sponsors"/>
+
+        <item
+            android:id="@+id/nav_gallery"
+            android:title="Gallery"/>
+
+        <item
+            android:id="@+id/nav_register"
+            android:title="Register"/>
+
+        <item
+            android:id="@+id/nav_contact"
+            android:title="Contact Us"/>
+
+        <item
+            android:id="@+id/nav_score"
+            android:title="Live Score"/>
+    </group>
+
+</menu>
