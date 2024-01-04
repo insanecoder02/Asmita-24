@@ -5,5 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.Xenon" parent="Base.Theme.Xenon" />
+    <style name="Theme.Xenon" parent="Base.Theme.Xenon">
+        <item name="android:statusBarColor">@color/black</item>
+    </style>
 </resources>
