@@ -22,20 +22,32 @@
         app:layout_constraintGuide_percent="0.95" />
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_semibold"
         android:text="INTER IIIT \nSPORTS MEET"
+        android:layout_marginTop="10dp"
         android:textColor="@color/white"
         android:textSize="28sp"
         app:layout_constraintEnd_toStartOf="@id/rightGuide"
-        app:layout_constraintStart_toStartOf="@+id/leftGuide" />
+        app:layout_constraintStart_toStartOf="@+id/leftGuide"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView3"
+    <ImageButton
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="416dp"
+        android:background="@color/black"
+        android:src="@drawable/run"
+        app:layout_constraintBottom_toTopOf="@+id/comingSoon"
+        app:layout_constraintEnd_toEndOf="@id/rightGuide"
+        app:layout_constraintStart_toStartOf="@id/leftGuide"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+    <TextView
+        android:id="@+id/comingSoon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="456dp"
         android:fontFamily="@font/poppins"
         android:gravity="center"
         android:letterSpacing="0.6"
@@ -59,7 +71,7 @@
         app:layout_constraintEnd_toStartOf="@id/rightGuide"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/leftGuide"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/comingSoon"
         app:layout_constraintVertical_bias="0.055">
 
         <TextView

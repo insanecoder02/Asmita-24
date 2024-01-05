@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.andr oid.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Xenon" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -7,5 +7,11 @@
 
     <style name="Theme.Xenon" parent="Base.Theme.Xenon">
         <item name="android:statusBarColor">@color/black</item>
+    </style>
+
+    <style name="Theme.NavigationDrawer" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#FFECA1</item>
+        <!-- Customize your theme here. -->
     </style>
 </resources>

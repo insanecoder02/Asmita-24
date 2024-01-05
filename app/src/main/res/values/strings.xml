@@ -1,5 +1,11 @@
 <resources>
-    <string name="app_name">Navigation Drawer</string>
+    <string name="app_name">Xenon</string>
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>
+    <string name="about1">The Indian Institute of Information Technology Allahabad (IIIT-A) was established in 1999 to serve as a centre of excellence in information technology and allied subjects. \n\n
+
+        As an apex nucleating institute in the field of IT, IIIT-A attracts some of the brightest brains in the country, and each soul has consistently pushed to put in more than their best in their field of work, instilling passion and devotion at its greatest level.</string>
+
+    <string name="about2">Asmita is IIIT Allahabad’s annual sports festival. After multiple successful editions in the past, it has become a flagship sports festival in North India. The word Asmita signifies glory and the feeling of oneness, and the festival rightly lives up to its name by bringing together the best players and teams of multiple renowned institutes on the sports field. \n\n
+The three day sports fiesta witnesses a melange of events revolving around sports: tournaments of major sports, athletics events, esports competitions, and much more.</string>
 </resources>

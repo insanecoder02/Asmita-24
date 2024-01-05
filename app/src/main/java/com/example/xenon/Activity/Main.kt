@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
-import com.example.xenon.Fragment.ContactUs
+import com.example.xenon.Fragment.AboutUs
 import com.example.xenon.Fragment.Events
 import com.example.xenon.Fragment.Gallery
 import com.example.xenon.Fragment.Home
@@ -62,7 +62,7 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 .replace(R.id.fragment_container, Register()).commit()
 
             R.id.nav_contact -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ContactUs()).commit()
+                .replace(R.id.fragment_container, AboutUs()).commit()
 
             R.id.nav_score -> supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, LiveScore()).commit()
