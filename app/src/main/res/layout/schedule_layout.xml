@@ -17,7 +17,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/matchName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#FFD633"
@@ -26,6 +25,7 @@
             android:weightSum="1">
 
             <TextView
+                android:id="@+id/matchName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -55,6 +55,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
@@ -64,6 +65,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
@@ -87,11 +89,13 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/clgImg1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/iiita" />
 
                 <TextView
+                    android:id="@+id/clgName1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -120,11 +124,13 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/clgImg2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/iiita" />
 
                 <TextView
+                    android:id="@+id/clgName2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
