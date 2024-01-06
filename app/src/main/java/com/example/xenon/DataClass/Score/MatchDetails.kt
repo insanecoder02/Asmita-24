@@ -1,4 +1,4 @@
-package com.example.xenon.DataClass
+package com.example.xenon.DataClass.Score
 
 data class MatchDetails(
     val matchName:String,

@@ -1,4 +1,4 @@
-package com.example.xenon.Adapter
+package com.example.xenon.Adapter.Score
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.xenon.DataClass.Matches
+import com.example.xenon.DataClass.Score.Matches
 import com.example.xenon.R
 
 class MatchAdapter(
-    private val context: Context,
+    val context: Context,
     private val match: List<Matches>
 ) : RecyclerView.Adapter<MatchAdapter.viewHolder>() {
 
@@ -20,21 +20,19 @@ class MatchAdapter(
         return viewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return match.size
-    }
+    override fun getItemCount(): Int = match.size
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
         val mat = match[position]
         holder.type.text = mat.status
 
-        holder.match.adapter = ScheduleAdapter(context, mat.match)
-        holder.match.layoutManager = LinearLayoutManager(context)
-
+        holder.matchRV.adapter = ScheduleAdapter(mat.match)
+        holder.matchRV.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
     inner class viewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val type: TextView = itemView.findViewById(R.id.matchText)
-        val match: RecyclerView = itemView.findViewById(R.id.scheduleRV)
+        val matchRV: RecyclerView = itemView.findViewById(R.id.scheduleRV)
     }
 }

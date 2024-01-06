@@ -21,14 +21,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/scheduleRV"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/match_card"
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:layout_height="150dp"
-        tools:listitem="@layout/schedule_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/matchText"/>
+        app:layout_constraintTop_toBottomOf="@id/matchText"
+        tools:listitem="@layout/schedule_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
