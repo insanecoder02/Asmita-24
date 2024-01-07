@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/leftGuide"
@@ -43,59 +43,18 @@
             android:layout_height="1dp"
             android:layout_marginVertical="5dp"
             android:background="#FFFDFD"
-            app:layout_constraintBottom_toTopOf="@id/img1"
             app:layout_constraintEnd_toEndOf="@id/rightGuide"
             app:layout_constraintStart_toStartOf="@id/leftGuide"
             app:layout_constraintTop_toBottomOf="@id/text1" />
 
-        <ImageView
-            android:id="@+id/img1"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="30dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/clg"
-            app:layout_constraintEnd_toEndOf="@id/rightGuide"
-            app:layout_constraintStart_toStartOf="@id/leftGuide"
-            app:layout_constraintTop_toBottomOf="@id/view" />
-
-        <TextView
-            android:id="@+id/text2"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/aboutRV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/poppins_light"
-            android:text="@string/about1"
-            android:textAlignment="center"
-            android:textColor="#FFECA1"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@id/rightGuide"
+            tools:listitem="@layout/about_layout"
             app:layout_constraintStart_toStartOf="@id/leftGuide"
-            app:layout_constraintTop_toBottomOf="@id/img1" />
-
-        <ImageView
-            android:id="@+id/img2"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="30dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/abt2"
             app:layout_constraintEnd_toEndOf="@id/rightGuide"
-            app:layout_constraintStart_toStartOf="@id/leftGuide"
-            app:layout_constraintTop_toBottomOf="@id/text2" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/poppins_light"
-            android:text="@string/about2"
-            android:textAlignment="center"
-            android:textColor="#FFECA1"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@id/rightGuide"
-            app:layout_constraintStart_toStartOf="@id/leftGuide"
-            app:layout_constraintTop_toBottomOf="@id/img2" />
+            app:layout_constraintTop_toBottomOf="@id/view"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
