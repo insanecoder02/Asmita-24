@@ -29,12 +29,13 @@
         android:text="INTER IIIT \nSPORTS MEET"
         android:layout_marginTop="10dp"
         android:textColor="@color/white"
-        android:textSize="28sp"
+        android:textSize="36sp"
         app:layout_constraintEnd_toStartOf="@id/rightGuide"
         app:layout_constraintStart_toStartOf="@+id/leftGuide"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
+        android:id="@+id/img1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/black"

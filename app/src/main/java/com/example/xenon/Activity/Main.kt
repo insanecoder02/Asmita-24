@@ -10,7 +10,7 @@ import com.example.xenon.Fragment.Events
 import com.example.xenon.Fragment.Gallery
 import com.example.xenon.Fragment.Home
 import com.example.xenon.Fragment.LiveScore
-import com.example.xenon.Fragment.Register
+import com.example.xenon.Fragment.Developer
 import com.example.xenon.Fragment.Sponsors
 import com.example.xenon.Fragment.Team
 import com.example.xenon.R
@@ -59,7 +59,7 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 .replace(R.id.fragment_container, Gallery()).commit()
 
             R.id.nav_register -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, Register()).commit()
+                .replace(R.id.fragment_container, Developer()).commit()
 
             R.id.nav_contact -> supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, AboutUs()).commit()

@@ -29,6 +29,7 @@ class MatchAdapter(
         holder.matchRV.adapter = ScheduleAdapter(mat.match)
         holder.matchRV.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
     }
 
     inner class viewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

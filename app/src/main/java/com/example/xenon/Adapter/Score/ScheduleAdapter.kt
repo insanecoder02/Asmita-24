@@ -16,7 +16,8 @@ class ScheduleAdapter(private val sch: List<MatchDetails>) :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.schedule_layout, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.schedule_layout, parent, false)
         return ViewHolder(view)
     }
 
@@ -31,6 +32,7 @@ class ScheduleAdapter(private val sch: List<MatchDetails>) :
         holder.time.text = scc.time
         holder.name1.text = scc.clgName1
         holder.name2.text = scc.clgName2
+        holder.date.text = scc.date
 
         Glide.with(holder.itemView.context)
             .load(scc.clgImg1)
@@ -39,12 +41,19 @@ class ScheduleAdapter(private val sch: List<MatchDetails>) :
         Glide.with(holder.itemView.context)
             .load(scc.clgImg2)
             .into(holder.img2)
+
+        if (scc.live == "y") {
+            holder.live.visibility = View.VISIBLE
+            holder.live.loop(true)
+            holder.live.playAnimation()
+        }
+
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val matName: TextView = itemView.findViewById(R.id.matchName)
+        val live: LottieAnimationView = itemView.findViewById(R.id.liveLottie)
         val date: TextView = itemView.findViewById(R.id.date)
-        val lottie = itemView.findViewById<LottieAnimationView>(R.id.liveLottie)
         val time: TextView = itemView.findViewById(R.id.time)
         val name2: TextView = itemView.findViewById(R.id.clgName2)
         val name1: TextView = itemView.findViewById(R.id.clgName1)
