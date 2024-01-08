@@ -58,7 +58,7 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             R.id.nav_gallery -> supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, Gallery()).commit()
 
-            R.id.nav_register -> supportFragmentManager.beginTransaction()
+            R.id.nav_developer -> supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, Developer()).commit()
 
             R.id.nav_contact -> supportFragmentManager.beginTransaction()

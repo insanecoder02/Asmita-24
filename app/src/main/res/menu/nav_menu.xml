@@ -47,10 +47,6 @@
 <!--            android:id="@+id/separator4"-->
 <!--            app:actionLayout="@layout/menu_separator" />-->
 
-        <item
-            android:id="@+id/nav_register"
-            android:title="Register" />
-
 <!--        &lt;!&ndash; Add a separator &ndash;&gt;-->
 <!--        <item-->
 <!--            android:id="@+id/separator5"-->
@@ -67,5 +63,9 @@
         <item
             android:id="@+id/nav_score"
             android:title="Live Score" />
+
+        <item
+            android:id="@+id/nav_developer"
+            android:title="Developers" />
     </group>
 </menu>

@@ -31,7 +31,6 @@ class AboutAdapter(
         holder.info.text = about.info
         Glide.with(context)
             .load(about.img)
-            .error(R.drawable.group)
             .into(holder.img)
     }
 
