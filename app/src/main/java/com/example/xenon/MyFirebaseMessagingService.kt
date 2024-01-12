@@ -9,6 +9,8 @@ import android.util.Log
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.example.xenon.Activity.Main
+import com.example.xenon.databinding.FragmentDeveloperBinding
+import com.example.xenon.databinding.FragmentLiveScoreBinding
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -18,8 +20,13 @@ const val chaName = "com.example.xenon"
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
+        val pageId = message.data["pageId"] ?: "Main"
         if (message.notification != null) {
-            generateNotification(message.notification!!.title!!, message.notification!!.body!!)
+            generateNotification(
+                message.notification!!.title!!,
+                message.notification!!.body!!,
+                pageId
+            )
         }
     }
 
@@ -38,8 +45,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         Log.d("hello", "Refreshed token: $token")
     }
 
-    fun generateNotification(tit: String, msg: String) {
-        val intent = Intent(this, Main::class.java)
+    fun generateNotification(tit: String, msg: String, pageId: String) {
+        val intent = createIntentForPage(pageId)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
         val pendingIntent = PendingIntent.getActivity(
@@ -64,5 +71,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         notificationManager.createNotificationChannel(notiChannel)
 
         notificationManager.notify(0, builder.build())
+    }
+
+    private fun createIntentForPage(pageId: String): Intent {
+        return when (pageId) {
+            "dev" -> Intent(this, FragmentDeveloperBinding::class.java)
+            "score" -> Intent(this, FragmentLiveScoreBinding::class.java)
+
+            else -> Intent(this, Main::class.java)
+        }
     }
 }

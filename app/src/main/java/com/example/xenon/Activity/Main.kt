@@ -13,6 +13,7 @@ import com.example.xenon.Fragment.LiveScore
 import com.example.xenon.Fragment.Developer
 import com.example.xenon.Fragment.Sponsors
 import com.example.xenon.Fragment.Team
+import com.example.xenon.Fragment.WebView
 import com.example.xenon.R
 import com.example.xenon.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
@@ -66,6 +67,9 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
             R.id.nav_score -> supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, LiveScore()).commit()
+
+            R.id.nav_web -> supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, WebView()).commit()
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
