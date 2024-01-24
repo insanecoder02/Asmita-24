@@ -10,12 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentHomeBinding
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.concurrent.TimeUnit
+import com.jackandphantom.carouselrecyclerview.CarouselLayoutManager
+
 
 class Home : Fragment() {
     private lateinit var binding:FragmentHomeBinding
@@ -35,9 +38,20 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fetchSystemDateTime()
+        binding.liveMatch.layoutManager = com.jackandphantom.carouselrecyclerview.CarouselLayoutManager(
+                true,
+                true,
+                0.5F,
+                true,
+                true,
+                true,
+                LinearLayoutManager.HORIZONTAL
+            )
+
+        binding.upcomingMatches.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        //fetchSystemDateTime()
     }
-    private fun fetchSystemDateTime() {
+   /* private fun fetchSystemDateTime() {
         try {
             val currentTimeMillis = System.currentTimeMillis()
             val targetDateString = bringmeDateboy
@@ -77,8 +91,8 @@ class Home : Fragment() {
         }
         countDownTimer.start()
         isTimerRunning = true
-    }
-    private fun updateUI(countdownText: String) {
+    }*/
+   /* private fun updateUI(countdownText: String) {
         val hourMinSec: List<String> = countdownText.split(":")
         binding.hours1.text = (hourMinSec[1].toInt() / 10).toString()
         binding.minutes1.text = (hourMinSec[2].toInt() / 10).toString()
@@ -96,5 +110,5 @@ class Home : Fragment() {
         binding.minutes2.text = "0"
         isTimerRunning = false
 
-    }
+    }*/
 }

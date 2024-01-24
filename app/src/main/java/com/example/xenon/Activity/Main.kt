@@ -3,6 +3,7 @@ package com.example.xenon.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.example.xenon.Fragment.AboutUs
@@ -36,6 +37,7 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         if (savedInstanceState == null) {
+            //Toast.makeText(this, "opened", Toast.LENGTH_SHORT).show()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, Home()).commit()
             binding.navView.setCheckedItem(R.id.nav_home)
