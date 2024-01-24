@@ -53,6 +53,10 @@
 <!--            app:actionLayout="@layout/menu_separator" />-->
 
         <item
+            android:id="@+id/Leaderboard"
+            android:title="LeaderBoard" />
+
+        <item
             android:id="@+id/nav_contact"
             android:title="About Us" />
 

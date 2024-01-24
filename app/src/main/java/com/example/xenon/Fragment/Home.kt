@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xenon.Activity.Events_1
+import com.example.xenon.Activity.Leaderboard
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentHomeBinding
 import java.text.ParseException
@@ -56,6 +57,9 @@ class Home : Fragment() {
         binding.events.setOnClickListener {
             val intent:Intent= Intent(activity,Events_1::class.java)
             startActivity(intent)
+        }
+        binding.leaderboard.setOnClickListener {
+            startActivity(Intent(requireContext(), Leaderboard::class.java))
         }
         //fetchSystemDateTime()
     }

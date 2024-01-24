@@ -21,6 +21,10 @@
         android:theme="@style/Theme.NavigationDrawer"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.Leaderboard"
+            android:exported="false" />
+
+        <activity
             android:name=".Activity.Events_1"
             android:exported="false" />
 
