@@ -1,40 +1,32 @@
-package com.example.xenon.Fragment
+package com.example.xenon.Activity
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xenon.Adapter.Team.WingAdapter
 import com.example.xenon.DataClass.Team.TeamMember
 import com.example.xenon.DataClass.Team.TeamSection
 import com.example.xenon.R
-import com.example.xenon.databinding.FragmentEventsBinding
-import com.example.xenon.databinding.FragmentTeamBinding
+import com.example.xenon.databinding.ActivityEvents1Binding
 import com.google.firebase.firestore.FirebaseFirestore
 
-class Events : Fragment() {
-    private lateinit var binding: FragmentEventsBinding
+
+class Events_1 : AppCompatActivity() {
+    private lateinit var binding: ActivityEvents1Binding
     private var teamSections: MutableList<TeamSection> = mutableListOf()
     private lateinit var wingAdapter: WingAdapter
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentEventsBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding= ActivityEvents1Binding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        wingAdapter = WingAdapter(requireContext(), teamSections)
+        wingAdapter = WingAdapter(this, teamSections)
         binding.teamRV.adapter = wingAdapter
-        binding.teamRV.layoutManager = LinearLayoutManager(requireContext())
+        binding.teamRV.layoutManager = LinearLayoutManager(this)
         fetchFromFirestore()
     }
-
     private fun fetchFromFirestore() {
         teamSections.clear()
         val db = FirebaseFirestore.getInstance()
@@ -57,7 +49,7 @@ class Events : Fragment() {
             }
             wingAdapter.notifyDataSetChanged()
         }.addOnFailureListener { exception ->
-            Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, exception.localizedMessage, Toast.LENGTH_SHORT).show()
         }
     }
 }

@@ -13,9 +13,9 @@
 <!--            android:id="@+id/separator1"-->
 <!--            app:actionLayout="@layout/menu_separator" />-->
 
-        <item
-            android:id="@+id/nav_event"
-            android:title="Events" />
+<!--        <item-->
+<!--            android:id="@+id/nav_event"-->
+<!--            android:title="Events" />-->
 
 <!--        <item-->
 <!--            android:id="@+id/separator7"-->

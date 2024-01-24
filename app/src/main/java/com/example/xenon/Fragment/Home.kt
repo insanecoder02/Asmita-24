@@ -1,5 +1,6 @@
 package com.example.xenon.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.xenon.Activity.Events_1
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentHomeBinding
 import java.text.ParseException
@@ -18,6 +20,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 import com.jackandphantom.carouselrecyclerview.CarouselLayoutManager
+import com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
 
 
 class Home : Fragment() {
@@ -47,8 +50,13 @@ class Home : Fragment() {
                 true,
                 LinearLayoutManager.HORIZONTAL
             )
-
+        (binding.liveMatch as CarouselRecyclerview).setInfinite(true)
         binding.upcomingMatches.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        binding.events.setOnClickListener {
+            val intent:Intent= Intent(activity,Events_1::class.java)
+            startActivity(intent)
+        }
         //fetchSystemDateTime()
     }
    /* private fun fetchSystemDateTime() {

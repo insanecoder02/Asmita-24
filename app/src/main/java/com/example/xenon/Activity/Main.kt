@@ -3,11 +3,9 @@ package com.example.xenon.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.example.xenon.Fragment.AboutUs
-import com.example.xenon.Fragment.Events
 import com.example.xenon.Fragment.Gallery
 import com.example.xenon.Fragment.Home
 import com.example.xenon.Fragment.LiveScore
@@ -49,8 +47,8 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             R.id.nav_home -> supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, Home()).commit()
 
-            R.id.nav_event -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, Events()).commit()
+//            R.id.nav_event -> supportFragmentManager.beginTransaction()
+//                .replace(R.id.fragment_container, Events()).commit()
 
             R.id.nav_team -> supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, Team()).commit()
