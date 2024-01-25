@@ -32,6 +32,7 @@ class AboutAdapter(
         holder.info.text = about.info
         Glide.with(context)
             .load(about.img)
+            .thumbnail(0.1f)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.img)
     }

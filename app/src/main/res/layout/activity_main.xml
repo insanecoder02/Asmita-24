@@ -40,7 +40,7 @@
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp" />
+            android:paddingHorizontal="5dp"/>
 
     </LinearLayout>
 
@@ -49,7 +49,6 @@
         android:layout_width="250dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:layout_marginTop="20dp"
         android:background="#FFD633"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"

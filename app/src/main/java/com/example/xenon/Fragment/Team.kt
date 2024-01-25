@@ -61,9 +61,10 @@ class Team : Fragment() {
             val wingMap = mutableMapOf<String, MutableList<TeamMember>>()
             for (document in documents) {
                 val name = document.getString("name") ?: ""
+                val img = document.getString("image") ?: ""
                 val role = document.getString("role") ?: ""
                 val wing = document.getString("wing") ?: ""
-                val teamMember = TeamMember(name)
+                val teamMember = TeamMember(name,img)
                 if (wingMap.containsKey(wing)) {
                     wingMap[wing]?.add(teamMember)
                 } else {

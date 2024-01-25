@@ -84,9 +84,6 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             R.id.nav_home -> supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, Home()).commit()
 
-//            R.id.nav_event -> supportFragmentManager.beginTransaction()
-//                .replace(R.id.fragment_container, Events()).commit()
-
             R.id.nav_team -> supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, Team()).commit()
 

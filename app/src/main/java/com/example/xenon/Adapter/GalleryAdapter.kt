@@ -33,7 +33,7 @@ class GalleryAdapter(val context: Context, private val gallery: List<FlickrPhoto
         // Load the image into the ImageButton using Glide
         Glide.with(context)
             .load(imageUrl)
-            .thumbnail(0.1f)
+            .thumbnail(0.5f)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(holder.eveimg)
     }
