@@ -13,7 +13,7 @@ class MemberAdapter(private val members:List<TeamMember>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.member_layout, parent, false)
+            .inflate(R.layout.layout_member, parent, false)
         return ViewHolder(view)
     }
 

@@ -91,7 +91,7 @@
         app:layout_constraintEnd_toEndOf="@id/rightGuide"
         app:layout_constraintStart_toStartOf="@id/leftGuide"
         app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        tools:listitem="@layout/wing_layout" />
+        tools:listitem="@layout/layout_wing" />
 
     <TextView
         android:layout_width="0dp"

@@ -17,7 +17,7 @@ class ScheduleAdapter(private val sch: List<MatchDetails>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.schedule_layout, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.layout_schedule, parent, false)
         return ViewHolder(view)
     }
 

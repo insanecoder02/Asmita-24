@@ -16,7 +16,7 @@ class MatchAdapter(
 ) : RecyclerView.Adapter<MatchAdapter.viewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.match_layout, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_match, parent, false)
         return viewHolder(view)
     }
 

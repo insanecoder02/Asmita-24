@@ -51,7 +51,7 @@
             android:id="@+id/aboutRV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/about_layout"
+            tools:listitem="@layout/layout_about"
             app:layout_constraintStart_toStartOf="@id/leftGuide"
             app:layout_constraintEnd_toEndOf="@id/rightGuide"
             app:layout_constraintTop_toBottomOf="@id/view"/>

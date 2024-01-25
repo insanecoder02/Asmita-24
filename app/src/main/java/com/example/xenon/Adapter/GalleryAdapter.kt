@@ -5,25 +5,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.xenon.DataClass.FlickrPhoto
 import com.example.xenon.DataClass.Gallery
 import com.example.xenon.R
 
-class GalleryAdapter(val context: Context, private val gallery: List<Gallery>):RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
+class GalleryAdapter(val context: Context, private val gallery: List<FlickrPhoto>) :
+    RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.gallery_layout,parent,false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.layout_gallery, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val gall = gallery[position]
+        val flickrPhoto = gallery[position]
 
-        holder.evenam.text = gall.name
+        // Assuming 'img' is the property in FlickrPhoto containing the image URL
+        val imageUrl =
+            "https://farm${flickrPhoto.farm}.staticflickr.com/${flickrPhoto.server}/${flickrPhoto.id}_${flickrPhoto.secret}_m.jpg"
+
+        // Load the image into the ImageButton using Glide
         Glide.with(context)
-            .load(gall.img)
+            .load(imageUrl)
+            .thumbnail(0.1f)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(holder.eveimg)
     }
 
@@ -31,8 +42,8 @@ class GalleryAdapter(val context: Context, private val gallery: List<Gallery>):R
         return gallery.size
     }
 
-    class ViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView){
-        val eveimg:ImageButton = itemView.findViewById(R.id.eve_img)
-        val evenam:TextView = itemView.findViewById(R.id.eve_name)
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val eveimg: ImageView = itemView.findViewById(R.id.eve_img)
+        val evenam: TextView = itemView.findViewById(R.id.eve_name)
     }
 }

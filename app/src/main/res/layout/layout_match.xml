@@ -30,6 +30,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/matchText"
-        tools:listitem="@layout/schedule_layout" />
+        tools:listitem="@layout/layout_schedule" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

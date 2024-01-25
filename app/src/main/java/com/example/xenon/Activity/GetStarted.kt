@@ -13,6 +13,8 @@ class GetStarted : AppCompatActivity() {
         binding = ActivityGetStrtedBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        window.statusBarColor = 0xFF000000.toInt()
+
         binding.getStartedBut.setOnClickListener {
            startActivity(Intent(this,Main::class.java))
             finish()
