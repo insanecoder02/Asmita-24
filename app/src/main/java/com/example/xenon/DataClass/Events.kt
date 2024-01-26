@@ -8,5 +8,5 @@ data class Events(
     val heading: String,
     val length: String,
     val location: String,
-    val type: String
+    val type: String,
 )

@@ -1,17 +1,21 @@
 package com.example.xenon.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.xenon.Activity.GetStarted
 import com.example.xenon.Adapter.Team.WingAdapter
 import com.example.xenon.DataClass.Team.TeamMember
 import com.example.xenon.DataClass.Team.TeamSection
 import com.example.xenon.Adapter.EventsAdapter
 import com.example.xenon.DataClass.Events
+import com.example.xenon.R
 import com.example.xenon.databinding.FragmentEventBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -43,13 +47,14 @@ class Event : Fragment() {
         binding.teamRV.layoutManager = LinearLayoutManager(requireContext())
 
         //for Events Adpater
-        eventsAdapter = EventsAdapter(requireContext(),sportSections)
+        eventsAdapter = EventsAdapter(requireContext(),sportSections,this)
         binding.sports.adapter = eventsAdapter
         binding.sports.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-
+       // eventsAdapter.startAutoScroll(binding.sports)
 
         fetchFromFirestore1()
         fetchFromFirestore2()
+
 
     }
 
@@ -104,4 +109,56 @@ class Event : Fragment() {
             }
 
     }
+
+    fun onItemClick(item: Events){
+
+        val bundle = Bundle()
+        bundle.putString("name",item.name ?: "Name")
+        bundle.putString("date",item.date ?: "Date")
+        bundle.putString("image",item.image ?: "image")
+        bundle.putString("discription",item.discription ?: "Discription")
+        bundle.putString("heading",item.heading ?: "Heading")
+        bundle.putString("length",item.length ?: "Length")
+        bundle.putString("location",item.location ?: "Location")
+        bundle.putString("type",item.type ?: "Type")
+        val nextFragment = Gallery()
+        nextFragment.arguments = bundle
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(
+            R.id.fragment_container, nextFragment
+        )
+        transaction.addToBackStack(null)
+        transaction.commit()
+
+    }
 }
+
+
+
+
+
+
+//fun onItemClick(item: Gallery2) {
+////        Log.d(
+////            "Events",
+////            "Date: ${item.date}, Details: ${item.details}, Form: ${item.form}, Name: ${item.name}, No: ${item.no}, Time: ${item.time}, URL: ${item.url}, Venue: ${item.venue}"
+////        )
+//    val bundle = Bundle()
+//    bundle.putString("date", item.sport_img ?: "Date")
+//    bundle.putString("details", item.sport_name)
+////        bundle.putString("form", item.form ?: "Form")
+////        bundle.putString("name", item.name ?: "Name")
+////        bundle.putLong("no", item.no ?: 123)
+////        bundle.putString("time", item.time ?: "Time")
+////        bundle.putString("url", item.url ?: "Url")
+////        bundle.putString("venue", item.venue ?: "Venue")
+//    val nextFragment = Gallery()
+//    nextFragment.arguments = bundle
+//    val transaction = requireActivity().supportFragmentManager.beginTransaction()
+//    transaction.replace(
+//        R.id.fragment_container, nextFragment
+//    ) // Use nextFragment instead of basefragmentevent()
+//    transaction.addToBackStack(null)
+//    transaction.commit()
+//}
+
