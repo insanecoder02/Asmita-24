@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -36,6 +37,8 @@ class GalleryAdapter(val context: Context, private val gallery: List<FlickrPhoto
             .thumbnail(0.5f)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(holder.eveimg)
+
+
     }
 
     override fun getItemCount(): Int {
@@ -45,5 +48,6 @@ class GalleryAdapter(val context: Context, private val gallery: List<FlickrPhoto
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val eveimg: ImageView = itemView.findViewById(R.id.eve_img)
         val evenam: TextView = itemView.findViewById(R.id.eve_name)
+
     }
 }

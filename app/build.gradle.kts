@@ -59,7 +59,6 @@ dependencies {
     annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.github.sparrow007:carouselrecyclerview:1.2.6")
-
     implementation ("androidx.work:work-runtime:2.9.0")
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")

@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginVertical="10dp"
     android:layout_marginHorizontal="5dp"
+    app:cardBackgroundColor="@color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
@@ -25,6 +26,43 @@
         app:layout_constraintBottom_toBottomOf="@id/eve_img"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/expandedView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/eve_name">-->
+<!--            -->
+<!--            <ImageView-->
+<!--                android:id="@+id/eve_img"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:src="@drawable/ic_launcher_background"/>-->
+<!--            -->
+<!--        </RelativeLayout>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/eve_name"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:fontFamily="@font/poppins_semibold"-->
+<!--            android:text="Aquatics"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textSize="40sp"-->
+<!--            android:textColor="@color/white"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
