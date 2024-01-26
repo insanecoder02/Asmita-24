@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/sportImage"
+            android:layout_width="match_parent"
+            android:background="@drawable/fade3"
+            android:layout_height="180dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/aqautics"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:background="@drawable/fade3"
+            android:layout_height="180dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/fade3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/sportName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AQUATICS"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/sportImage"
+            app:layout_constraintStart_toStartOf="@+id/sportImage"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.726" />
+
+        <TextView
+            android:id="@+id/sportDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4 January 2024 | 6:30 P.M"
+            android:textColor="#A6A6A6"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/sportImage"
+            app:layout_constraintTop_toBottomOf="@+id/sportName"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".Fragment.Events">
+    tools:context=".Fragment.Event">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -49,16 +49,30 @@
             app:layout_constraintTop_toBottomOf="@id/text1" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sports"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/rightGuide"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@id/leftGuide"
+            app:layout_constraintTop_toBottomOf="@id/view"
+            tools:listitem="@layout/sports_item_view"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/teamRV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/rightGuide"
             app:layout_constraintStart_toStartOf="@id/leftGuide"
-            app:layout_constraintTop_toBottomOf="@+id/view"
-            tools:listitem="@layout/wing_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/sports"
+            tools:listitem="@layout/layout_wing"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
