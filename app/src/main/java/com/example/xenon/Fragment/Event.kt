@@ -10,15 +10,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xenon.Adapter.Team.WingAdapter
 import com.example.xenon.DataClass.Team.TeamMember
 import com.example.xenon.DataClass.Team.TeamSection
-import com.example.xenon.R
-import androidx.core.content.ContentProviderCompat.requireContext
+import com.example.xenon.Adapter.EventsAdapter
+import com.example.xenon.DataClass.Events
 import com.example.xenon.databinding.FragmentEventBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Event : Fragment() {
+
+
     private lateinit var binding: FragmentEventBinding
     private var teamSections: MutableList<TeamSection> = mutableListOf()
     private lateinit var wingAdapter: WingAdapter
+
+    //for Events Adapter
+
+    private var sportSections : MutableList<Events> = mutableListOf()
+    private lateinit var eventsAdapter: EventsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,10 +41,19 @@ class Event : Fragment() {
         wingAdapter = WingAdapter(requireContext(), teamSections)
         binding.teamRV.adapter = wingAdapter
         binding.teamRV.layoutManager = LinearLayoutManager(requireContext())
-        fetchFromFirestore()
+
+        //for Events Adpater
+        eventsAdapter = EventsAdapter(requireContext(),sportSections)
+        binding.sports.adapter = eventsAdapter
+        binding.sports.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+
+
+        fetchFromFirestore1()
+        fetchFromFirestore2()
+
     }
 
-    private fun fetchFromFirestore() {
+    private fun fetchFromFirestore1() {
         teamSections.clear()
         val db = FirebaseFirestore.getInstance()
         db.collection("Event").get().addOnSuccessListener { documents ->
@@ -62,5 +78,30 @@ class Event : Fragment() {
         }.addOnFailureListener { exception ->
             Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun fetchFromFirestore2() {
+        sportSections.clear()
+        FirebaseFirestore.getInstance().collection("FeaturedEvents").get()
+            .addOnSuccessListener{documents->
+                for(document in  documents){
+                    val name = document.getString("name") ?: ""
+                    val image = document.getString("image") ?: ""
+                    val date = document.getString("date") ?: ""
+                    val discription = document.getString("discription") ?: ""
+                    val heading = document.getString("heading") ?: ""
+                    val length = document.getString("length") ?:""
+                    val location = document.getString("location") ?:""
+                    val type = document.getString("type") ?:""
+
+
+
+                    sportSections.add(Events(name,date,image,discription,heading,length,location,type))
+                }
+                eventsAdapter.notifyDataSetChanged()
+            }.addOnFailureListener{exception->
+                Toast.makeText(requireContext(),exception.localizedMessage,Toast.LENGTH_SHORT).show()
+            }
+
     }
 }
