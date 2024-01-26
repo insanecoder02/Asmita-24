@@ -3,24 +3,14 @@ package com.example.xenon.Fragment
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
-import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.xenon.Activity.Events_1
 import com.example.xenon.Activity.Leaderboard
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentHomeBinding
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.Locale
-import java.util.concurrent.TimeUnit
-import com.jackandphantom.carouselrecyclerview.CarouselLayoutManager
 import com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
 
 
@@ -55,9 +45,13 @@ class Home : Fragment() {
         binding.upcomingMatches.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         binding.events.setOnClickListener {
-            val intent:Intent= Intent(activity,Events_1::class.java)
-            startActivity(intent)
+            val fragment = Event()
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
         }
+
         binding.leaderboard.setOnClickListener {
             startActivity(Intent(requireContext(), Leaderboard::class.java))
         }
