@@ -17,6 +17,7 @@ import com.example.xenon.Fragment.Notification
 import com.example.xenon.Fragment.Sponsors
 import com.example.xenon.Fragment.Team
 import com.example.xenon.Fragment.WebView
+import com.example.xenon.Fragment.participating_iiits
 import com.example.xenon.R
 import com.example.xenon.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
@@ -106,6 +107,9 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
             R.id.nav_web -> supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, Leaderboard_Fragment()).commit()
+
+            R.id.nav_iiits -> supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, participating_iiits()).commit()
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
