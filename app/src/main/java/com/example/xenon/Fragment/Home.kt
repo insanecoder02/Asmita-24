@@ -3,27 +3,29 @@ package com.example.xenon.Fragment
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xenon.Activity.Leaderboard
+import com.example.xenon.Adapter.Score.MatchAdapter
+import com.example.xenon.DataClass.Score.MatchDetails
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentHomeBinding
 import com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
 
 
 class Home : Fragment() {
-    private lateinit var binding:FragmentHomeBinding
-
-    private lateinit var countDownTimer: CountDownTimer
-//    private lateinit var commingsoon: TextView
-    private var isTimerRunning = false
-    private val bringmeDateboy = "2024-03-09T00:00:00"
+    private lateinit var binding: FragmentHomeBinding
+    private lateinit var matAdapter: MatchAdapter
+    private var mat: MutableList<MatchDetails> = mutableListOf()
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -32,17 +34,14 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.liveMatch.layoutManager = com.jackandphantom.carouselrecyclerview.CarouselLayoutManager(
-                true,
-                true,
-                0.5F,
-                true,
-                true,
-                true,
-                LinearLayoutManager.HORIZONTAL
+        binding.liveMatch.layoutManager =
+            com.jackandphantom.carouselrecyclerview.CarouselLayoutManager(
+                true, true, 0.5F, true, true, true, LinearLayoutManager.HORIZONTAL
             )
         (binding.liveMatch as CarouselRecyclerview).setInfinite(true)
-        binding.upcomingMatches.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        matAdapter = MatchAdapter(mat)
+        binding.matchRV.adapter = matAdapter
+        binding.matchRV.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         binding.events.setOnClickListener {
             val fragment = Event()
@@ -51,7 +50,6 @@ class Home : Fragment() {
             transaction.addToBackStack(null)
             transaction.commit()
         }
-
         binding.leaderboard.setOnClickListener {
             startActivity(Intent(requireContext(), Leaderboard::class.java))
         }
@@ -71,29 +69,30 @@ class Home : Fragment() {
         }
     }
 
-    private fun startCountdown(timeInMillis: Long) {
-        countDownTimer = object : CountDownTimer(timeInMillis, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                val days = TimeUnit.MILLISECONDS.toDays(millisUntilFinished)
-                val hours = TimeUnit.MILLISECONDS.toHours(millisUntilFinished) % 24
-                val minutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60
-                val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60
+        fetchFromFirestore()
+    }
+    private fun fetchFromFirestore() {
+        mat.clear()
+        val db = FirebaseFirestore.getInstance()
+        db.collection("Schedule").orderBy("no").get().addOnSuccessListener { documents ->
+            val wingMap = mutableMapOf<String, MutableList<MatchDetails>>()
+            for (document in documents) {
+                val matname = document.getString("name") ?: ""
+                val date = document.getString("date") ?: ""
+                val time = document.getString("time") ?: ""
+                val clgname1 = document.getString("clg1") ?: ""
+                val clgname2 = document.getString("clg2") ?: ""
+                val clgimg1 = document.getString("img1") ?: ""
+                val clgimg2 = document.getString("img2") ?: ""
+                val live = document.getString("live") ?: ""
 
-                val countdownText = String.format(
-                    "%02d:%02d:%02d:%02d", days, hours, minutes, seconds
-                )
-                updateUI(countdownText)
+                val match =
+                    MatchDetails(matname, date, time, clgname1, clgimg1, clgname2, clgimg2, live)
+                mat.add(match)
             }
-
-            override fun onFinish() {
-//                linearLayout.visibility = ViewGroup.GONE
-//                dayLinearLayout.visibility = ViewGroup.GONE
-                binding.comingSoon.text = "The Wait is Over..."
-                binding.comingSoon.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24f)
-                binding.comingSoon.letterSpacing = 0f
-                resetUI()
-                isTimerRunning = false
-            }
+            matAdapter.notifyDataSetChanged()
+        }.addOnFailureListener { exception ->
+            Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT).show()
         }
         countDownTimer.start()
         isTimerRunning = true

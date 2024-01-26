@@ -12,6 +12,7 @@
         android:id="@+id/mem_img"
         android:layout_width="150dp"
         android:layout_height="180dp"
+        android:scaleType="fitXY"
         android:src="@drawable/group"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.WebView">
 
-    <WebView
+    <ImageView
         android:id="@+id/webView"
         android:layout_width="0dp"
         android:layout_height="0dp"

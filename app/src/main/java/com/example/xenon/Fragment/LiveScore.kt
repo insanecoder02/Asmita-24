@@ -28,11 +28,11 @@ class LiveScore : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        matAdapter = MatchAdapter(requireContext(), mat)
-        binding.matchRV.adapter = matAdapter
-        binding.matchRV.layoutManager = LinearLayoutManager(requireContext())
-
-        fetchFromFirestore()
+//        matAdapter = MatchAdapter(requireContext(), mat)
+//        binding.matchRV.adapter = matAdapter
+//        binding.matchRV.layoutManager = LinearLayoutManager(requireContext())
+//
+//        fetchFromFirestore()
 
     }
 

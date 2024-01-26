@@ -48,16 +48,13 @@
         app:layout_constraintTop_toBottomOf="@id/text1" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/sports"
+            android:id="@+id/sportsRv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@+id/rightGuide"
             app:layout_constraintStart_toStartOf="@+id/leftGuide"
             app:layout_constraintTop_toBottomOf="@+id/view"
             tools:listitem="@layout/gallery2"/>
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -16,7 +16,6 @@ import com.example.xenon.databinding.FragmentGallery2Binding
 import com.google.firebase.firestore.FirebaseFirestore
 class Gallery2 : Fragment() {
 
-private lateinit var recyclerview: RecyclerView
 private lateinit var binding:FragmentGallery2Binding
 private var gall:MutableList<Gallery2> = mutableListOf()
     private lateinit var gallAdapter:Gallery2Adapter
@@ -32,10 +31,9 @@ private var gall:MutableList<Gallery2> = mutableListOf()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerview=binding.sports
         gallAdapter=Gallery2Adapter(gall,this)
-        recyclerview.adapter=gallAdapter
-        recyclerview.layoutManager=LinearLayoutManager(requireContext())
+        binding.sportsRv.adapter=gallAdapter
+        binding.sportsRv.layoutManager=LinearLayoutManager(requireContext())
 
         fetchfromfirestore()
     }
@@ -43,7 +41,7 @@ private var gall:MutableList<Gallery2> = mutableListOf()
     private fun fetchfromfirestore() {
         gall.clear()
         val db=FirebaseFirestore.getInstance()
-        db.collection("Gallery").orderBy("no").get().addOnSuccessListener {documents->
+        db.collection("Gallery").get().addOnSuccessListener {documents->
 //            val list= mutableListOf<Gallery2>()
             for(document in documents){
                 val imageurl=document.getString("image")?:""
@@ -55,27 +53,27 @@ private var gall:MutableList<Gallery2> = mutableListOf()
             Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
         }
     }
-//    fun onItemClick(item: Gallery2) {
+    fun onItemClick(item: Gallery2) {
 //        Log.d(
 //            "Events",
 //            "Date: ${item.date}, Details: ${item.details}, Form: ${item.form}, Name: ${item.name}, No: ${item.no}, Time: ${item.time}, URL: ${item.url}, Venue: ${item.venue}"
 //        )
-//        val bundle = Bundle()
-//        bundle.putString("date", item.sport_img ?: "Date")
-//        bundle.putString("details", item.sport_name)
-////        bundle.putString("form", item.form ?: "Form")
-////        bundle.putString("name", item.name ?: "Name")
-////        bundle.putLong("no", item.no ?: 123)
-////        bundle.putString("time", item.time ?: "Time")
-////        bundle.putString("url", item.url ?: "Url")
-////        bundle.putString("venue", item.venue ?: "Venue")
-//        val nextFragment = Gallery()
-//        nextFragment.arguments = bundle
-//        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//        transaction.replace(
-//            R.id.fragment_container, nextFragment
-//        ) // Use nextFragment instead of basefragmentevent()
-//        transaction.addToBackStack(null)
-//        transaction.commit()
-//    }
+        val bundle = Bundle()
+        bundle.putString("date", item.sport_img ?: "Date")
+        bundle.putString("details", item.sport_name)
+//        bundle.putString("form", item.form ?: "Form")
+//        bundle.putString("name", item.name ?: "Name")
+//        bundle.putLong("no", item.no ?: 123)
+//        bundle.putString("time", item.time ?: "Time")
+//        bundle.putString("url", item.url ?: "Url")
+//        bundle.putString("venue", item.venue ?: "Venue")
+        val nextFragment = Gallery()
+        nextFragment.arguments = bundle
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(
+            R.id.fragment_container, nextFragment
+        ) // Use nextFragment instead of basefragmentevent()
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
 }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentWebViewBinding
 
@@ -21,14 +22,16 @@ class WebView : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val htmlContent = "<p>&nbsp;</p>\n" +
-                "<table style=\"border-collapse: collapse; width: 100%;\" border=\"1\">" +
-                "<colgroup><col style=\"width: 40%;\"><col style=\"width: 20%;\"><col style=\"width: 20%;\"><col style=\"width: 20%;\"></colgroup>" +
-                "<tbody><tr><td>College Name</td><td>Total</td><td>Win</td><td>Lose</td></tr>" +
-                "<tr><td>IIITA</td><td>5</td><td><p>3</p></td><td><p>2</p></td></tr>" +
-                "<tr><td>&nbsp;</td><td>&nbsp;</td><td><p>badkjfnsd</p></td></tr></tbody></table>"
 
-        // Load HTML content into the WebView
-        binding.webView.loadData(htmlContent, "text/html", "utf-8")
+        val imageUrl =
+            "https://firebasestorage.googleapis.com/v0/b/argon-c1d67.appspot.com/o/WhatsApp%20Image%202024-01-26%20at%2016.35.30_9f24253d.jpg?alt=media&token=d0ef5c3d-0768-4e5e-94e3-8159d5f16400"
+
+        // Load image using Glide
+        Glide.with(this)
+            .load(imageUrl)
+            .placeholder(R.drawable.ic_launcher_background) // Placeholder image while loading
+            .error(R.drawable.ic_launcher_background) // Image to show in case of error
+            .into(binding.webView)
+
     }
 }
