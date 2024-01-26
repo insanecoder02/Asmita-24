@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="false"
     tools:context=".Activity.Main"
     tools:openDrawer="start">
 
@@ -17,30 +17,27 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            style="@style/noNmaej"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="@color/black"
-            android:elevation="4dp"
-            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:layout_height="40dp"
+            android:background="@color/black">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/notify"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:layout_marginEnd="10dp"
-                android:elevation="2dp"
+                android:layout_marginVertical="5dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/group"/>
+                android:elevation="2dp"
+                android:src="@drawable/notifications_svgrepo_com" />
 
         </androidx.appcompat.widget.Toolbar>
 
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="5dp"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
@@ -50,7 +47,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#FFD633"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         app:headerLayout="@layout/nav_header"
         app:itemRippleColor="#FFECA1"
         app:itemTextAppearance="@style/NavDrawerTextStyle"
