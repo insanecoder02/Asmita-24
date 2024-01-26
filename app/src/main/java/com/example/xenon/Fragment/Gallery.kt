@@ -1,5 +1,7 @@
 package com.example.xenon.Fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,8 +14,10 @@ import com.example.xenon.Adapter.GalleryAdapter
 import com.example.xenon.DataClass.FlickrPhoto
 import com.example.xenon.DataClass.FlickrResponse
 import com.example.xenon.DataClass.Gallery
+import com.example.xenon.R
 import com.example.xenon.databinding.FragmentGalleryBinding
 import com.example.xenon.other.RetrofitClient
+import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +32,7 @@ class Gallery : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGalleryBinding.inflate(layoutInflater, container, false)
+
         return binding.root
     }
 
@@ -62,8 +67,28 @@ class Gallery : Fragment() {
                     Toast.makeText(requireContext(),t.localizedMessage , Toast.LENGTH_SHORT).show()
                 }
             })
+        binding.backBtn.setOnClickListener {
+            val fragment = Gallery2()
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+        val url = arguments?.getString("url")
+        binding.loadBtn.setOnClickListener {
+            if (!url.isNullOrBlank()) {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(intent)
+            } else {
+                val snackbar = Snackbar.make(
+                    binding.root,
+                    "Link is not Available",
+                    Snackbar.LENGTH_SHORT
+                )
 
-
+                snackbar.show()
+            }
+        }
 //        fetchFromFirestore()
     }
 

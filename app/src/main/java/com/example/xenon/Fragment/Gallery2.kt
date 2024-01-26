@@ -46,7 +46,8 @@ private var gall:MutableList<Gallery2> = mutableListOf()
             for(document in documents){
                 val imageurl=document.getString("image")?:""
                 val title=document.getString("name")?:""
-                gall.add(Gallery2(title,imageurl))
+                val url=document.getString("url")?:""
+                gall.add(Gallery2(title,imageurl,url))
             }
             gallAdapter.notifyDataSetChanged()
         }.addOnFailureListener {
@@ -61,6 +62,7 @@ private var gall:MutableList<Gallery2> = mutableListOf()
         val bundle = Bundle()
         bundle.putString("date", item.sport_img ?: "Date")
         bundle.putString("details", item.sport_name)
+        bundle.putString("url", item.url)
 //        bundle.putString("form", item.form ?: "Form")
 //        bundle.putString("name", item.name ?: "Name")
 //        bundle.putLong("no", item.no ?: 123)
