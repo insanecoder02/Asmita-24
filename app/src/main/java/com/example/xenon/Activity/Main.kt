@@ -12,6 +12,7 @@ import com.example.xenon.Fragment.Home
 import com.example.xenon.Fragment.LiveScore
 import com.example.xenon.Fragment.Developer
 import com.example.xenon.Fragment.Gallery2
+import com.example.xenon.Fragment.Leaderboard_Fragment
 import com.example.xenon.Fragment.Notification
 import com.example.xenon.Fragment.Sponsors
 import com.example.xenon.Fragment.Team
@@ -104,7 +105,7 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 .replace(R.id.fragment_container, LiveScore()).commit()
 
             R.id.nav_web -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, WebView()).commit()
+                .replace(R.id.fragment_container, Leaderboard_Fragment()).commit()
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
