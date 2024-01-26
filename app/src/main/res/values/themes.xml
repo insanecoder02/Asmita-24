@@ -9,6 +9,11 @@
         <item name="android:statusBarColor">@color/black</item>
     </style>
 
+
+    <style name="noNmaej" parent="Widget.AppCompat.Toolbar">
+        <item name="title">@string/empty</item>
+    </style>
+
     <style name="Theme.NavigationDrawer" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#FFECA1</item>
@@ -23,4 +28,6 @@
     <style name="Theme.NavigationDrawer.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.NavigationDrawer.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <string name="empty">" "</string>
 </resources>

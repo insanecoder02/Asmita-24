@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.animation.AlphaAnimation
+import android.view.animation.AnimationSet
+import android.view.animation.TranslateAnimation
 import com.example.xenon.databinding.ActivitySplashBinding
 
 class Splash : AppCompatActivity() {
@@ -23,30 +26,68 @@ class Splash : AppCompatActivity() {
 
         sharedPreferences = getPreferences(Context.MODE_PRIVATE)
 
-        // Check if the app is opened for the first time
-        if (isFirstTime()) {
-            // If it's the first time, start the GetStarted activity
-            Handler(Looper.getMainLooper()).postDelayed({
-                startActivity(Intent(this, GetStarted::class.java))
+        val imageViewLeftToRight = binding.imageViewLeftToRight
+        val imageViewRightToLeft = binding.imageViewRightToLeft
+        val middleElement = binding.middleElement
+
+        val animationSetLeftToRight = createTranslateAlphaAnimationSet(-resources.displayMetrics.widthPixels.toFloat(), 0f, 0f, 0f)
+        val animationSetRightToLeft = createTranslateAlphaAnimationSet(resources.displayMetrics.widthPixels.toFloat(), 0f, 0f, 0f)
+        val animationSetFadeIn = createTranslateAlphaAnimationSet(0f, 0f, 0f, 1f)
+
+        val handler = Handler(Looper.getMainLooper())
+
+        handler.postDelayed({
+            imageViewLeftToRight.startAnimation(animationSetLeftToRight)
+            imageViewRightToLeft.startAnimation(animationSetRightToLeft)
+            middleElement.startAnimation(animationSetFadeIn)
+        }, 100) // Delayed to make sure all animations start together
+
+        val commonAnimationListener = object : android.view.animation.Animation.AnimationListener {
+            override fun onAnimationStart(animation: android.view.animation.Animation?) {}
+
+            override fun onAnimationEnd(animation: android.view.animation.Animation?) {
+                // Check if the app is opened for the first time
+                if (isFirstTime()) {
+                    // If it's the first time, start the GetStarted activity
+                    startActivity(Intent(this@Splash, GetStarted::class.java))
+                } else {
+                    // If it's not the first time, start the main activity or any other activity
+                    startActivity(Intent(this@Splash, Main::class.java))
+                }
                 finish()
-            }, 3000)
-        } else {
-            // If it's not the first time, start the main activity or any other activity
-            Handler(Looper.getMainLooper()).postDelayed({
-                startActivity(Intent(this, Main::class.java))
-                finish()
-            }, 3000)
+            }
+
+            override fun onAnimationRepeat(animation: android.view.animation.Animation?) {}
         }
+
+        animationSetLeftToRight.setAnimationListener(commonAnimationListener)
+    }
+
+    private fun createTranslateAlphaAnimationSet(
+        fromXDelta: Float,
+        toXDelta: Float,
+        fromYDelta: Float,
+        toYDelta: Float
+    ): AnimationSet {
+        val animationSet = AnimationSet(true)
+
+        // Translate animation
+        val translateAnimation = TranslateAnimation(fromXDelta, toXDelta, fromYDelta, toYDelta)
+        translateAnimation.duration = 3000
+
+        // Fade-in animation
+        val fadeInAnimation = AlphaAnimation(0f, 1f)
+        fadeInAnimation.duration = 3000
+
+        animationSet.addAnimation(translateAnimation)
+        animationSet.addAnimation(fadeInAnimation)
+
+        return animationSet
     }
 
     private fun isFirstTime(): Boolean {
-        // Retrieve the value of the "firstTime" key from SharedPreferences
         val firstTime = sharedPreferences.getBoolean("firstTime", true)
-
-        // Update the "firstTime" key to false, as the app has been opened now
         sharedPreferences.edit().putBoolean("firstTime", false).apply()
-
-        // Return the original value of "firstTime"
         return firstTime
     }
 }
