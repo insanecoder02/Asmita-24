@@ -22,10 +22,10 @@ class EventsAdapter(
     private val itemClickListener: com.example.xenon.Fragment.Event
 ):RecyclerView.Adapter<EventsAdapter.viewHolder>() {
 
-//    private val handler = Handler(Looper.getMainLooper())
-//    private val delay: Long = 2000 // 2 second delay between item scrolls
-//    private var currentItemPosition = 0
-//    private lateinit var recyclerView: RecyclerView
+    private val handler = Handler(Looper.getMainLooper())
+    private val delay: Long = 2000 // 2 second delay between item scrolls
+    private var currentItemPosition = 0
+    private lateinit var recyclerView: RecyclerView
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
@@ -59,22 +59,22 @@ class EventsAdapter(
 
     }
 
-//    fun startAutoScroll(recyclerView: RecyclerView) {
-//        this.recyclerView = recyclerView
-//        handler.postDelayed(scrollRunnable, delay)
-//    }
-//
-//    private val scrollRunnable = object : Runnable {
-//        override fun run() {
-//            if (currentItemPosition < datalist.size - 1) {
-//                currentItemPosition++
-//            } else {
-//                currentItemPosition = 0
-//            }
-//            recyclerView.smoothScrollToPosition(currentItemPosition)
-//            handler.postDelayed(this, delay)
-//        }
-//    }
+    fun startAutoScroll(recyclerView: RecyclerView) {
+        this.recyclerView = recyclerView
+        handler.postDelayed(scrollRunnable, delay)
+    }
+
+    private val scrollRunnable = object : Runnable {
+        override fun run() {
+            if (currentItemPosition < datalist.size - 1) {
+                currentItemPosition++
+            } else {
+                currentItemPosition = 0
+            }
+            recyclerView.smoothScrollToPosition(currentItemPosition)
+            handler.postDelayed(this, delay)
+        }
+    }
 
     }
 
