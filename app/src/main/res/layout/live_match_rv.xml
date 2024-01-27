@@ -18,7 +18,6 @@
         app:layout_constraintStart_toStartOf="parent">
 
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -27,7 +26,7 @@
             android:weightSum="1">
 
             <TextView
-                android:id="@+id/matchName"
+                android:id="@+id/matchNameLiveMatch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -39,7 +38,7 @@
                 android:textSize="20sp" />
 
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/liveLottie"
+                android:id="@+id/liveLottieLiveMatch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|end"
@@ -54,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:orientation="vertical"/>
+            android:orientation="vertical" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,14 +69,14 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/clgImg1"
+                    android:id="@+id/clgImg1LiveMatch"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/iiita" />
 
                 <TextView
-                    android:id="@+id/clgName1"
+                    android:id="@+id/clgName1LiveMatch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -90,7 +89,6 @@
             </LinearLayout>
 
 
-
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -98,14 +96,15 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/clg1scoreLiveMatch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
                     android:layout_weight="0.2"
                     android:fontFamily="@font/poppins_medium"
                     android:gravity="center"
-                    android:text="3 "
                     android:paddingBottom="20dp"
+                    android:text="3 "
                     android:textColor="@color/white"
                     android:textSize="24dp" />
 
@@ -115,40 +114,32 @@
                     android:layout_weight="0.4"
                     android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="0.2"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="center"
-                    android:text="-"
-                    android:textSize="40dp"
-                    android:textColor="@color/white" />
-
-
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="30dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="50:00"
-                        android:textSize="14dp"
-                        android:textAlignment="center"
-                        android:textColor="#959595"/>
+                        android:layout_gravity="bottom"
+                        android:layout_weight="0.2"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="top|center"
+                        android:text="-"
+                        android:textColor="@color/white"
+                        android:textSize="40dp" />
 
 
                 </LinearLayout>
+
                 <TextView
+                    android:id="@+id/clg2scrLiveMatch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0.2"
                     android:fontFamily="@font/poppins_medium"
                     android:gravity="center"
-                    android:text=" 1"
-                    android:textSize="24dp"
                     android:paddingBottom="20dp"
-                    android:textColor="@color/white" />
+                    android:text=" 1"
+                    android:textColor="@color/white"
+                    android:textSize="24dp" />
 
 
             </LinearLayout>
@@ -160,14 +151,14 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/clgImg2"
+                    android:id="@+id/clgImg2LiveMatch"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/iiita" />
 
                 <TextView
-                    android:id="@+id/clgName2"
+                    android:id="@+id/clgName2LiveMatch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -183,23 +174,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="bottom|center_horizontal">
+            android:layout_gravity="bottom|center_horizontal"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/centerBottomTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="INTER IIIT 2024"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="5dp"
                 android:background="@drawable/rounded_background"
+                android:padding="2dp"
+                android:text="INTER IIIT 2024"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:padding="2dp"/>
-
+                android:textSize="16sp" />
         </LinearLayout>
-
-
     </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

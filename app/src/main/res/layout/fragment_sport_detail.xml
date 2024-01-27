@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/black"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".Fragment.sport_detail">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,13 +22,14 @@
         app:srcCompat="@drawable/aqautics" />
 
     <ImageView
+        android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="330dp"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fade3"
+        app:srcCompat="@drawable/fade2"
         />
 
     <TextView
@@ -104,7 +106,7 @@
             android:textSize="15dp"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Discription "/>
+            android:text="Description "/>
 
         <ImageView
             android:layout_width="30dp"

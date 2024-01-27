@@ -14,31 +14,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            style="@style/noNmaej"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/black"
-
-            style="@style/noNmaej">
+            android:background="@color/black">
 
             <ImageView
                 android:id="@+id/notify"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:elevation="2dp"
                 android:layout_marginVertical="5dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/notifications_svgrepo_com"/>
+                android:elevation="2dp"
+                android:src="@drawable/notifications_svgrepo_com" />
 
         </androidx.appcompat.widget.Toolbar>
 
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="5dp"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
@@ -48,7 +47,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#FFD633"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         app:headerLayout="@layout/nav_header"
         app:itemRippleColor="#FFECA1"
         app:itemTextAppearance="@style/NavDrawerTextStyle"

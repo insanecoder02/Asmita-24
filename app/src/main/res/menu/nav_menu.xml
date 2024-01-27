@@ -70,7 +70,7 @@
 
         <item
             android:id="@+id/nav_web"
-            android:title="Web View" />
+            android:title="LeaderBoard" />
 
         <item
             android:id="@+id/nav_iiits"

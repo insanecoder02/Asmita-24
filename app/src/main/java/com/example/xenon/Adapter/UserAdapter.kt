@@ -34,12 +34,17 @@ class UserAdapter(
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.logo)
 
-        holder.name.text = users.Name
+        val ranking = position+1
+                holder.score.text = users.Points.toString()
+                holder.name.text = users.Name
+                holder.rank.text = ranking.toString()
 
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(com.example.xenon.R.id.teamName)
         val logo:  ImageView = itemView.findViewById(com.example.xenon.R.id.teamLogo)
+        val score: TextView =  itemView.findViewById(com.example.xenon.R.id.teamScore)
+        val rank: TextView = itemView.findViewById(com.example.xenon.R.id.teamRank)
     }
 }

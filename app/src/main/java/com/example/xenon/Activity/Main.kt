@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.xenon.Fragment.AboutUs
 import com.example.xenon.Fragment.Gallery
 import com.example.xenon.Fragment.Home
-import com.example.xenon.Fragment.LiveScore
 import com.example.xenon.Fragment.Developer
 import com.example.xenon.Fragment.Gallery2
 import com.example.xenon.Fragment.Leaderboard_Fragment
@@ -116,9 +116,6 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             R.id.nav_contact -> supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, AboutUs()).commit()
 
-            R.id.nav_score -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, LiveScore()).commit()
-
             R.id.nav_web -> supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, Leaderboard_Fragment()).commit()
 
@@ -130,12 +127,31 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             onBackPressedDispatcher.onBackPressed()
         }
+
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+
+        if (fragment is Home) {
+            // If the current fragment is Home, show exit confirmation dialog
+            showExitConfirmationDialog()
+        } else {
+            // If there are other fragments, remove the top one
+            supportFragmentManager.popBackStack()
+        }
+    }
+
+
+    private fun showExitConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setMessage("Do you want to exit the app?")
+            .setPositiveButton("Yes") { _, _ -> finish() }
+            .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 
     private fun setToolbarAndStatusBarColor(toolbarColorResId: Int, statusBarColorResId: Int) {

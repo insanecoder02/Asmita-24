@@ -34,14 +34,23 @@
                     app:layout_constraintEnd_toEndOf="@+id/imageView5"
                     app:layout_constraintHorizontal_bias="0.093"
                     app:layout_constraintStart_toStartOf="@+id/imageView5" >
+
+                    <ImageView
+                        android:id="@+id/secondImage"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@mipmap/ic_launcher"
+                        android:layout_gravity="center"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/second"
+                        android:id="@+id/secondName"
                         android:textSize="10dp"
                         android:text="IIIT ALLAHABAD"
                         android:layout_gravity="center"
                         android:textStyle="bold"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -52,6 +61,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="60dp"
                         android:text="2,240"/>
+
                 </androidx.cardview.widget.CardView>
 
 
@@ -64,10 +74,18 @@
                     app:layout_constraintEnd_toEndOf="@+id/imageView5"
                     app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="@+id/imageView5" >
+
+                    <ImageView
+                        android:id="@+id/firstImage"
+                        android:layout_width="80dp"
+                        android:src="@mipmap/ic_launcher"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/first"
+                        android:id="@+id/firstName"
                         android:textSize="10dp"
                         android:text="IIIT ALLAHABAD"
                         android:layout_gravity="center"
@@ -95,10 +113,17 @@
                     app:layout_constraintHorizontal_bias="0.909"
                     app:layout_constraintStart_toStartOf="@+id/imageView5">
 
+                    <ImageView
+                        android:id="@+id/thirdImage"
+                        android:layout_width="80dp"
+                        android:src="@mipmap/ic_launcher"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/third"
+                        android:id="@+id/thirdName"
                         android:textSize="10dp"
                         android:text="IIIT ALLAHABAD"
                         android:layout_gravity="center"

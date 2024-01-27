@@ -64,7 +64,7 @@
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:id="@+id/first"
+                       android:id="@+id/firstName"
                        android:textSize="10dp"
                        android:text="IIIT ALLAHABAD"
                        android:layout_gravity="center"
@@ -95,7 +95,7 @@
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:id="@+id/third"
+                       android:id="@+id/thirdName"
                        android:textSize="10dp"
                        android:text="IIIT ALLAHABAD"
                        android:layout_gravity="center"

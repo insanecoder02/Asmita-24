@@ -8,5 +8,7 @@ data class MatchDetails(
     val clgImg1:String,
     val clgName2:String,
     val clgImg2: String,
-    val live:String
+    val live:String,
+    val score1:String,
+    val score2:String,
 )

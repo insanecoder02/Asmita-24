@@ -50,7 +50,7 @@ class Event : Fragment() {
         eventsAdapter = EventsAdapter(requireContext(),sportSections,this)
         binding.sports.adapter = eventsAdapter
         binding.sports.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-       // eventsAdapter.startAutoScroll(binding.sports)
+        eventsAdapter.startAutoScroll(binding.sports)
 
         fetchFromFirestore1()
         fetchFromFirestore2()
@@ -121,14 +121,56 @@ class Event : Fragment() {
         bundle.putString("length",item.length ?: "Length")
         bundle.putString("location",item.location ?: "Location")
         bundle.putString("type",item.type ?: "Type")
-        val nextFragment = Gallery()
+
+        val nextFragment = sport_detail()
         nextFragment.arguments = bundle
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(
-            R.id.fragment_container, nextFragment
-        )
+        transaction.replace(R.id.fragment_container, nextFragment)
         transaction.addToBackStack(null)
         transaction.commit()
+
+
+
+//        when(item.name){
+//
+//            "AQUATIC" ->{
+//
+//                val transaction = requireActivity().supportFragmentManager.beginTransaction()
+//                transaction.replace(
+//                    R.id.fragment_container, aquatics()
+//                )
+//                transaction.addToBackStack(null)
+//                transaction.commit()
+//
+//            }
+//
+//            "ATHLETICS" ->{
+//
+//                val transaction = requireActivity().supportFragmentManager.beginTransaction()
+//                transaction.replace(
+//                    R.id.fragment_container, aquatics()
+//                )
+//                transaction.addToBackStack(null)
+//                transaction.commit()
+//
+//            }
+//
+//            else ->{
+//
+//                val nextFragment = sport_detail()
+//                nextFragment.arguments = bundle
+//                val transaction = requireActivity().supportFragmentManager.beginTransaction()
+//                transaction.replace(
+//                R.id.fragment_container, nextFragment
+//                )
+//                transaction.addToBackStack(null)
+//                transaction.commit()
+//
+//            }
+//
+//        }
+
+
 
     }
 }
@@ -138,27 +180,63 @@ class Event : Fragment() {
 
 
 
-//fun onItemClick(item: Gallery2) {
-////        Log.d(
-////            "Events",
-////            "Date: ${item.date}, Details: ${item.details}, Form: ${item.form}, Name: ${item.name}, No: ${item.no}, Time: ${item.time}, URL: ${item.url}, Venue: ${item.venue}"
-////        )
-//    val bundle = Bundle()
-//    bundle.putString("date", item.sport_img ?: "Date")
-//    bundle.putString("details", item.sport_name)
-////        bundle.putString("form", item.form ?: "Form")
-////        bundle.putString("name", item.name ?: "Name")
-////        bundle.putLong("no", item.no ?: 123)
-////        bundle.putString("time", item.time ?: "Time")
-////        bundle.putString("url", item.url ?: "Url")
-////        bundle.putString("venue", item.venue ?: "Venue")
-//    val nextFragment = Gallery()
-//    nextFragment.arguments = bundle
-//    val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//    transaction.replace(
-//        R.id.fragment_container, nextFragment
-//    ) // Use nextFragment instead of basefragmentevent()
-//    transaction.addToBackStack(null)
-//    transaction.commit()
-//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//val bundle = Bundle()
+//bundle.putString("name",item.name ?: "Name")
+//bundle.putString("date",item.date ?: "Date")
+//bundle.putString("image",item.image ?: "image")
+//bundle.putString("discription",item.discription ?: "Discription")
+//bundle.putString("heading",item.heading ?: "Heading")
+//bundle.putString("length",item.length ?: "Length")
+//bundle.putString("location",item.location ?: "Location")
+//bundle.putString("type",item.type ?: "Type")
+//val nextFragment = Gallery()
+//nextFragment.arguments = bundle
+//val transaction = requireActivity().supportFragmentManager.beginTransaction()
+//transaction.replace(
+//R.id.fragment_container, nextFragment
+//)
+//transaction.addToBackStack(null)
+//transaction.commit()
+
+
+
+
 
