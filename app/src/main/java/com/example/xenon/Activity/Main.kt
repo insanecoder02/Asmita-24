@@ -1,5 +1,6 @@
 package com.example.xenon.Activity
 
+import android.content.DialogInterface
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -42,11 +43,7 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         window.statusBarColor = 0xFF000000.toInt()
         binding.navView.setNavigationItemSelectedListener(this)
         val toggle = ActionBarDrawerToggle(
-            this,
-            binding.drawerLayout,
-            binding.toolbar,
-            R.string.open_nav,
-            R.string.close_nav
+            this, binding.drawerLayout, binding.toolbar, R.string.open_nav, R.string.close_nav
         )
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -57,9 +54,9 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         }
         if (savedInstanceState == null) {
             //Toast.makeText(this, "opened", Toast.LENGTH_SHORT).show()
-            setToolbarAndStatusBarColor(R.color.yellow,R.color.yellow)
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, Home()).commit()
+            setToolbarAndStatusBarColor(R.color.yellow, R.color.yellow)
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Home())
+                .commit()
             binding.navView.setCheckedItem(R.id.nav_home)
         }
 
@@ -73,20 +70,23 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         loadFr(Developer())
                     }
                 }
-                "gal"->{
+
+                "gal" -> {
                     loadFr(Gallery())
                 }
-                "team"->{
+
+                "team" -> {
                     loadFr(Team())
                 }
-                "abt"->{
+
+                "abt" -> {
                     loadFr(AboutUs())
                 }
             }
         }
     }
 
-    private fun loadFr(fragment:Fragment){
+    private fun loadFr(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragment_container, fragment)
         fragmentTransaction.commit()
@@ -95,10 +95,10 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
-            R.id.nav_home ->{
-                setToolbarAndStatusBarColor(R.color.yellow,R.color.yellow)
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, Home()).commit()
+            R.id.nav_home -> {
+                setToolbarAndStatusBarColor(R.color.yellow, R.color.yellow)
+                supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Home())
+                    .commit()
             }
 
             R.id.nav_team -> supportFragmentManager.beginTransaction()
@@ -126,33 +126,28 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         return true
     }
 
-    override fun onBackPressed() {
 
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            onBackPressedDispatcher.onBackPressed()
-        }
+            val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
 
-        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-
-        if (fragment is Home) {
-            // If the current fragment is Home, show exit confirmation dialog
-            showExitConfirmationDialog()
-        } else {
-            // If there are other fragments, remove the top one
-            supportFragmentManager.popBackStack()
+            // Check if there are fragments in the back stack
+            if (supportFragmentManager.backStackEntryCount > 0) {
+                supportFragmentManager.popBackStack()
+            } else {
+                // If there are no fragments in the back stack, show confirmation dialog
+                AlertDialog.Builder(this).setMessage("Are you sure you want to exit?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes") { dialogInterface: DialogInterface, i: Int ->
+                        finish()
+                    }.setNegativeButton("No", null).show()
+            }
         }
     }
 
-
-    private fun showExitConfirmationDialog() {
-        AlertDialog.Builder(this)
-            .setMessage("Do you want to exit the app?")
-            .setPositiveButton("Yes") { _, _ -> finish() }
-            .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
-            .show()
-    }
 
     private fun setToolbarAndStatusBarColor(toolbarColorResId: Int, statusBarColorResId: Int) {
         binding.toolbar.setBackgroundColor(ContextCompat.getColor(this, toolbarColorResId))
@@ -162,7 +157,6 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     private fun resetToolbarAndStatusBarColor() {
         setToolbarAndStatusBarColor(R.color.black, R.color.black)
     }
-
 
 
 }

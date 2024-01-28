@@ -41,15 +41,13 @@ class Home : Fragment() {
 
         livematchadapter = LiveMatchAdapter(liveMatchesList)
 
+
         binding.liveMatchRV.adapter = livematchadapter
         (binding.liveMatchRV as CarouselRecyclerview).setInfinite(true)
         binding.liveMatchRV.layoutManager =
             com.jackandphantom.carouselrecyclerview.CarouselLayoutManager(
-                true, true, 0.7F, true, true, true, LinearLayoutManager.HORIZONTAL
+                true, true, 0.5F, true, true, true, LinearLayoutManager.HORIZONTAL
             )
-
-
-
 
 
 

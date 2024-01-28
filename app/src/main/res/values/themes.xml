@@ -9,6 +9,9 @@
         <item name="android:statusBarColor">@color/black</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+
 
     <style name="noNmaej" parent="Widget.AppCompat.Toolbar">
         <item name="title">@string/empty</item>
