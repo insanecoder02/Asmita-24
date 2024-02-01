@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.xenon.Activity.Main
 import com.example.xenon.Adapter.AboutAdapter
 import com.example.xenon.DataClass.AboutUs
 import com.example.xenon.R
@@ -22,8 +24,7 @@ class AboutUs : Fragment() {
     private lateinit var abtAdapter: AboutAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentAboutUsBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -32,7 +33,7 @@ class AboutUs : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        abtAdapter = AboutAdapter(requireContext(), abtus)
+        abtAdapter = AboutAdapter(abtus)
         binding.aboutRV.adapter = abtAdapter
         binding.aboutRV.layoutManager = LinearLayoutManager(requireContext())
         fetchFromFirestore()
@@ -47,10 +48,8 @@ class AboutUs : Fragment() {
                 val image = document.getString("image") ?: ""
                 val item = AboutUs(name, image)
                 abtus.add(item)
-
             }
             abtAdapter.notifyDataSetChanged()
-
         }.addOnFailureListener { e ->
             Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
         }

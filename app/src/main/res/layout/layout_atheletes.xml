@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:layout_margin="5dp"
+    android:layout_marginHorizontal="10dp"
     android:layout_marginVertical="10dp"
     android:background="@drawable/fade3"
     android:padding="5dp">
@@ -49,18 +48,17 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
         android:orientation="vertical"
-        android:visibility="gone"
-        tools:layout_editor_absoluteX="5dp"
-        tools:layout_editor_absoluteY="5dp">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="20sp"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
             android:hint="time"
@@ -72,78 +70,59 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:weightSum="1"
+        android:layout_marginHorizontal="30dp"
+        android:orientation="vertical"
+        android:padding="2dp"
+        android:weightSum="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lay1">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0.45"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/clgImg1"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/iiita" />
-
-            <TextView
-                android:id="@+id/clgName1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/poppins_medium"
-                android:gravity="center"
-                android:hint="clg-1"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white" />
-        </LinearLayout>
-
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0.1"
-            android:background="#202020"
+            android:id="@+id/play1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="5dp"
+            android:layout_weight="1"
+            android:autoSizeMaxTextSize="20sp"
+            android:drawablePadding="5dp"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
-            android:text="VS"
+            android:padding="5dp"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="20sp"
+            app:drawableLeftCompat="@drawable/iiita" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0.45"
-            android:orientation="vertical">
+        <TextView
+            android:id="@+id/play2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="5dp"
+            android:layout_weight="1"
+            android:autoSizeMaxTextSize="20sp"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:drawableLeftCompat="@drawable/iiita" />
 
-            <ImageView
-                android:id="@+id/clgImg2"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/iiita" />
-
-            <TextView
-                android:id="@+id/clgName2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/poppins_medium"
-                android:gravity="center"
-                android:hint="clg-2"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/play3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="5dp"
+            android:layout_weight="1"
+            android:autoSizeMaxTextSize="20sp"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:drawableLeftCompat="@drawable/iiita" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,6 +27,7 @@ class MemberAdapter(private val members:List<TeamMember>) :
         Glide.with(holder.itemView.context)
             .load(teamMember.img)
             .thumbnail(0.1f)
+            .error(R.drawable.group)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(holder.img)
     }

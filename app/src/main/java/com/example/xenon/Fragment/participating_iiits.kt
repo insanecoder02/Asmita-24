@@ -6,64 +6,46 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.xenon.Adapter.UserAdapter
-import com.example.xenon.DataClass.IIITs
-import com.example.xenon.DataClass.users
-import com.example.xenon.R
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.xenon.DataClass.ParticipateIIITS
+import com.example.xenon.databinding.FragmentParticipateBinding
 import com.google.firebase.firestore.FirebaseFirestore
-import showpageAdapter
-
+import ParticipatingAdapter
 
 class participating_iiits : Fragment() {
-    private lateinit var iiits: MutableList<IIITs>
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: showpageAdapter
+    private lateinit var binding:FragmentParticipateBinding
+    private var iiits: MutableList<ParticipateIIITS> = mutableListOf()
+    private lateinit var partAdapter: ParticipatingAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_participating_iiits, container, false)
-
-        recyclerView= view.findViewById(R.id.playing_iits) // Replace with your RecyclerView id
-        iiits= mutableListOf()
-        adapter = showpageAdapter( requireContext() , iiits) // Replace with your adapter initialization
-
-
-
-
-
-        recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
-        recyclerView.adapter = adapter
-
-        fetchFromFirestore()
-
-        return view
+    ): View {
+        binding = FragmentParticipateBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        partAdapter = ParticipatingAdapter(iiits)
+        binding.playingIits.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        binding.playingIits.adapter = partAdapter
+        fetchFromFirestore()
+    }
     private fun fetchFromFirestore() {
         iiits.clear()
         val db = FirebaseFirestore.getInstance()
-        db.collection("IIITS").get().addOnSuccessListener { documents ->
+        db.collection("IIITS").orderBy("Name").get().addOnSuccessListener { documents ->
             for (document in documents) {
                 val name = document.getString("Name") ?: ""
                 val Logo = document.getString("logo") ?: ""
-                iiits.add(IIITs(name,Logo))
+                val point = document.getLong("point") ?: 0
+                iiits.add(ParticipateIIITS(name,Logo,point))
             }
-            adapter.notifyDataSetChanged() // Notify the adapter that the data has changed
-            showToast("Data fetched succesfully")
+            partAdapter.notifyDataSetChanged()
         }.addOnFailureListener{ e->
-            showToast("failed to fetch data")
-
+            Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
         }
-    }
-
-    private fun showToast(s: String){
-        Toast.makeText(requireContext(), s, Toast.LENGTH_LONG).show()
-
     }
 }

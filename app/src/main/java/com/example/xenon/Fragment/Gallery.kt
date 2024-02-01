@@ -68,11 +68,7 @@ class Gallery : Fragment() {
                 }
             })
         binding.backBtn.setOnClickListener {
-            val fragment = Gallery2()
-            val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, fragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            requireActivity().supportFragmentManager.popBackStack()
         }
         val url = arguments?.getString("url")
         binding.loadBtn.setOnClickListener {

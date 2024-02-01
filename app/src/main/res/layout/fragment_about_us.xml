@@ -9,21 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/leftGuide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/rightGuide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.95" />
+        android:layout_height="match_parent"
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/text1"
@@ -32,9 +19,10 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="ABOUT US"
             android:textColor="@color/white"
-            android:textSize="28sp"
-            app:layout_constraintEnd_toEndOf="@id/rightGuide"
-            app:layout_constraintStart_toStartOf="@id/leftGuide"
+            android:visibility="invisible"
+            android:textSize="26sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
@@ -43,19 +31,18 @@
             android:layout_height="1dp"
             android:layout_marginVertical="5dp"
             android:background="#FFFDFD"
-            app:layout_constraintEnd_toEndOf="@id/rightGuide"
-            app:layout_constraintStart_toStartOf="@id/leftGuide"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text1" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/aboutRV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/layout_about"
-            app:layout_constraintStart_toStartOf="@id/leftGuide"
-            app:layout_constraintEnd_toEndOf="@id/rightGuide"
-            app:layout_constraintTop_toBottomOf="@id/view"/>
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/layout_about" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.core.widget.NestedScrollView>

@@ -16,7 +16,7 @@ import com.example.xenon.Fragment.Gallery
 import com.example.xenon.Fragment.Home
 import com.example.xenon.Fragment.Developer
 import com.example.xenon.Fragment.Gallery2
-import com.example.xenon.Fragment.Leaderboard_Fragment
+import com.example.xenon.Fragment.LeaderBoard
 import com.example.xenon.Fragment.Notification
 import com.example.xenon.Fragment.Sponsors
 import com.example.xenon.Fragment.Team
@@ -33,12 +33,10 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        // Set status bar icons to dark
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val decor = window.decorView
             decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
-
 
         window.statusBarColor = 0xFF000000.toInt()
         binding.navView.setNavigationItemSelectedListener(this)
@@ -93,52 +91,60 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         when (item.itemId) {
-
             R.id.nav_home -> {
-                setToolbarAndStatusBarColor(R.color.yellow, R.color.yellow)
-                supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Home())
-                    .commit()
+                if (currentFragment !is Home) {
+                    setToolbarAndStatusBarColor(R.color.yellow, R.color.yellow)
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Home())
+                        .commit()
+                }
             }
-
-            R.id.nav_team -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, Team()).commit()
-
-            R.id.nav_sponsor -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, Sponsors()).commit()
-
-            R.id.nav_gallery -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, Gallery2()).commit()
-
-            R.id.nav_developer -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, Developer()).commit()
-
-            R.id.nav_contact -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, AboutUs()).commit()
-
-            R.id.nav_web -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, Leaderboard_Fragment()).commit()
-
-            R.id.nav_iiits -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, participating_iiits()).commit()
+            R.id.nav_team -> {
+                if (currentFragment !is Team) {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Team()).commit()
+                }
+            }
+            R.id.nav_sponsor -> {
+                if (currentFragment !is Sponsors) {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Sponsors()).commit()
+                }
+            }
+            R.id.nav_gallery -> {
+                if (currentFragment !is Gallery2) {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Gallery2()).commit()
+                }
+            }
+            R.id.nav_developer -> {
+                if (currentFragment !is Developer) {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Developer()).commit()
+                }
+            }
+            R.id.nav_contact -> {
+                if (currentFragment !is AboutUs) {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AboutUs()).commit()
+                }
+            }
+            R.id.nav_iiits -> {
+                if (currentFragment !is participating_iiits) {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, participating_iiits()).commit()
+                }
+            }
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
-
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
+        super.onBackPressed()
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-
-            // Check if there are fragments in the back stack
             if (supportFragmentManager.backStackEntryCount > 0) {
                 supportFragmentManager.popBackStack()
             } else {
-                // If there are no fragments in the back stack, show confirmation dialog
                 AlertDialog.Builder(this).setMessage("Are you sure you want to exit?")
                     .setCancelable(false)
                     .setPositiveButton("Yes") { dialogInterface: DialogInterface, i: Int ->
@@ -148,7 +154,6 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         }
     }
 
-
     private fun setToolbarAndStatusBarColor(toolbarColorResId: Int, statusBarColorResId: Int) {
         binding.toolbar.setBackgroundColor(ContextCompat.getColor(this, toolbarColorResId))
         window.statusBarColor = ContextCompat.getColor(this, statusBarColorResId)
@@ -157,6 +162,4 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     private fun resetToolbarAndStatusBarColor() {
         setToolbarAndStatusBarColor(R.color.black, R.color.black)
     }
-
-
 }

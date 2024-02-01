@@ -1,35 +1,29 @@
 package com.example.xenon.Fragment
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.xenon.Activity.GetStarted
 import com.example.xenon.Adapter.Team.WingAdapter
 import com.example.xenon.DataClass.Team.TeamMember
 import com.example.xenon.DataClass.Team.TeamSection
-import com.example.xenon.Adapter.EventsAdapter
+import com.example.xenon.Adapter.EventsAdapter.FeaturedEventsAdapter
+import com.example.xenon.Adapter.Team.EventsAdapter
+import com.example.xenon.DataClass.EveDataClass
 import com.example.xenon.DataClass.Events
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentEventBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Event : Fragment() {
-
-
     private lateinit var binding: FragmentEventBinding
-    private var teamSections: MutableList<TeamSection> = mutableListOf()
-    private lateinit var wingAdapter: WingAdapter
-
-    //for Events Adapter
-
-    private var sportSections : MutableList<Events> = mutableListOf()
-    private lateinit var eventsAdapter: EventsAdapter
+    private var eventClass: MutableList<EveDataClass> = mutableListOf()
+    private lateinit var wingAdapter: EventsAdapter
+    private var featuredClass : MutableList<Events> = mutableListOf()
+    private lateinit var eventsAdapter: FeaturedEventsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,51 +36,47 @@ class Event : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        wingAdapter = WingAdapter(requireContext(), teamSections)
+        wingAdapter = EventsAdapter(requireContext(), eventClass)
         binding.teamRV.adapter = wingAdapter
         binding.teamRV.layoutManager = LinearLayoutManager(requireContext())
 
-        //for Events Adpater
-        eventsAdapter = EventsAdapter(requireContext(),sportSections,this)
-        binding.sports.adapter = eventsAdapter
-        binding.sports.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-        eventsAdapter.startAutoScroll(binding.sports)
+        eventsAdapter = FeaturedEventsAdapter(requireContext(),featuredClass,this)
+        binding.featuredRv.adapter = eventsAdapter
+        binding.featuredRv.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
 
-        fetchFromFirestore1()
+//        fetchFromFirestore1()
         fetchFromFirestore2()
-
-
     }
 
-    private fun fetchFromFirestore1() {
-        teamSections.clear()
-        val db = FirebaseFirestore.getInstance()
-        db.collection("Event").get().addOnSuccessListener { documents ->
-            val wingMap = mutableMapOf<String, MutableList<TeamMember>>()
-            for (document in documents) {
-                val name = document.getString("name") ?: ""
-                val img = document.getString("image") ?: ""
-                val role = document.getString("role") ?: ""
-                val wing = document.getString("wing") ?: ""
-                val teamMember = TeamMember(name, img)
-                if (wingMap.containsKey(wing)) {
-                    wingMap[wing]?.add(teamMember)
-                } else {
-                    wingMap[wing] = mutableListOf(teamMember)
-                }
-            }
-            for ((wing, members) in wingMap) {
-                val teamSection = TeamSection(wing, members)
-                teamSections.add(teamSection)
-            }
-            wingAdapter.notifyDataSetChanged()
-        }.addOnFailureListener { exception ->
-            Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT).show()
-        }
-    }
+//    private fun fetchFromFirestore1() {
+//        eventClass.clear()
+//        val db = FirebaseFirestore.getInstance()
+//        db.collection("Event").get().addOnSuccessListener { documents ->
+//            val wingMap = mutableMapOf<String, MutableList<TeamMember>>()
+//            for (document in documents) {
+//                val name = document.getString("name") ?: ""
+//                val img = document.getString("image") ?: ""
+//                val role = document.getString("role") ?: ""
+//                val wing = document.getString("wing") ?: ""
+//                val teamMember = TeamMember(name, img)
+//                if (wingMap.containsKey(wing)) {
+//                    wingMap[wing]?.add(teamMember)
+//                } else {
+//                    wingMap[wing] = mutableListOf(teamMember)
+//                }
+//            }
+//            for ((wing, members) in wingMap) {
+//                val teamSection = TeamSection(wing, members)
+//                eventClass.add(teamSection)
+//            }
+//            wingAdapter.notifyDataSetChanged()
+//        }.addOnFailureListener { exception ->
+//            Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
     private fun fetchFromFirestore2() {
-        sportSections.clear()
+        featuredClass.clear()
         FirebaseFirestore.getInstance().collection("FeaturedEvents").get()
             .addOnSuccessListener{documents->
                 for(document in  documents){
@@ -99,9 +89,7 @@ class Event : Fragment() {
                     val location = document.getString("location") ?:""
                     val type = document.getString("type") ?:""
 
-
-
-                    sportSections.add(Events(name,date,image,discription,heading,length,location,type))
+                    featuredClass.add(Events(name,date,image,discription,heading,length,location,type))
                 }
                 eventsAdapter.notifyDataSetChanged()
             }.addOnFailureListener{exception->
@@ -128,50 +116,6 @@ class Event : Fragment() {
         transaction.replace(R.id.fragment_container, nextFragment)
         transaction.addToBackStack(null)
         transaction.commit()
-
-
-
-//        when(item.name){
-//
-//            "AQUATIC" ->{
-//
-//                val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//                transaction.replace(
-//                    R.id.fragment_container, aquatics()
-//                )
-//                transaction.addToBackStack(null)
-//                transaction.commit()
-//
-//            }
-//
-//            "ATHLETICS" ->{
-//
-//                val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//                transaction.replace(
-//                    R.id.fragment_container, aquatics()
-//                )
-//                transaction.addToBackStack(null)
-//                transaction.commit()
-//
-//            }
-//
-//            else ->{
-//
-//                val nextFragment = sport_detail()
-//                nextFragment.arguments = bundle
-//                val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//                transaction.replace(
-//                R.id.fragment_container, nextFragment
-//                )
-//                transaction.addToBackStack(null)
-//                transaction.commit()
-//
-//            }
-//
-//        }
-
-
-
     }
 }
 

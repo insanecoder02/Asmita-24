@@ -1,4 +1,3 @@
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,17 +6,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.xenon.DataClass.AboutUs
-import com.example.xenon.DataClass.IIITs
+import com.example.xenon.DataClass.ParticipateIIITS
 import com.example.xenon.R
 
-class showpageAdapter(
-    private val context: Context,
-    private val iiits: MutableList<IIITs>
-) : RecyclerView.Adapter<showpageAdapter.ViewHolder>() {
+class ParticipatingAdapter(
+    private val iiits: MutableList<ParticipateIIITS>
+) : RecyclerView.Adapter<ParticipatingAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.all_iiits_itemview, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_iiit, parent, false)
         return ViewHolder(view)
     }
 
@@ -29,10 +26,11 @@ class showpageAdapter(
         val IIIT = iiits[position]
 
         holder.name.text = IIIT.Name
-        Glide.with(context)
+        Glide.with(holder.itemView.context)
             .load(IIIT.logo)
             .thumbnail(0.1f)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .error(R.drawable.group)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(holder.logo)
     }
 

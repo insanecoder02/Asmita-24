@@ -32,5 +32,5 @@
 
     <style name="Theme.NavigationDrawer.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <string name="empty">" "</string>
+    <string name="empty">""</string>
 </resources>

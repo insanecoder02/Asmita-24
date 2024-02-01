@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.xenon.Activity.Main
 import com.example.xenon.Adapter.Gallery2Adapter
 import com.example.xenon.DataClass.Gallery2
 import com.example.xenon.R
@@ -25,6 +26,7 @@ private var gall:MutableList<Gallery2> = mutableListOf()
     ): View? {
         // Inflate the layout for this fragment
         binding= FragmentGallery2Binding.inflate(layoutInflater,container,false)
+
         return binding.root
     }
 

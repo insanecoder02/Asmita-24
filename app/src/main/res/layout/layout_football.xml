@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:layout_margin="5dp"
+    android:layout_marginHorizontal="10dp"
     android:layout_marginVertical="10dp"
     android:background="@drawable/fade3"
     android:padding="5dp">
@@ -49,13 +48,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
         android:orientation="vertical"
-        android:visibility="gone"
-        tools:layout_editor_absoluteX="5dp"
-        tools:layout_editor_absoluteY="5dp">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/time"
@@ -83,7 +80,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.45"
+            android:layout_weight="0.3"
             android:orientation="vertical">
 
             <ImageView
@@ -107,22 +104,22 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/points"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.1"
-            android:background="#202020"
+            android:layout_weight="0.4"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
-            android:text="VS"
+            android:text="3 - 2"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="28sp" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.45"
+            android:layout_weight="0.3"
             android:orientation="vertical">
 
             <ImageView
@@ -146,4 +143,5 @@
         </LinearLayout>
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

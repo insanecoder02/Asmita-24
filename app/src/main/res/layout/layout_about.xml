@@ -9,8 +9,10 @@
         android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginTop="30dp"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/info"
@@ -18,9 +20,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/poppins_light"
-        android:textAlignment="center"
-        android:textColor="#FFECA1"
-        android:textSize="16sp"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/img" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.xenon.Activity.Main
 import com.example.xenon.databinding.FragmentDeveloperBinding
 
 class Developer : Fragment() {
@@ -15,6 +16,7 @@ class Developer : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDeveloperBinding.inflate(layoutInflater, container, false)
+
         return binding.root
     }
 

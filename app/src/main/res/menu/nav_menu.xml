@@ -9,69 +9,26 @@
             android:id="@+id/nav_home"
             android:title="Home" />
 
-<!--        <item-->
-<!--            android:id="@+id/separator1"-->
-<!--            app:actionLayout="@layout/menu_separator" />-->
-
-<!--        <item-->
-<!--            android:id="@+id/nav_event"-->
-<!--            android:title="Events" />-->
-
-<!--        <item-->
-<!--            android:id="@+id/separator7"-->
-<!--            app:actionLayout="@layout/menu_separator" />-->
-
         <item
             android:id="@+id/nav_team"
             android:title="Team" />
 
-<!--        <item-->
-<!--            android:id="@+id/separator2"-->
-<!--            app:actionLayout="@layout/menu_separator" />-->
-
         <item
             android:id="@+id/nav_sponsor"
             android:title="Sponsors" />
-
-<!--        &lt;!&ndash; Add a separator &ndash;&gt;-->
-<!--        <item-->
-<!--            android:id="@+id/separator3"-->
-<!--            app:actionLayout="@layout/menu_separator" />-->
-
         <item
             android:id="@+id/nav_gallery"
             android:title="Gallery" />
-
-        <!-- Add a separator -->
-<!--        <item-->
-<!--            android:id="@+id/separator4"-->
-<!--            app:actionLayout="@layout/menu_separator" />-->
-
-<!--        &lt;!&ndash; Add a separator &ndash;&gt;-->
-<!--        <item-->
-<!--            android:id="@+id/separator5"-->
-<!--            app:actionLayout="@layout/menu_separator" />-->
-
         <item
             android:id="@+id/nav_contact"
             android:title="About Us" />
-
 <!--        <item-->
-<!--            android:id="@+id/separator6"-->
-<!--            app:actionLayout="@layout/menu_separator" />-->
-
-        <item
-            android:id="@+id/nav_score"
-            android:title="Live Score" />
+<!--            android:id="@+id/nav_score"-->
+<!--            android:title="Live Score" />-->
 
         <item
             android:id="@+id/nav_developer"
             android:title="Developers" />
-
-        <item
-            android:id="@+id/nav_web"
-            android:title="LeaderBoard" />
-
         <item
             android:id="@+id/nav_iiits"
             android:title="Participating IIIT's"

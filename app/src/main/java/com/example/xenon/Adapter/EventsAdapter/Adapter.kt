@@ -1,6 +1,5 @@
-package com.example.xenon.Adapter
+package com.example.xenon.Adapter.Team
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,36 +8,34 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.xenon.DataClass.AboutUs
+import com.example.xenon.DataClass.Events
 import com.example.xenon.R
 
-class AboutAdapter(
-    private val abt: List<AboutUs>
-) : RecyclerView.Adapter<AboutAdapter.ViewHolder>() {
+class Adapter(private val evee:List<Events>) :
+    RecyclerView.Adapter<Adapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_about, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.layout_member, parent, false)
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return abt.size
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val about = abt[position]
+        val event = evee[position]
+        holder.name.text = event.name
 
-        holder.info.text = about.info
         Glide.with(holder.itemView.context)
-            .load(about.img)
+            .load(event.image)
             .thumbnail(0.1f)
-            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .error(R.drawable.group)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(holder.img)
     }
 
+    override fun getItemCount(): Int = evee.size
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val info: TextView = itemView.findViewById(R.id.info)
-        val img: ImageView = itemView.findViewById(R.id.img)
+        val name: TextView = itemView.findViewById(R.id.nameTextView)
+        val img:ImageView = itemView.findViewById(R.id.mem_img)
     }
 }

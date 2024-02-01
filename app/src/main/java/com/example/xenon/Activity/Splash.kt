@@ -46,12 +46,9 @@ class Splash : AppCompatActivity() {
             override fun onAnimationStart(animation: android.view.animation.Animation?) {}
 
             override fun onAnimationEnd(animation: android.view.animation.Animation?) {
-                // Check if the app is opened for the first time
                 if (isFirstTime()) {
-                    // If it's the first time, start the GetStarted activity
                     startActivity(Intent(this@Splash, GetStarted::class.java))
                 } else {
-                    // If it's not the first time, start the main activity or any other activity
                     startActivity(Intent(this@Splash, Main::class.java))
                 }
                 finish()

@@ -23,7 +23,7 @@ class Gallery2Adapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
         val inflator = LayoutInflater.from(parent.context)
-        val view = inflator.inflate(R.layout.gallery2, parent, false)
+        val view = inflator.inflate(R.layout.layout_gallery2, parent, false)
         return GalleryViewHolder(view)
     }
 
