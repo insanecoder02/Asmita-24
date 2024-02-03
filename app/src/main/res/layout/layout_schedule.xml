@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:layout_margin="5dp"
+    android:layout_marginHorizontal="1dp"
     android:layout_marginVertical="10dp"
-    android:background="@drawable/fade3"
-    android:padding="5dp">
+    android:background="@drawable/fade3">
 
     <LinearLayout
         android:id="@+id/lay1"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:padding="5dp"
         android:orientation="horizontal"
         android:weightSum="1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,16 +23,16 @@
             android:id="@+id/matchName"
             android:layout_width="0dp"
             android:layout_height="40dp"
+            android:paddingHorizontal="2dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.7"
             android:fontFamily="@font/poppins_semibold"
-            android:gravity="center_vertical"
+            android:gravity="center_vertical|start"
             android:hint="match name"
-            android:paddingLeft="10dp"
             android:textAllCaps="true"
             android:textColor="#E9E9E9"
             android:textColorHint="@color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/date"
@@ -41,11 +41,12 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="0.3"
             android:fontFamily="@font/poppins_semibold"
-            android:gravity="center_vertical"
+            android:paddingHorizontal="2dp"
+            android:gravity="center_vertical|end"
             android:hint="date"
             android:textColor="#E9E9E9"
             android:textColorHint="@color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout

@@ -4,28 +4,35 @@
     android:layout_width="150dp"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="5dp"
-    android:background="@drawable/fade3"
-    android:backgroundTint="#5C5C5C"
-    android:paddingHorizontal="5dp">
+    android:background="@drawable/fade3">
 
     <ImageView
         android:id="@+id/mem_img"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="180dp"
         android:scaleType="fitXY"
-        android:src="@drawable/group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/fade2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/nameTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Hello"
         android:textColor="@color/white"
+        android:paddingHorizontal="5dp"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/mem_img"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

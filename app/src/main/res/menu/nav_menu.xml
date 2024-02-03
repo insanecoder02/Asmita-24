@@ -7,31 +7,37 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
+            android:icon="@drawable/home"
             android:title="Home" />
 
         <item
             android:id="@+id/nav_team"
+            android:icon="@drawable/team"
             android:title="Team" />
 
         <item
             android:id="@+id/nav_sponsor"
+            android:icon="@drawable/sponsers"
             android:title="Sponsors" />
         <item
             android:id="@+id/nav_gallery"
+            android:icon="@drawable/gallery"
             android:title="Gallery" />
         <item
             android:id="@+id/nav_contact"
+            android:icon="@drawable/about_us"
             android:title="About Us" />
-<!--        <item-->
-<!--            android:id="@+id/nav_score"-->
-<!--            android:title="Live Score" />-->
+        <!--        <item-->
+        <!--            android:id="@+id/nav_score"-->
+        <!--            android:title="Live Score" />-->
 
         <item
             android:id="@+id/nav_developer"
+            android:icon="@drawable/developers"
             android:title="Developers" />
         <item
             android:id="@+id/nav_iiits"
-            android:title="Participating IIIT's"
-            />
+            android:icon="@drawable/participatingiiits"
+            android:title="Participating IIIT's" />
     </group>
 </menu>

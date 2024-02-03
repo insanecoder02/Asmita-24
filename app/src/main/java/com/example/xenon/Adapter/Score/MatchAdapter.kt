@@ -33,6 +33,8 @@ class UpcomingMatchAdapter(
 
         Glide.with(holder.itemView.context)
             .load(scc.clgImg1)
+            .thumbnail(0.1f)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .error(R.drawable.group) // Replace with your error drawable
             .into(holder.img1)
 

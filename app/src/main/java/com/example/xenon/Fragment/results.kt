@@ -24,6 +24,8 @@ class results : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentResultsBinding.inflate(layoutInflater, container, false)
+        binding.resultRv.visibility = View.INVISIBLE
+        binding.resLot.visibility = View.VISIBLE
         return binding.root
     }
 
@@ -59,6 +61,8 @@ class results : Fragment() {
                 upcomingMatchesList.add(MatchDetails(matchName,date,time,clgName1,clgImg1,clgName2,clgImg2,score1,score2,ov1,ov2,type,pt,p1,p2,p3))
             }
             resultAdapter.notifyDataSetChanged()
+            binding.resLot.visibility = View.INVISIBLE
+            binding.resultRv.visibility = View.VISIBLE
         }.addOnFailureListener { e ->
             Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
         }

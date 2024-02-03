@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.xenon.Adapter.SponserAdapter
 import com.example.xenon.DataClass.Sponser
 import com.example.xenon.R
@@ -30,7 +31,7 @@ class Sponsors : Fragment() {
 
         sponsAdapter = SponserAdapter(requireContext(),spon)
         binding.sponsRV.adapter = sponsAdapter
-        binding.sponsRV.layoutManager = LinearLayoutManager(requireContext())
+        binding.sponsRV.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
         fetchFromFirestore()
     }
 
@@ -40,9 +41,9 @@ class Sponsors : Fragment() {
         db.collection("Sponser").get().addOnSuccessListener { documents ->
             for (document in documents) {
                 val name = document.getString("name") ?: ""
-                val item = Sponser(name)
+                val image = document.getString("image")?:""
+                val item = Sponser(name,image)
                 spon.add(item)
-
             }
             sponsAdapter.notifyDataSetChanged()
 

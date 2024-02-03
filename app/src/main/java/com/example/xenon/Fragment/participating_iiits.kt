@@ -22,6 +22,8 @@ class participating_iiits : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentParticipateBinding.inflate(layoutInflater, container, false)
+        binding.playingIits.visibility = View.INVISIBLE
+        binding.resLot.visibility = View.VISIBLE
         return binding.root
     }
 
@@ -44,6 +46,8 @@ class participating_iiits : Fragment() {
                 iiits.add(ParticipateIIITS(name,Logo,point))
             }
             partAdapter.notifyDataSetChanged()
+            binding.resLot.visibility = View.INVISIBLE
+            binding.playingIits.visibility = View.VISIBLE
         }.addOnFailureListener{ e->
             Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
         }

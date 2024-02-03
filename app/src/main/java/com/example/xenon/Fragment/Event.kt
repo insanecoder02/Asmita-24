@@ -7,29 +7,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.xenon.Adapter.Team.WingAdapter
-import com.example.xenon.DataClass.Team.TeamMember
-import com.example.xenon.DataClass.Team.TeamSection
+import androidx.recyclerview.widget.RecyclerView
 import com.example.xenon.Adapter.EventsAdapter.FeaturedEventsAdapter
 import com.example.xenon.Adapter.Team.EventsAdapter
 import com.example.xenon.DataClass.EveDataClass
 import com.example.xenon.DataClass.Events
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentEventBinding
+import com.example.xenon.other.AutoScroll
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Event : Fragment() {
     private lateinit var binding: FragmentEventBinding
     private var eventClass: MutableList<EveDataClass> = mutableListOf()
     private lateinit var wingAdapter: EventsAdapter
-    private var featuredClass : MutableList<Events> = mutableListOf()
+    private var featuredClass: MutableList<Events> = mutableListOf()
     private lateinit var eventsAdapter: FeaturedEventsAdapter
+    private val autoScrollManagers = mutableListOf<AutoScroll>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentEventBinding.inflate(layoutInflater, container, false)
+        binding.con.visibility = View.INVISIBLE
+        binding.resLot.visibility = View.VISIBLE
         return binding.root
     }
 
@@ -40,76 +42,75 @@ class Event : Fragment() {
         binding.teamRV.adapter = wingAdapter
         binding.teamRV.layoutManager = LinearLayoutManager(requireContext())
 
-        eventsAdapter = FeaturedEventsAdapter(requireContext(),featuredClass,this)
+        eventsAdapter = FeaturedEventsAdapter(requireContext(), featuredClass, this)
         binding.featuredRv.adapter = eventsAdapter
-        binding.featuredRv.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        binding.featuredRv.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        fetchFromFirestore()
 
-//        fetchFromFirestore1()
-        fetchFromFirestore2()
+        rotor(binding.featuredRv)
     }
 
-//    private fun fetchFromFirestore1() {
-//        eventClass.clear()
-//        val db = FirebaseFirestore.getInstance()
-//        db.collection("Event").get().addOnSuccessListener { documents ->
-//            val wingMap = mutableMapOf<String, MutableList<TeamMember>>()
-//            for (document in documents) {
-//                val name = document.getString("name") ?: ""
-//                val img = document.getString("image") ?: ""
-//                val role = document.getString("role") ?: ""
-//                val wing = document.getString("wing") ?: ""
-//                val teamMember = TeamMember(name, img)
-//                if (wingMap.containsKey(wing)) {
-//                    wingMap[wing]?.add(teamMember)
-//                } else {
-//                    wingMap[wing] = mutableListOf(teamMember)
-//                }
-//            }
-//            for ((wing, members) in wingMap) {
-//                val teamSection = TeamSection(wing, members)
-//                eventClass.add(teamSection)
-//            }
-//            wingAdapter.notifyDataSetChanged()
-//        }.addOnFailureListener { exception ->
-//            Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT).show()
-//        }
-//    }
+    private fun rotor(recyclerView: RecyclerView) {
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val autoScroll = AutoScroll(recyclerView)
+        autoScroll.startAutoScroll()
+        autoScrollManagers.add(autoScroll)
+    }
 
-    private fun fetchFromFirestore2() {
+    private fun fetchFromFirestore() {
         featuredClass.clear()
-        FirebaseFirestore.getInstance().collection("FeaturedEvents").get()
-            .addOnSuccessListener{documents->
-                for(document in  documents){
+        eventClass.clear()
+        FirebaseFirestore.getInstance().collection("Event").get()
+            .addOnSuccessListener { documents ->
+                val eveMap = mutableMapOf<String, MutableList<Events>>()
+                for (document in documents) {
                     val name = document.getString("name") ?: ""
                     val image = document.getString("image") ?: ""
                     val date = document.getString("date") ?: ""
-                    val discription = document.getString("discription") ?: ""
+                    val discription = document.getString("description") ?: ""
                     val heading = document.getString("heading") ?: ""
-                    val length = document.getString("length") ?:""
-                    val location = document.getString("location") ?:""
-                    val type = document.getString("type") ?:""
-
-                    featuredClass.add(Events(name,date,image,discription,heading,length,location,type))
+                    val length = document.getString("length") ?: ""
+                    val location = document.getString("location") ?: ""
+                    val type = document.getString("type") ?: ""
+                    val wing = document.getString("wing") ?: ""
+                    val feat = document.getString("feat")?:""
+                    val event =
+                        Events(name, date, image, discription, heading, length, location, type,wing,feat)
+                    if (eveMap.containsKey(wing)) {
+                        eveMap[wing]?.add(event)
+                    } else {
+                        eveMap[wing] = mutableListOf(event)
+                    }
+                    if (feat == "y") {
+                        featuredClass.add(event)
+                    }
+                }
+                for ((wing, members) in eveMap) {
+                    val eveSection = EveDataClass(wing, members)
+                    eventClass.add(eveSection)
                 }
                 eventsAdapter.notifyDataSetChanged()
-            }.addOnFailureListener{exception->
-                Toast.makeText(requireContext(),exception.localizedMessage,Toast.LENGTH_SHORT).show()
+                wingAdapter.notifyDataSetChanged()
+                binding.resLot.visibility = View.INVISIBLE
+                binding.con.visibility = View.VISIBLE
+            }.addOnFailureListener { exception ->
+                Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT)
+                    .show()
             }
-
     }
 
-    fun onItemClick(item: Events){
-
+    fun onItemClick(item: Events) {
         val bundle = Bundle()
-        bundle.putString("name",item.name ?: "Name")
-        bundle.putString("date",item.date ?: "Date")
-        bundle.putString("image",item.image ?: "image")
-        bundle.putString("discription",item.discription ?: "Discription")
-        bundle.putString("heading",item.heading ?: "Heading")
-        bundle.putString("length",item.length ?: "Length")
-        bundle.putString("location",item.location ?: "Location")
-        bundle.putString("type",item.type ?: "Type")
-
+        bundle.putString("name", item.name ?: "Name")
+        bundle.putString("date", item.date ?: "Date")
+        bundle.putString("image", item.image ?: "image")
+        bundle.putString("discription", item.discription ?: "Discription")
+        bundle.putString("heading", item.heading ?: "Heading")
+        bundle.putString("length", item.length ?: "Length")
+        bundle.putString("location", item.location ?: "Location")
+        bundle.putString("type", item.type ?: "Type")
         val nextFragment = sport_detail()
         nextFragment.arguments = bundle
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
@@ -118,68 +119,6 @@ class Event : Fragment() {
         transaction.commit()
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//val bundle = Bundle()
-//bundle.putString("name",item.name ?: "Name")
-//bundle.putString("date",item.date ?: "Date")
-//bundle.putString("image",item.image ?: "image")
-//bundle.putString("discription",item.discription ?: "Discription")
-//bundle.putString("heading",item.heading ?: "Heading")
-//bundle.putString("length",item.length ?: "Length")
-//bundle.putString("location",item.location ?: "Location")
-//bundle.putString("type",item.type ?: "Type")
-//val nextFragment = Gallery()
-//nextFragment.arguments = bundle
-//val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//transaction.replace(
-//R.id.fragment_container, nextFragment
-//)
-//transaction.addToBackStack(null)
-//transaction.commit()
-
 
 
 

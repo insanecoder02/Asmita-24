@@ -12,7 +12,6 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 
-
     <style name="noNmaej" parent="Widget.AppCompat.Toolbar">
         <item name="title">@string/empty</item>
     </style>
@@ -32,5 +31,13 @@
 
     <style name="Theme.NavigationDrawer.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <string name="empty">""</string>
+    <style name="Theme.Tets.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="title">@string/empty</item>
+    </style>
+
+    <style name="Theme.Tets.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="title">@string/empty</item>
+    </style>
+
+    <string name="empty">" "</string>
 </resources>

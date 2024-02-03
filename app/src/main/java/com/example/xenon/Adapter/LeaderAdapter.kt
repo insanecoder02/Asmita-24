@@ -30,7 +30,7 @@ class LeaderAdapter(
         Glide.with(holder.itemView.context).load(users.logo).thumbnail(0.1f)
             .diskCacheStrategy(DiskCacheStrategy.ALL).circleCrop().into(holder.logo)
 
-        val ranking = position + 1
+        val ranking = position + 3
         holder.score.text = users.Points.toString()
         holder.name.text = users.Name
         holder.rank.text = ranking.toString()

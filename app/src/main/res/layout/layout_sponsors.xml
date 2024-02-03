@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
     android:elevation="5dp"
+    android:layout_margin="10dp"
     app:cardBackgroundColor="#363636"
-    app:cardCornerRadius="10dp"
-    android:layout_marginVertical="5dp"
-    android:layout_height="wrap_content">
+    app:cardCornerRadius="10dp">
 
     <TextView
         android:id="@+id/sponsText"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:textSize="24sp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_semibold"
-        android:textColor="@color/white"
+        android:layout_gravity="bottom"
         android:textAlignment="center"
-        android:gravity="center"
-        android:text="Sponsors"/>
+        android:visibility="gone"
+        android:text="Sponsors"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/sponImg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/group"/>
 
 </androidx.cardview.widget.CardView>

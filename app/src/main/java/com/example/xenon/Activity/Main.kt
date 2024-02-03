@@ -33,12 +33,12 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val decor = window.decorView
-            decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            val decor = window.decorView
+//            decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//        }
 
-        window.statusBarColor = 0xFF000000.toInt()
+        window.statusBarColor = 0xFFE9BE3E.toInt()
         binding.navView.setNavigationItemSelectedListener(this)
         val toggle = ActionBarDrawerToggle(
             this, binding.drawerLayout, binding.toolbar, R.string.open_nav, R.string.close_nav
@@ -51,8 +51,6 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 .replace(R.id.fragment_container, Notification()).commit()
         }
         if (savedInstanceState == null) {
-            //Toast.makeText(this, "opened", Toast.LENGTH_SHORT).show()
-            setToolbarAndStatusBarColor(R.color.yellow, R.color.yellow)
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Home())
                 .commit()
             binding.navView.setCheckedItem(R.id.nav_home)
@@ -95,7 +93,6 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         when (item.itemId) {
             R.id.nav_home -> {
                 if (currentFragment !is Home) {
-                    setToolbarAndStatusBarColor(R.color.yellow, R.color.yellow)
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Home())
                         .commit()
                 }
@@ -137,29 +134,29 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        super.onBackPressed()
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        if (fragment !is Home) {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Home()).commit()
+            binding.navView.setCheckedItem(R.id.nav_home)
+        } else if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-            if (supportFragmentManager.backStackEntryCount > 0) {
-                supportFragmentManager.popBackStack()
-            } else {
-                AlertDialog.Builder(this).setMessage("Are you sure you want to exit?")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes") { dialogInterface: DialogInterface, i: Int ->
-                        finish()
-                    }.setNegativeButton("No", null).show()
-            }
+            AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { _, _ -> finish() }
+                .setNegativeButton("No", null)
+                .show()
         }
     }
 
-    private fun setToolbarAndStatusBarColor(toolbarColorResId: Int, statusBarColorResId: Int) {
-        binding.toolbar.setBackgroundColor(ContextCompat.getColor(this, toolbarColorResId))
-        window.statusBarColor = ContextCompat.getColor(this, statusBarColorResId)
-    }
 
-    private fun resetToolbarAndStatusBarColor() {
-        setToolbarAndStatusBarColor(R.color.black, R.color.black)
-    }
+//    private fun setToolbarAndStatusBarColor(toolbarColorResId: Int, statusBarColorResId: Int) {
+//        binding.toolbar.setBackgroundColor(ContextCompat.getColor(this, toolbarColorResId))
+//        window.statusBarColor = ContextCompat.getColor(this, statusBarColorResId)
+//    }
+
+//    private fun resetToolbarAndStatusBarColor() {
+//        setToolbarAndStatusBarColor(R.color.black, R.color.black)
+//    }
 }

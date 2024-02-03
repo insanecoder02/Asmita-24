@@ -8,11 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xenon.DataClass.EveDataClass
-import com.example.xenon.DataClass.Events
-import com.example.xenon.DataClass.Team.TeamSection
 import com.example.xenon.R
 
-class EventsAdapter (private val context: Context,private val eve:MutableList<EveDataClass>) :
+class EventsAdapter(private val context: Context, private val eve: MutableList<EveDataClass>) :
     RecyclerView.Adapter<EventsAdapter.viewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
@@ -22,9 +20,7 @@ class EventsAdapter (private val context: Context,private val eve:MutableList<Ev
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
         val eveSection = eve[position]
-
         holder.eveName.text = eveSection.eveType
-
         holder.eveRv.adapter = Adapter(eveSection.eve)
         holder.eveRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

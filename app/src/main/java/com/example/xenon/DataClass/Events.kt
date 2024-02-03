@@ -9,4 +9,6 @@ data class Events(
     val length: String,
     val location: String,
     val type: String,
+    val wing:String,
+    val feat:String
 )

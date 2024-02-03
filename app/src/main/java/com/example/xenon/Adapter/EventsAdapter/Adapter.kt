@@ -11,7 +11,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.xenon.DataClass.Events
 import com.example.xenon.R
 
-class Adapter(private val evee:List<Events>) :
+
+class Adapter(private val evee:List<Events>
+) :
     RecyclerView.Adapter<Adapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,6 +32,10 @@ class Adapter(private val evee:List<Events>) :
             .error(R.drawable.group)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(holder.img)
+
+//        holder.itemView.setOnClickListener {
+//            itemClickListener.onItemClick(event)
+//        }
     }
 
     override fun getItemCount(): Int = evee.size

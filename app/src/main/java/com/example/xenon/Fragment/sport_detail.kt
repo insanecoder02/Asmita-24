@@ -6,20 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
-import com.example.xenon.R
-import com.example.xenon.databinding.FragmentEventBinding
-import com.example.xenon.databinding.FragmentSponsorsBinding
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.xenon.databinding.FragmentSportDetailBinding
 
-
 class sport_detail : Fragment() {
-
     private lateinit var binding: FragmentSportDetailBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         binding = FragmentSportDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -35,15 +30,22 @@ class sport_detail : Fragment() {
         val discription = arguments?.getString("discription")
         val length = arguments?.getString("length")
 
+        binding.backBtn.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+
         binding.name.text = name
         binding.date.text = date
         binding.location.text = location
         binding.heading.text = heading
         binding.discription.text = discription
         binding.length.text = length
-        Glide.with(requireContext()).load(url).into(binding.image)
+        Glide.with(requireContext())
+            .load(url)
+            .thumbnail(0.1f)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            .into(binding.imageView6)
     }
-
 
 
 }

@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.xenon.DataClass.Team.TeamMember
 import com.example.xenon.R
+import com.example.xenon.other.ImageViewerDialog
 
 class MemberAdapter(private val members:List<TeamMember>) :
     RecyclerView.Adapter<MemberAdapter.ViewHolder>() {
@@ -30,6 +31,11 @@ class MemberAdapter(private val members:List<TeamMember>) :
             .error(R.drawable.group)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(holder.img)
+
+        holder.img.setOnClickListener {
+            val dialog = ImageViewerDialog(holder.itemView.context, teamMember.img)
+            dialog.show()
+        }
     }
 
     override fun getItemCount(): Int = members.size

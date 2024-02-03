@@ -8,31 +8,30 @@
     <ImageView
         android:id="@+id/Sport_img"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="220dp"
         android:scaleType="fitXY"
-        android:src="@drawable/aqautics"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:layout_width="match_parent"
+        android:layout_height="220dp"
         android:scaleType="fitXY"
-        android:layout_height="200dp"
-        android:src="@drawable/fade3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/fade2"
+        app:layout_constraintEnd_toEndOf="@id/Sport_img"
+        app:layout_constraintStart_toStartOf="@id/Sport_img"
+        app:layout_constraintTop_toTopOf="@id/Sport_img" />
 
     <TextView
         android:id="@+id/sport"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_semibold"
+        android:gravity="center"
         android:text="TextView"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

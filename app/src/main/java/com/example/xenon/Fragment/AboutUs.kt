@@ -27,6 +27,8 @@ class AboutUs : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentAboutUsBinding.inflate(layoutInflater, container, false)
+        binding.aboutRV.visibility = View.INVISIBLE
+        binding.resLot.visibility = View.VISIBLE
         return binding.root
     }
 
@@ -50,6 +52,8 @@ class AboutUs : Fragment() {
                 abtus.add(item)
             }
             abtAdapter.notifyDataSetChanged()
+            binding.resLot.visibility = View.INVISIBLE
+            binding.aboutRV.visibility = View.VISIBLE
         }.addOnFailureListener { e ->
             Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
         }

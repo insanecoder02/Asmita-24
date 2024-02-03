@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -26,7 +25,6 @@ class Home : Fragment() {
     private var upcomingMatchesList: MutableList<MatchDetails> = mutableListOf()
     private lateinit var firestore: FirebaseFirestore
     private val autoScrollManagers = mutableListOf<AutoScroll>()
-    private var isRecyclerViewHeld = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -69,38 +67,10 @@ class Home : Fragment() {
             loadFragment(results())
         }
 
-//        binding.resultMRv.setOnTouchListener { _, event ->
-//            when (event.action) {
-//                MotionEvent.ACTION_DOWN -> {
-//                    isRecyclerViewHeld = true
-//                    autoScrollManagers.forEach { it.stopAutoScroll() }
-//                }
-//
-//                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-//                    isRecyclerViewHeld = false
-//                    autoScrollManagers.forEach { it.startAutoScroll(5000) }
-//                }
-//            }
-//            false
-//        }
-//        binding.upcommingMatchsRV.setOnTouchListener { _, event ->
-//            when (event.action) {
-//                MotionEvent.ACTION_DOWN -> {
-//                    isRecyclerViewHeld = true
-//                    autoScrollManagers.forEach { it.stopAutoScroll() }
-//                }
-//
-//                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-//                    isRecyclerViewHeld = false
-//                    autoScrollManagers.forEach { it.startAutoScroll(5000) }
-//                }
-//            }
-//            false
-//        }
+        rotor(binding.upcommingMatchsRV)
 
-//        rotor(binding.upcommingMatchsRV)
         val autoScrollManager = AutoScroll(binding.resultMRv)
-        autoScrollManager.startAutoScroll(5000)
+        autoScrollManager.startAutoScroll()
         autoScrollManagers.add(autoScrollManager)
     }
 
@@ -108,21 +78,9 @@ class Home : Fragment() {
         recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         val autoScroll = AutoScroll(recyclerView)
-        autoScroll.startAutoScroll(5000)
+        autoScroll.startAutoScroll()
         autoScrollManagers.add(autoScroll)
     }
-
-    override fun onPause() {
-        super.onPause()
-        autoScrollManagers.forEach { it.stopAutoScroll() }
-    }
-
-//    override fun onResume() {
-//        super.onResume()
-//        if (!isRecyclerViewHeld) {
-//            autoScrollManagers.forEach { it.startAutoScroll(5000) }
-//        }
-//    }
 
     private fun loadFragment(fragment: Fragment) {
         val transaction = parentFragmentManager.beginTransaction()
@@ -151,25 +109,7 @@ class Home : Fragment() {
                 val p1 = document.getString("player1") ?: "0"
                 val p2 = document.getString("player2") ?: "0"
                 val p3 = document.getString("player3") ?: "0"
-                upcomingMatchesList.add(
-                    MatchDetails(
-                        matchName,
-                        date,
-                        time,
-                        clgName1,
-                        clgImg1,
-                        clgName2,
-                        clgImg2,
-                        score1,
-                        score2,
-                        ov1,
-                        ov2,
-                        type,
-                        pt,
-                        p1,
-                        p2,
-                        p3
-                    )
+                upcomingMatchesList.add(MatchDetails(matchName,date,time,clgName1,clgImg1,clgName2,clgImg2,score1,score2,ov1,ov2,type,pt,p1,p2,p3)
                 )
             }
             upcommingmatchesadapter.notifyDataSetChanged()
