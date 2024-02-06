@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.xenon.Activity.Main
 import com.example.xenon.Adapter.SponserAdapter
 import com.example.xenon.DataClass.Sponser
 import com.example.xenon.R
@@ -23,16 +24,25 @@ class Sponsors : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSponsorsBinding.inflate(layoutInflater, container, false)
+        binding.sponsRV.visibility = View.INVISIBLE
+        binding.resLot.visibility = View.VISIBLE
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sponsAdapter = SponserAdapter(requireContext(),spon)
+        sponsAdapter = SponserAdapter(spon)
         binding.sponsRV.adapter = sponsAdapter
         binding.sponsRV.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+        binding.menu.setOnClickListener {
+            openDrawer()
+        }
         fetchFromFirestore()
+    }
+    private fun openDrawer() {
+        val mainActivity = requireActivity() as Main
+        mainActivity.openDrawer()
     }
 
     private fun fetchFromFirestore() {
@@ -46,6 +56,8 @@ class Sponsors : Fragment() {
                 spon.add(item)
             }
             sponsAdapter.notifyDataSetChanged()
+            binding.resLot.visibility = View.INVISIBLE
+            binding.sponsRV.visibility = View.VISIBLE
 
         }.addOnFailureListener { e ->
             Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()

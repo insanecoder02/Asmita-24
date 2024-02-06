@@ -11,7 +11,6 @@ import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.xenon.R
 
 class ImageViewerDialog(context: Context, private val imageUrl: String) : Dialog(context) {
@@ -35,8 +34,8 @@ class ImageViewerDialog(context: Context, private val imageUrl: String) : Dialog
         Glide.with(context)
             .load(imageUrl)
             .error(R.drawable.group)
+            .fitCenter()
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-            .transform(CircleCrop())
             .into(imageView)
 
         rootView.setOnTouchListener { _, event ->

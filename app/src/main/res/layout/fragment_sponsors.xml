@@ -9,38 +9,72 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:padding="5dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/lay2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="SPONSORS"
-            android:textColor="@color/white"
-            android:textSize="28sp"
+            android:orientation="horizontal"
+            android:weightSum="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/menu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.1"
+                android:src="@drawable/menu_white" />
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginBottom="-2dp"
+                android:text="sponsors"
+                android:paddingHorizontal="5dp"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
 
         <View
             android:id="@+id/view1"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginVertical="5dp"
-            android:background="#FFFDFD"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text1" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lay2" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="1dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/fade1"
+            app:layout_constraintBottom_toBottomOf="@id/lay1"
+            app:layout_constraintEnd_toEndOf="@id/lay1"
+            app:layout_constraintStart_toStartOf="@id/lay1"
+            app:layout_constraintTop_toTopOf="@+id/lay1" />
 
         <LinearLayout
             android:id="@+id/lay1"
             android:layout_width="0dp"
             android:layout_height="200dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/fade3"
             android:backgroundTint="#FFD633"
-            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:weightSum="1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,13 +122,26 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sponsRV"
             android:layout_width="0dp"
-            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/layout_sponsors"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lay1" />
+            app:layout_constraintTop_toBottomOf="@id/lay1"
+            tools:listitem="@layout/layout_sponsors" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/resLot"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="150dp"
+            android:elevation="5dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lay1"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/asmita" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.core.widget.NestedScrollView>

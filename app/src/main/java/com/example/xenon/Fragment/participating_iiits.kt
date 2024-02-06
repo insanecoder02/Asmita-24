@@ -11,6 +11,7 @@ import com.example.xenon.DataClass.ParticipateIIITS
 import com.example.xenon.databinding.FragmentParticipateBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import ParticipatingAdapter
+import com.example.xenon.Activity.Main
 
 class participating_iiits : Fragment() {
     private lateinit var binding:FragmentParticipateBinding
@@ -29,11 +30,17 @@ class participating_iiits : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         partAdapter = ParticipatingAdapter(iiits)
         binding.playingIits.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
         binding.playingIits.adapter = partAdapter
+        binding.menu.setOnClickListener {
+            openDrawer()
+        }
         fetchFromFirestore()
+    }
+    private fun openDrawer() {
+        val mainActivity = requireActivity() as Main
+        mainActivity.openDrawer()
     }
     private fun fetchFromFirestore() {
         iiits.clear()

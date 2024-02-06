@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
-        android:weightSum="1"
         android:padding="5dp"
+        android:weightSum="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,8 +26,8 @@
             android:layout_weight="0.7"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center_vertical|start"
-            android:paddingHorizontal="2dp"
             android:hint="match name"
+            android:paddingHorizontal="2dp"
             android:textAllCaps="true"
             android:textColor="#E9E9E9"
             android:textColorHint="@color/white"
@@ -41,8 +41,8 @@
             android:layout_weight="0.3"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center_vertical|end"
-            android:paddingHorizontal="2dp"
             android:hint="date"
+            android:paddingHorizontal="2dp"
             android:textColor="#E9E9E9"
             android:textColorHint="@color/white"
             android:textSize="16sp" />
@@ -70,6 +70,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="-20dp"
         android:orientation="horizontal"
         android:weightSum="1"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -99,6 +100,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:hint="clg-1"
+                android:letterSpacing="0.1"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white" />
@@ -138,6 +140,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:hint="clg-2"
+                android:letterSpacing="0.1"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white" />
@@ -148,15 +151,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="inter iiit 2024"
-        android:gravity="center|bottom"
-        android:padding="3dp"
         android:background="@drawable/backlesss"
-        android:textColor="@color/black"
         android:fontFamily="@font/poppins_medium"
-        android:textAllCaps="true"/>
+        android:gravity="center|bottom"
+        android:paddingHorizontal="8dp"
+        android:paddingTop="3dp"
+        android:text="inter iiit 2024"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

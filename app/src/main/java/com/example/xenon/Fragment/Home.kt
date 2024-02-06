@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.xenon.Activity.Main
 import com.example.xenon.Adapter.ResultAdapter
 import com.example.xenon.Adapter.Score.UpcomingMatchAdapter
 import com.example.xenon.DataClass.Score.MatchDetails
@@ -55,6 +56,10 @@ class Home : Fragment() {
 
         fetchMatches()
 
+        binding.seeText.setOnClickListener {
+            loadFragment(SeeAll())
+        }
+
         binding.events.setOnClickListener {
             loadFragment(Event())
         }
@@ -67,6 +72,14 @@ class Home : Fragment() {
             loadFragment(results())
         }
 
+        binding.menu.setOnClickListener {
+            openDrawer()
+        }
+
+        binding.noti.setOnClickListener {
+            loadFragment(Notification())
+        }
+
         rotor(binding.upcommingMatchsRV)
 
         val autoScrollManager = AutoScroll(binding.resultMRv)
@@ -74,6 +87,10 @@ class Home : Fragment() {
         autoScrollManagers.add(autoScrollManager)
     }
 
+    private fun openDrawer() {
+        val mainActivity = requireActivity() as Main
+        mainActivity.openDrawer()
+    }
     private fun rotor(recyclerView: RecyclerView) {
         recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -109,7 +126,25 @@ class Home : Fragment() {
                 val p1 = document.getString("player1") ?: "0"
                 val p2 = document.getString("player2") ?: "0"
                 val p3 = document.getString("player3") ?: "0"
-                upcomingMatchesList.add(MatchDetails(matchName,date,time,clgName1,clgImg1,clgName2,clgImg2,score1,score2,ov1,ov2,type,pt,p1,p2,p3)
+                upcomingMatchesList.add(
+                    MatchDetails(
+                        matchName,
+                        date,
+                        time,
+                        clgName1,
+                        clgImg1,
+                        clgName2,
+                        clgImg2,
+                        score1,
+                        score2,
+                        ov1,
+                        ov2,
+                        type,
+                        pt,
+                        p1,
+                        p2,
+                        p3
+                    )
                 )
             }
             upcommingmatchesadapter.notifyDataSetChanged()

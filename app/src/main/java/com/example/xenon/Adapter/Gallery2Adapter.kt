@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.xenon.DataClass.Gallery2
 import com.example.xenon.R
 
@@ -37,6 +38,7 @@ class Gallery2Adapter(
         Glide.with(holder.itemView.context)
             .load(sports[position].sport_img)
             .thumbnail(0.5f)
+            .transform(RoundedCorners(20))
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(holder.sport_img)
         holder.itemView.setOnClickListener {

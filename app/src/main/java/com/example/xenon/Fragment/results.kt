@@ -35,6 +35,9 @@ class results : Fragment() {
         resultAdapter = ResultAdapter(upcomingMatchesList)
         binding.resultRv.adapter = resultAdapter
         binding.resultRv.layoutManager = LinearLayoutManager(requireContext())
+        binding.back.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
         fetchMatches()
     }
 

@@ -30,7 +30,6 @@ class Event : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentEventBinding.inflate(layoutInflater, container, false)
-        binding.con.visibility = View.INVISIBLE
         binding.resLot.visibility = View.VISIBLE
         return binding.root
     }
@@ -47,6 +46,9 @@ class Event : Fragment() {
         binding.featuredRv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         fetchFromFirestore()
+        binding.back.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
 
         rotor(binding.featuredRv)
     }
@@ -94,7 +96,6 @@ class Event : Fragment() {
                 eventsAdapter.notifyDataSetChanged()
                 wingAdapter.notifyDataSetChanged()
                 binding.resLot.visibility = View.INVISIBLE
-                binding.con.visibility = View.VISIBLE
             }.addOnFailureListener { exception ->
                 Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT)
                     .show()

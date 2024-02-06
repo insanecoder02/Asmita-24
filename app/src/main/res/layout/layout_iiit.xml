@@ -24,17 +24,15 @@
             <ImageView
                 android:id="@+id/teamLogo"
                 android:layout_width="match_parent"
-                android:scaleType="fitCenter"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher_background" />
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/teamName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
+                android:paddingHorizontal="5dp"
                 android:fontFamily="@font/poppins_medium"
-                android:hint="College Name"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>

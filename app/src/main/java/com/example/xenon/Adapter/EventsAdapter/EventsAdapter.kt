@@ -14,7 +14,7 @@ class EventsAdapter(private val context: Context, private val eve: MutableList<E
     RecyclerView.Adapter<EventsAdapter.viewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_wing, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_eve1, parent, false)
         return viewHolder(view)
     }
 

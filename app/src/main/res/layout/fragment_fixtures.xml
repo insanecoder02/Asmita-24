@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black"
     android:padding="8dp"
-    tools:context=".Fragment.participating_iiits">
+    tools:context=".Fragment.Fixtures">
 
     <LinearLayout
         android:id="@+id/lay2"
@@ -19,24 +19,23 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/menu"
+            android:id="@+id/back"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.1"
-            android:src="@drawable/menu_white" />
+            android:src="@drawable/arrow_back" />
 
         <TextView
             android:id="@+id/text1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="-2dp"
             android:layout_weight="0.9"
-            android:fontFamily="@font/poppins_semibold"
             android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginBottom="-2dp"
             android:paddingHorizontal="5dp"
-            android:text="participating iiit's"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="20sp" />
@@ -52,29 +51,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lay2" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/resLot"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:elevation="5dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/asmita" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/playing_iits"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view1"
-        tools:listitem="@layout/layout_iiit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

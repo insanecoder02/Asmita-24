@@ -33,12 +33,7 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            val decor = window.decorView
-//            decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-//        }
-
-        window.statusBarColor = 0xFFE9BE3E.toInt()
+        window.statusBarColor = 0xFF000000.toInt()
         binding.navView.setNavigationItemSelectedListener(this)
         val toggle = ActionBarDrawerToggle(
             this, binding.drawerLayout, binding.toolbar, R.string.open_nav, R.string.close_nav
@@ -115,13 +110,14 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             R.id.nav_developer -> {
                 if (currentFragment !is Developer) {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Developer()).commit()
+
                 }
             }
-            R.id.nav_contact -> {
-                if (currentFragment !is AboutUs) {
-                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AboutUs()).commit()
-                }
-            }
+//            R.id.nav_contact -> {
+//                if (currentFragment !is AboutUs) {
+//                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AboutUs()).commit()
+//                }
+//            }
             R.id.nav_iiits -> {
                 if (currentFragment !is participating_iiits) {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, participating_iiits()).commit()
@@ -132,21 +128,28 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         return true
     }
 
+    fun openDrawer() {
+        binding.drawerLayout.openDrawer(GravityCompat.START)
+    }
+
+
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-        if (fragment !is Home) {
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Home()).commit()
-            binding.navView.setCheckedItem(R.id.nav_home)
-        } else if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            AlertDialog.Builder(this)
-                .setMessage("Are you sure you want to exit?")
-                .setCancelable(false)
-                .setPositiveButton("Yes") { _, _ -> finish() }
-                .setNegativeButton("No", null)
-                .show()
+            if (fragment is Home) {
+                AlertDialog.Builder(this)
+                    .setMessage("Are you sure you want to exit?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes") { _, _ -> finish() }
+                    .setNegativeButton("No", null)
+                    .show()
+            } else {
+                supportFragmentManager.popBackStack()
+            }
         }
     }
 

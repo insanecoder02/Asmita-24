@@ -39,5 +39,5 @@
         <item name="title">@string/empty</item>
     </style>
 
-    <string name="empty">" "</string>
+    <string name="empty">"Home"</string>
 </resources>

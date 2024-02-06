@@ -34,10 +34,12 @@ class LeaderBoard : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         useAdapter = LeaderAdapter(user)
-
         binding.leaderRv.layoutManager = LinearLayoutManager(context)
         binding.leaderRv.adapter = useAdapter
         fetchFromFirestore()
+        binding.back.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 
     private fun fetchFromFirestore() {

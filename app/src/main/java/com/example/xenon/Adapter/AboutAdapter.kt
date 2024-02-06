@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.xenon.DataClass.AboutUs
 import com.example.xenon.R
 
@@ -32,6 +34,7 @@ class AboutAdapter(
         Glide.with(holder.itemView.context)
             .load(about.img)
             .thumbnail(0.1f)
+            .transform(CenterCrop(), RoundedCorners(20))
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .error(R.drawable.group)
             .into(holder.img)

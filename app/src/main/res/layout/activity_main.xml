@@ -18,13 +18,14 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:theme="@style/Theme.Tets.AppBarOverlay">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@color/black"
+                android:layout_height="45dp"
+                android:background="#FFD633"
                 app:popupTheme="@style/Theme.Tets.PopupOverlay" >
                 <ImageView
                     android:id="@+id/notify"

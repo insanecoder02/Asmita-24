@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@drawable/team_bg"
     tools:context=".Fragment.Team">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,29 +12,50 @@
         android:layout_height="match_parent"
         android:padding="8dp">
 
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/lay1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="MEET THE TEAM"
-            android:textColor="@color/white"
-            android:textSize="32sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/rightGuide"
-            app:layout_constraintStart_toStartOf="@id/leftGuide"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="horizontal"
+            android:weightSum="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/menu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.1"
+                android:src="@drawable/menu_white" />
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginBottom="-2dp"
+                android:text="meet the team"
+                android:paddingHorizontal="5dp"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
 
         <View
             android:id="@+id/view1"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="5dp"
             android:background="@color/white"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/rightGuide"
-            app:layout_constraintStart_toStartOf="@id/leftGuide"
-            app:layout_constraintTop_toBottomOf="@id/text1" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lay1" />
 
         <ImageView
             android:id="@+id/imageView4"
@@ -42,11 +63,8 @@
             android:layout_height="200dp"
             android:layout_marginTop="16dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/rightGuide"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/leftGuide"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view1" />
 
         <ImageView
@@ -56,52 +74,47 @@
             android:elevation="1dp"
             android:scaleType="fitXY"
             android:src="@drawable/fade1"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/rightGuide"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/leftGuide"
-            app:layout_constraintTop_toBottomOf="@+id/view1" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="16dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/fade2"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/rightGuide"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/leftGuide"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view1" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/teamRV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:foregroundGravity="center"
+            android:layout_marginTop="8dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView4"
             tools:listitem="@layout/layout_wing" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:elevation="2dp"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
             android:text="TEAM ASMITA"
             android:textColor="@color/white"
-            android:textSize="24sp"
-            android:visibility="gone"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/imageView4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/resLot"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="150dp"
+            android:elevation="5dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView4"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/asmita" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </androidx.core.widget.NestedScrollView>

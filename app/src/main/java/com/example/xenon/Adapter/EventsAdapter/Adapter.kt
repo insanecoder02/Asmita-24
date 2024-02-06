@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.xenon.DataClass.Events
 import com.example.xenon.R
 
@@ -18,7 +20,7 @@ class Adapter(private val evee:List<Events>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.layout_member, parent, false)
+            .inflate(R.layout.layout_eve, parent, false)
         return ViewHolder(view)
     }
 
@@ -29,6 +31,8 @@ class Adapter(private val evee:List<Events>
         Glide.with(holder.itemView.context)
             .load(event.image)
             .thumbnail(0.1f)
+            .transform(RoundedCorners(10))
+            .fitCenter()
             .error(R.drawable.group)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(holder.img)

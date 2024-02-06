@@ -38,6 +38,10 @@ class AboutUs : Fragment() {
         abtAdapter = AboutAdapter(abtus)
         binding.aboutRV.adapter = abtAdapter
         binding.aboutRV.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.back.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
         fetchFromFirestore()
     }
 

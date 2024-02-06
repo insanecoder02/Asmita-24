@@ -8,7 +8,6 @@
     tools:context=".Fragment.Event">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/con"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
@@ -16,8 +15,8 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/resLot"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginTop="300dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,29 +25,52 @@
             app:lottie_loop="true"
             app:lottie_autoPlay="true"
             android:visibility="visible"
-            app:lottie_rawRes="@raw/lottie" />
+            app:lottie_rawRes="@raw/asmita" />
 
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/lay2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="EVENTS"
-            android:textColor="@color/white"
-            android:textSize="28sp"
+            android:orientation="horizontal"
+            android:weightSum="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.1"
+                android:src="@drawable/arrow_back" />
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginBottom="-2dp"
+                android:text="events"
+                android:paddingHorizontal="5dp"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
 
         <View
-            android:id="@+id/view"
+            android:id="@+id/view1"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginVertical="5dp"
-            android:background="#FFFDFD"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text1" />
+            app:layout_constraintTop_toBottomOf="@id/lay2" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/featuredRv"
@@ -60,7 +82,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view"
+            app:layout_constraintTop_toBottomOf="@id/view1"
             app:layout_constraintVertical_bias="0.0" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -73,7 +95,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/featuredRv"
-            tools:listitem="@layout/layout_wing" />
+            tools:listitem="@layout/layout_eve1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

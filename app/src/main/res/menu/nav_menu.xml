@@ -23,10 +23,10 @@
             android:id="@+id/nav_gallery"
             android:icon="@drawable/gallery"
             android:title="Gallery" />
-        <item
-            android:id="@+id/nav_contact"
-            android:icon="@drawable/about_us"
-            android:title="About Us" />
+<!--        <item-->
+<!--            android:id="@+id/nav_contact"-->
+<!--            android:icon="@drawable/about_us"-->
+<!--            android:title="About Us" />-->
         <!--        <item-->
         <!--            android:id="@+id/nav_score"-->
         <!--            android:title="Live Score" />-->

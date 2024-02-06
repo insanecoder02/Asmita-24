@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xenon.DataClass.Team.TeamSection
@@ -24,8 +25,9 @@ class WingAdapter(val context: Context, private val teamSections: List<TeamSecti
         holder.wingName.text = teamSection.wingName
 
         holder.membersRv.adapter = MemberAdapter(teamSection.members)
-        holder.membersRv.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val spanCount = teamSection.members.size
+        val layoutManager = GridLayoutManager(context, spanCount)
+        holder.membersRv.layoutManager = layoutManager
     }
 
     override fun getItemCount(): Int = teamSections.size

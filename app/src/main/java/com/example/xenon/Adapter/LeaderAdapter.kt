@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.xenon.DataClass.ParticipateIIITS
-
+import com.example.xenon.R
 
 class LeaderAdapter(
     private val usr: MutableList<ParticipateIIITS>
@@ -27,8 +27,14 @@ class LeaderAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val users = usr[position]
-        Glide.with(holder.itemView.context).load(users.logo).thumbnail(0.1f)
-            .diskCacheStrategy(DiskCacheStrategy.ALL).circleCrop().into(holder.logo)
+        Glide.with(holder.itemView.context)
+            .load(users.logo)
+            .thumbnail(0.1f)
+            .error(R.drawable.group)
+            .placeholder(R.drawable.place_leader)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .circleCrop()
+            .into(holder.logo)
 
         val ranking = position + 3
         holder.score.text = users.Points.toString()
