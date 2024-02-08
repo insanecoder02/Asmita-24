@@ -12,6 +12,7 @@ import com.example.xenon.Adapter.DevAdapter
 import com.example.xenon.DataClass.DeveloperDataClass
 import com.example.xenon.DataClass.FixtureDataClass
 import com.example.xenon.databinding.FragmentDeveloperBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Developer : Fragment() {
@@ -34,6 +35,10 @@ class Developer : Fragment() {
         binding.menu.setOnClickListener {
             openDrawer()
         }
+        binding.refresh.setOnRefreshListener {
+            fetch()
+            Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
+        }
         fetch()
     }
     private fun openDrawer() {
@@ -52,6 +57,8 @@ class Developer : Fragment() {
                 dev.add(item)
             }
             devAdapter.notifyDataSetChanged()
+            binding.refresh.isRefreshing = false
+
         }.addOnFailureListener { e ->
             Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
         }

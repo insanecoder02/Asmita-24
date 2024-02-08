@@ -72,8 +72,7 @@
                     android:id="@+id/clgImg1LiveMatch"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/iiita" />
+                    android:scaleType="fitCenter" />
 
                 <TextView
                     android:id="@+id/clgName1LiveMatch"
@@ -154,8 +153,7 @@
                     android:id="@+id/clgImg2LiveMatch"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/iiita" />
+                    android:scaleType="fitCenter" />
 
                 <TextView
                     android:id="@+id/clgName2LiveMatch"

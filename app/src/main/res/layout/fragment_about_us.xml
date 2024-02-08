@@ -31,6 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:paddingHorizontal="10dp"
             android:weightSum="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +41,7 @@
             <ImageView
                 android:id="@+id/back"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.1"
                 android:src="@drawable/arrow_back" />
@@ -57,14 +59,14 @@
                 android:paddingHorizontal="5dp"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="24sp" />
         </LinearLayout>
 
         <View
             android:id="@+id/view1"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginHorizontal="5dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="5dp"
             android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"

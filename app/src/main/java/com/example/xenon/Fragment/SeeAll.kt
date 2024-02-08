@@ -13,6 +13,7 @@ import com.example.xenon.DataClass.Events
 import com.example.xenon.DataClass.FixtureDataClass
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentSeeAllBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 
 class SeeAll : Fragment() {
@@ -36,6 +37,10 @@ class SeeAll : Fragment() {
         binding.back.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
+        binding.refresh.setOnRefreshListener {
+            fetch()
+            Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
+        }
         fetch()
     }
     private fun fetch(){
@@ -51,6 +56,8 @@ class SeeAll : Fragment() {
             fixAdapter.notifyDataSetChanged()
             binding.resLot.visibility = View.INVISIBLE
             binding.seeRv.visibility = View.VISIBLE
+            binding.refresh.isRefreshing=false
+
         }.addOnFailureListener { e ->
             Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
         }

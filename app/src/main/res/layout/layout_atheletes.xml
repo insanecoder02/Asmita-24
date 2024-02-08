@@ -48,30 +48,30 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:orientation="vertical"
-        android:visibility="gone">
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="45dp"-->
+    <!--        android:orientation="vertical"-->
+    <!--        android:visibility="gone">-->
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autoSizeMaxTextSize="20sp"
-            android:fontFamily="@font/poppins_medium"
-            android:gravity="center"
-            android:hint="time"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="16sp" />
-    </LinearLayout>
+    <!--        <TextView-->
+    <!--            android:id="@+id/time"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:autoSizeMaxTextSize="20sp"-->
+    <!--            android:fontFamily="@font/poppins_medium"-->
+    <!--            android:gravity="center"-->
+    <!--            android:hint="time"-->
+    <!--            android:textColor="@color/white"-->
+    <!--            android:textColorHint="@color/white"-->
+    <!--            android:textSize="16sp" />-->
+    <!--    </LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="30dp"
+        android:layout_marginHorizontal="20dp"
         android:orientation="vertical"
         android:weightSum="3"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -79,44 +79,95 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lay1">
 
-        <TextView
-            android:id="@+id/play1"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.9"
-            android:autoSizeMaxTextSize="20sp"
-            android:drawablePadding="5dp"
-            android:fontFamily="@font/poppins_medium"
-            android:padding="5dp"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:drawableLeftCompat="@drawable/gold" />
+            android:orientation="horizontal"
+            android:weightSum="1">
 
-        <TextView
-            android:id="@+id/play2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.9"
-            android:autoSizeMaxTextSize="20sp"
-            android:drawablePadding="5dp"
-            android:fontFamily="@font/poppins_medium"
-            android:padding="5dp"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:drawableLeftCompat="@drawable/silver" />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.1"
+                android:src="@drawable/med1" />
 
-        <TextView
-            android:id="@+id/play3"
+            <TextView
+                android:id="@+id/play1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:autoSizeMaxTextSize="20sp"
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="ishant kumawat"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.9"
-            android:autoSizeMaxTextSize="20sp"
-            android:drawablePadding="5dp"
-            android:fontFamily="@font/poppins_medium"
-            android:padding="5dp"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:drawableLeftCompat="@drawable/bronze" />
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.1"
+                android:src="@drawable/med2" />
+
+            <TextView
+                android:id="@+id/play2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:autoSizeMaxTextSize="20sp"
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="ishant kumawat"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.9"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.1"
+                android:src="@drawable/med3" />
+
+            <TextView
+                android:id="@+id/play3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:autoSizeMaxTextSize="20sp"
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="ishant kumawat"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <TextView

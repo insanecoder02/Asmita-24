@@ -1,21 +1,15 @@
 package com.example.xenon.Fragment
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.xenon.Activity.Main
 import com.example.xenon.Adapter.AboutAdapter
 import com.example.xenon.DataClass.AboutUs
-import com.example.xenon.R
 import com.example.xenon.databinding.FragmentAboutUsBinding
-import com.google.api.Distribution.BucketOptions.Linear
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AboutUs : Fragment() {

@@ -1,187 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@drawable/main_page"
     tools:context=".Fragment.Home">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:layout_height="match_parent">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/resLot"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:elevation="5dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@id/result_mRv"
-            app:layout_constraintEnd_toEndOf="@id/result_mRv"
-            app:layout_constraintStart_toStartOf="@id/result_mRv"
-            app:layout_constraintTop_toTopOf="@id/result_mRv"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/asmita" />
-
-        <LinearLayout
-            android:id="@+id/lay1"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginBottom="50dp">
 
-            <ImageView
-                android:id="@+id/menu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.1"
-                android:src="@drawable/menu_white" />
-
-            <TextView
-                android:id="@+id/text1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:gravity="center_vertical"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="@font/poppins_semibold"
-                android:layout_marginBottom="-2dp"
-                android:text="home"
-                android:paddingHorizontal="5dp"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <ImageView
-                android:id="@+id/noti"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.1"
-                android:src="@drawable/notifications_svgrepo_com" />
-        </LinearLayout>
-
-        <View
-            android:id="@+id/view1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lay1" />
-
-        <com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
-            android:id="@+id/result_mRv"
-            android:layout_width="match_parent"
-            android:layout_height="230dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view1"
-            tools:listitem="@layout/layout_football" />
-
-        <TextView
-            android:id="@+id/upcommingMatchTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="Upcoming Matches"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/result_mRv"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="201dp" />
-
-        <TextView
-            android:id="@+id/seeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/upcommingMatchTextView"
-            android:layout_alignParentEnd="true"
-            android:text="see all"
-            android:textColor="#E9BD3E"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/result_mRv"
-            tools:layout_editor_absoluteX="346dp"
-            tools:layout_editor_absoluteY="201dp" />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/matLot"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:elevation="5dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@id/upcommingMatchsRV"
-            app:layout_constraintEnd_toEndOf="@id/upcommingMatchsRV"
-            app:layout_constraintStart_toStartOf="@id/upcommingMatchsRV"
-            app:layout_constraintTop_toTopOf="@id/upcommingMatchsRV"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/asmita" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/upcommingMatchsRV"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_below="@id/upcommingMatchTextView"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/upcommingMatchTextView"
-            tools:listitem="@layout/layout_schedule" />
-
-        <LinearLayout
-            android:id="@+id/rr"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/upcommingMatchsRV">
-
-            <ImageView
-                android:id="@+id/leaderboard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:src="@drawable/leaderboardsvg" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/resLot"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:elevation="5dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/result_mRv"
+                app:layout_constraintEnd_toEndOf="@id/result_mRv"
+                app:layout_constraintStart_toStartOf="@id/result_mRv"
+                app:layout_constraintTop_toTopOf="@id/result_mRv"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/asmita" />
 
             <LinearLayout
-                android:id="@+id/ll"
+                android:id="@+id/lay1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-15dp">
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                android:weightSum="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/results"
-                    android:layout_width="match_parent"
+                    android:id="@+id/menu"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="-5dp"
-                    android:layout_weight="0.5"
-                    android:src="@drawable/resultsvg" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.1"
+                    android:src="@drawable/menu_white" />
 
-                <ImageView
-                    android:id="@+id/events"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="-5dp"
-                    android:layout_weight="0.5"
-                    android:src="@drawable/eventessvg" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="-2dp"
+                    android:layout_weight="0.9"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="5dp"
+                    android:text="home"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/black"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lay1" />
+
+            <com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
+                android:id="@+id/result_mRv"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view1"
+                tools:listitem="@layout/layout_football" />
+
+            <LinearLayout
+                android:id="@+id/lay3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="15dp"
+                android:weightSum="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/result_mRv">
+
+                <TextView
+                    android:id="@+id/upcommingMatchTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:letterSpacing="0.035"
+                    android:text="Upcoming Matches"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="201dp" />
+
+                <TextView
+                    android:id="@+id/seeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/upcommingMatchTextView"
+                    android:layout_alignParentEnd="true"
+                    android:layout_weight="0.2"
+                    android:gravity="end"
+                    android:text="See all"
+                    android:textColor="#E9BD3E"
+                    android:textSize="17sp"
+                    app:layout_constraintTop_toBottomOf="@id/result_mRv"
+                    tools:layout_editor_absoluteX="346dp"
+                    tools:layout_editor_absoluteY="201dp" />
 
             </LinearLayout>
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/matLot"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:elevation="5dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/upcommingMatchsRV"
+                app:layout_constraintEnd_toEndOf="@id/upcommingMatchsRV"
+                app:layout_constraintStart_toStartOf="@id/upcommingMatchsRV"
+                app:layout_constraintTop_toTopOf="@id/upcommingMatchsRV"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/asmita" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/upcommingMatchsRV"
+                android:layout_width="0dp"
+                android:layout_height="190dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lay3"
+                tools:listitem="@layout/layout_schedule" />
+
+            <LinearLayout
+                android:id="@+id/rr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="80dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/upcommingMatchsRV">
+
+                <ImageView
+                    android:id="@+id/leaderboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/leader" />
+
+                <LinearLayout
+                    android:id="@+id/ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-8dp">
+
+                    <ImageView
+                        android:id="@+id/results"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="-5dp"
+                        android:layout_weight="0.5"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/resultsvg" />
+
+                    <ImageView
+                        android:id="@+id/events"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="-5dp"
+                        android:layout_weight="0.5"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/eventessvg" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/fixture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-8dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/fixture" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

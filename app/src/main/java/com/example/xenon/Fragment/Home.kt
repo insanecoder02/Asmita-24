@@ -16,6 +16,7 @@ import com.example.xenon.DataClass.Score.MatchDetails
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentHomeBinding
 import com.example.xenon.other.AutoScroll
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jackandphantom.carouselrecyclerview.CarouselLayoutManager
 
@@ -34,7 +35,6 @@ class Home : Fragment() {
         binding.resultMRv.visibility = View.INVISIBLE
         binding.resLot.visibility = View.VISIBLE
         binding.matLot.visibility = View.VISIBLE
-
         return binding.root
     }
 
@@ -46,15 +46,23 @@ class Home : Fragment() {
         resultAdapter = ResultAdapter(upcomingMatchesList)
         binding.resultMRv.adapter = resultAdapter
         binding.resultMRv.layoutManager = CarouselLayoutManager(
-            true, false, 0.7F, false, true, true, LinearLayoutManager.HORIZONTAL
+            true, false, 0.7F, false, false, true, LinearLayoutManager.HORIZONTAL
         )
-
         upcommingmatchesadapter = UpcomingMatchAdapter(upcomingMatchesList)
         binding.upcommingMatchsRV.adapter = upcommingmatchesadapter
         binding.upcommingMatchsRV.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
+        binding.refresh.setOnRefreshListener {
+            fetchMatches()
+//            Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
+        }
+
         fetchMatches()
+
+        binding.resultMRv.setOnClickListener {
+            loadFragment(results())
+        }
 
         binding.seeText.setOnClickListener {
             loadFragment(SeeAll())
@@ -75,10 +83,13 @@ class Home : Fragment() {
         binding.menu.setOnClickListener {
             openDrawer()
         }
-
-        binding.noti.setOnClickListener {
-            loadFragment(Notification())
+        binding.fixture.setOnClickListener {
+            loadFragment(SeeAll())
         }
+
+//        binding.noti.setOnClickListener {
+//            loadFragment(Notification())
+//        }
 
         rotor(binding.upcommingMatchsRV)
 
@@ -91,6 +102,7 @@ class Home : Fragment() {
         val mainActivity = requireActivity() as Main
         mainActivity.openDrawer()
     }
+
     private fun rotor(recyclerView: RecyclerView) {
         recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -112,7 +124,7 @@ class Home : Fragment() {
             for (document in documents) {
                 val matchName = document.getString("matchname") ?: ""
                 val date = document.getString("date") ?: ""
-                val time = document.getString("time") ?: ""
+                val time = document.getString("group stage") ?: ""
                 val clgName1 = document.getString("clgname1") ?: ""
                 val clgImg1 = document.getString("clgimg1") ?: ""
                 val clgName2 = document.getString("clgname2") ?: ""
@@ -153,6 +165,7 @@ class Home : Fragment() {
             binding.resLot.visibility = View.INVISIBLE
             binding.upcommingMatchsRV.visibility = View.VISIBLE
             binding.resultMRv.visibility = View.VISIBLE
+            binding.refresh.isRefreshing = false
         }.addOnFailureListener { e ->
             Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
         }

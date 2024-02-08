@@ -11,6 +11,7 @@ import com.example.xenon.Adapter.ResultAdapter
 import com.example.xenon.Adapter.Score.UpcomingMatchAdapter
 import com.example.xenon.DataClass.Score.MatchDetails
 import com.example.xenon.databinding.FragmentResultsBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 
 class results : Fragment() {
@@ -37,6 +38,10 @@ class results : Fragment() {
         binding.resultRv.layoutManager = LinearLayoutManager(requireContext())
         binding.back.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
+        }
+        binding.refresh.setOnRefreshListener {
+            fetchMatches()
+            Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
         fetchMatches()
     }
@@ -65,7 +70,9 @@ class results : Fragment() {
             }
             resultAdapter.notifyDataSetChanged()
             binding.resLot.visibility = View.INVISIBLE
+            binding.refresh.isRefreshing=false
             binding.resultRv.visibility = View.VISIBLE
+
         }.addOnFailureListener { e ->
             Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
         }

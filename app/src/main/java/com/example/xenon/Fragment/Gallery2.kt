@@ -12,6 +12,7 @@ import com.example.xenon.Adapter.Gallery2Adapter
 import com.example.xenon.DataClass.Gallery2
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentGallery2Binding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 class Gallery2 : Fragment() {
 
@@ -35,6 +36,10 @@ private var gall:MutableList<Gallery2> = mutableListOf()
         binding.menu.setOnClickListener {
             openDrawer()
         }
+        binding.refresh.setOnRefreshListener {
+            fetchfromfirestore()
+            Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
+        }
 
         fetchfromfirestore()
     }
@@ -55,6 +60,8 @@ private var gall:MutableList<Gallery2> = mutableListOf()
                 gall.add(Gallery2(title,imageurl,url))
             }
             gallAdapter.notifyDataSetChanged()
+
+            binding.refresh.isRefreshing=false
         }.addOnFailureListener {
             Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
         }

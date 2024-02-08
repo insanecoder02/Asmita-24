@@ -1,14 +1,9 @@
 package com.example.xenon.Activity
 
-import android.content.DialogInterface
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.xenon.Fragment.AboutUs
@@ -16,8 +11,6 @@ import com.example.xenon.Fragment.Gallery
 import com.example.xenon.Fragment.Home
 import com.example.xenon.Fragment.Developer
 import com.example.xenon.Fragment.Gallery2
-import com.example.xenon.Fragment.LeaderBoard
-import com.example.xenon.Fragment.Notification
 import com.example.xenon.Fragment.Sponsors
 import com.example.xenon.Fragment.Team
 import com.example.xenon.Fragment.participating_iiits
@@ -31,20 +24,19 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
-
-        window.statusBarColor = 0xFF000000.toInt()
+//        setSupportActionBar(binding.toolbar)
+        window.statusBarColor = 0xFFE9BD3E.toInt()
         binding.navView.setNavigationItemSelectedListener(this)
-        val toggle = ActionBarDrawerToggle(
-            this, binding.drawerLayout, binding.toolbar, R.string.open_nav, R.string.close_nav
-        )
-        binding.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
-        binding.notify.setOnClickListener {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, Notification()).commit()
-        }
+//        val toggle = ActionBarDrawerToggle(
+//            this, binding.drawerLayout, binding.toolbar, R.string.open_nav, R.string.close_nav
+//        )
+//        binding.drawerLayout.addDrawerListener(toggle)
+//        toggle.syncState()
+//
+//        binding.notify.setOnClickListener {
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.fragment_container, Notification()).commit()
+//        }
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Home())
                 .commit()
@@ -90,26 +82,31 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 if (currentFragment !is Home) {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Home())
                         .commit()
+                    window.statusBarColor = 0xFFE9BD3E.toInt()
                 }
             }
             R.id.nav_team -> {
                 if (currentFragment !is Team) {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Team()).commit()
+                    window.statusBarColor = 0xFF000000.toInt()
                 }
             }
             R.id.nav_sponsor -> {
                 if (currentFragment !is Sponsors) {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Sponsors()).commit()
+                    window.statusBarColor = 0xFF000000.toInt()
                 }
             }
             R.id.nav_gallery -> {
                 if (currentFragment !is Gallery2) {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Gallery2()).commit()
+                    window.statusBarColor = 0xFF000000.toInt()
                 }
             }
             R.id.nav_developer -> {
                 if (currentFragment !is Developer) {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Developer()).commit()
+                    window.statusBarColor = 0xFF000000.toInt()
 
                 }
             }
@@ -121,6 +118,7 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             R.id.nav_iiits -> {
                 if (currentFragment !is participating_iiits) {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, participating_iiits()).commit()
+                    window.statusBarColor = 0xFF000000.toInt()
                 }
             }
         }

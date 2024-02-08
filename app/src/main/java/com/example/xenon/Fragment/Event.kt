@@ -15,6 +15,7 @@ import com.example.xenon.DataClass.Events
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentEventBinding
 import com.example.xenon.other.AutoScroll
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Event : Fragment() {
@@ -48,6 +49,10 @@ class Event : Fragment() {
         fetchFromFirestore()
         binding.back.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
+        }
+        binding.refresh.setOnRefreshListener {
+            fetchFromFirestore()
+            Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
 
         rotor(binding.featuredRv)
@@ -96,6 +101,8 @@ class Event : Fragment() {
                 eventsAdapter.notifyDataSetChanged()
                 wingAdapter.notifyDataSetChanged()
                 binding.resLot.visibility = View.INVISIBLE
+                binding.refresh.isRefreshing=false
+
             }.addOnFailureListener { exception ->
                 Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT)
                     .show()
