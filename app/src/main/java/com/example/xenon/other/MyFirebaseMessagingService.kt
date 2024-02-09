@@ -26,10 +26,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         if (message.notification != null) {
             val title = message.notification!!.title!!
             val body = message.notification!!.body!!
-
-            FirebaseApp.initializeApp(this)
-
-            saveFCMMessageToFirestore(title, body)
             // Generate and display the notification
             generateNotification(title, body, pageId)
         }
@@ -44,25 +40,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         remoteViews.setImageViewResource(R.id.appLogo, R.drawable.group)
 
         return remoteViews
-    }
-
-    private fun saveFCMMessageToFirestore(title: String, body: String) {
-        val firestore = FirebaseFirestore.getInstance()
-        val notificationsCollection = firestore.collection("Notification")
-
-        val notificationData = hashMapOf(
-            "title" to title,
-            "body" to body,
-            "time" to System.currentTimeMillis() // Optional: Include a timestamp
-        )
-
-        notificationsCollection.add(notificationData)
-            .addOnSuccessListener {
-                Log.d("Firestore", "FCM message added to Firestore")
-            }
-            .addOnFailureListener { e ->
-                Log.e("Firestore", "Error adding FCM message to Firestore", e)
-            }
     }
 
     fun generateNotification(tit: String, msg: String, pageId: String) {

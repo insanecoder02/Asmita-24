@@ -1,20 +1,22 @@
 package com.example.xenon.Adapter.Team
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.xenon.DataClass.Events
+import com.example.xenon.Fragment.sport_detail
 import com.example.xenon.R
 
 
-class Adapter(private val evee:List<Events>
+class Adapter(private val fragmentManager: FragmentManager, private val evee:List<Events>
 ) :
     RecyclerView.Adapter<Adapter.ViewHolder>() {
 
@@ -31,15 +33,31 @@ class Adapter(private val evee:List<Events>
         Glide.with(holder.itemView.context)
             .load(event.image)
             .thumbnail(0.1f)
-            .transform(RoundedCorners(10))
             .fitCenter()
+            .transform(RoundedCorners(20))
             .error(R.drawable.group)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(holder.img)
 
-//        holder.itemView.setOnClickListener {
-//            itemClickListener.onItemClick(event)
-//        }
+        holder.itemView.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString("name", event.name ?: "Name")
+                putString("date", event.date ?: "Date")
+                putString("image", event.image ?: "image")
+                putString("discription", event.discription ?: "Discription")
+                putString("heading", event.heading ?: "Heading")
+                putString("length", event.length ?: "Length")
+                putString("location", event.location ?: "Location")
+                putString("type", event.type ?: "Type")
+            }
+            val fragment = sport_detail().apply {
+                arguments = bundle
+            }
+            fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     override fun getItemCount(): Int = evee.size

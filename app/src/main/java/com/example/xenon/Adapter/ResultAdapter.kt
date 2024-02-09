@@ -5,13 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.xenon.DataClass.Score.MatchDetails
+import com.example.xenon.Fragment.results
 import com.example.xenon.R
 
-class ResultAdapter (val sch: List<MatchDetails>
+class ResultAdapter (val sch: List<MatchDetails>,
+                     private val fragmentManager: FragmentManager,
+                     private val isHomeFragment: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val CRICKET = 1
@@ -57,6 +61,12 @@ class ResultAdapter (val sch: List<MatchDetails>
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewType = getItemViewType(position)
         val scc = sch[position]
+
+        holder.itemView.setOnClickListener {
+            if(isHomeFragment){
+                load()
+            }
+        }
 
         when (viewType) {
             CRICKET -> {
@@ -114,6 +124,12 @@ class ResultAdapter (val sch: List<MatchDetails>
             else -> throw IllegalArgumentException("Invalid view type")
         }
 
+    }
+    private fun load(){
+        fragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, results())
+            .addToBackStack(null)
+            .commit()
     }
     class CricketViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val name: TextView = itemView.findViewById(R.id.matchName)

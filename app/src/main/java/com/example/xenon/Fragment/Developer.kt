@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xenon.Activity.Main
 import com.example.xenon.Adapter.DevAdapter
 import com.example.xenon.DataClass.DeveloperDataClass
-import com.example.xenon.DataClass.FixtureDataClass
 import com.example.xenon.databinding.FragmentDeveloperBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore

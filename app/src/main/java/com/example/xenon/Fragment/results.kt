@@ -33,7 +33,7 @@ class results : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         firestore = FirebaseFirestore.getInstance()
-        resultAdapter = ResultAdapter(upcomingMatchesList)
+        resultAdapter = ResultAdapter(upcomingMatchesList,parentFragmentManager,false)
         binding.resultRv.adapter = resultAdapter
         binding.resultRv.layoutManager = LinearLayoutManager(requireContext())
         binding.back.setOnClickListener {

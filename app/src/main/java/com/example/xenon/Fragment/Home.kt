@@ -2,6 +2,8 @@ package com.example.xenon.Fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +18,6 @@ import com.example.xenon.DataClass.Score.MatchDetails
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentHomeBinding
 import com.example.xenon.other.AutoScroll
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jackandphantom.carouselrecyclerview.CarouselLayoutManager
 
@@ -43,7 +44,7 @@ class Home : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         firestore = FirebaseFirestore.getInstance()
 
-        resultAdapter = ResultAdapter(upcomingMatchesList)
+        resultAdapter = ResultAdapter(upcomingMatchesList, parentFragmentManager, true)
         binding.resultMRv.adapter = resultAdapter
         binding.resultMRv.layoutManager = CarouselLayoutManager(
             true, false, 0.7F, false, false, true, LinearLayoutManager.HORIZONTAL
@@ -54,18 +55,17 @@ class Home : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         binding.refresh.setOnRefreshListener {
-            fetchMatches()
+            Handler(Looper.getMainLooper()).postDelayed({
+                    fetchMatches()
+                }, 2000)
+
 //            Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
 
         fetchMatches()
 
-        binding.resultMRv.setOnClickListener {
-            loadFragment(results())
-        }
-
         binding.seeText.setOnClickListener {
-            loadFragment(SeeAll())
+            loadFragment(Fixture_Sport_Wise())
         }
 
         binding.events.setOnClickListener {
@@ -84,7 +84,7 @@ class Home : Fragment() {
             openDrawer()
         }
         binding.fixture.setOnClickListener {
-            loadFragment(SeeAll())
+            loadFragment(Fixture_Sport_Wise())
         }
 
 //        binding.noti.setOnClickListener {
@@ -119,8 +119,8 @@ class Home : Fragment() {
     }
 
     private fun fetchMatches() {
-        upcomingMatchesList.clear()
         firestore.collection("Schedule").limit(5).get().addOnSuccessListener { documents ->
+            upcomingMatchesList.clear()
             for (document in documents) {
                 val matchName = document.getString("matchname") ?: ""
                 val date = document.getString("date") ?: ""
@@ -159,13 +159,32 @@ class Home : Fragment() {
                     )
                 )
             }
-            upcommingmatchesadapter.notifyDataSetChanged()
-            resultAdapter.notifyDataSetChanged()
-            binding.matLot.visibility = View.INVISIBLE
-            binding.resLot.visibility = View.INVISIBLE
-            binding.upcommingMatchsRV.visibility = View.VISIBLE
-            binding.resultMRv.visibility = View.VISIBLE
-            binding.refresh.isRefreshing = false
+            if (upcomingMatchesList.isNotEmpty()) {
+                upcommingmatchesadapter.notifyDataSetChanged()
+                resultAdapter.notifyDataSetChanged()
+                binding.matLot.visibility = View.INVISIBLE
+                binding.resLot.visibility = View.INVISIBLE
+                binding.upcommingMatchsRV.visibility = View.VISIBLE
+                binding.resultMRv.visibility = View.VISIBLE
+                binding.refresh.isRefreshing = false
+            } else {
+                // Handle case where dataset is empty
+                // For example, you can show a message or hide the RecyclerViews
+                Toast.makeText(requireContext(), "No upcoming matches found", Toast.LENGTH_SHORT)
+                    .show()
+                // Hide RecyclerViews
+                binding.upcommingMatchsRV.visibility = View.GONE
+                binding.resultMRv.visibility = View.GONE
+                // Show refresh layout again
+                binding.refresh.isRefreshing = false
+            }
+//            upcommingmatchesadapter.notifyDataSetChanged()
+//            resultAdapter.notifyDataSetChanged()
+//            binding.matLot.visibility = View.INVISIBLE
+//            binding.resLot.visibility = View.INVISIBLE
+//            binding.upcommingMatchsRV.visibility = View.VISIBLE
+//            binding.resultMRv.visibility = View.VISIBLE
+//            binding.refresh.isRefreshing = false
         }.addOnFailureListener { e ->
             Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
         }

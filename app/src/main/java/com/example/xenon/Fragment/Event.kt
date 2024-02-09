@@ -38,7 +38,7 @@ class Event : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        wingAdapter = EventsAdapter(requireContext(), eventClass)
+        wingAdapter = EventsAdapter(requireContext(), eventClass,parentFragmentManager)
         binding.teamRV.adapter = wingAdapter
         binding.teamRV.layoutManager = LinearLayoutManager(requireContext())
 

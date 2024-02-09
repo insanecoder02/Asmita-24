@@ -98,6 +98,7 @@
                     android:id="@+id/firstScore"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
                     android:layout_gravity="bottom"
                     android:fontFamily="@font/poppins_semibold"
                     android:gravity="center_horizontal"
@@ -144,6 +145,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:gravity="center_horizontal"
                     android:paddingHorizontal="4dp"
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
             </androidx.cardview.widget.CardView>
 
@@ -170,7 +172,7 @@
                     android:id="@+id/third"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
+                    android:layout_marginTop="45dp"
                     android:fontFamily="@font/poppins_medium"
                     android:gravity="center_horizontal"
                     android:paddingHorizontal="4dp"
@@ -183,6 +185,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:fontFamily="@font/poppins_semibold"
+                    android:textColor="@color/white"
                     android:gravity="center_horizontal"
                     android:paddingHorizontal="4dp"
                     android:textSize="16sp" />

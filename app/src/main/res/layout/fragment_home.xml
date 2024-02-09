@@ -83,7 +83,7 @@
             <com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
                 android:id="@+id/result_mRv"
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -128,7 +128,6 @@
                     app:layout_constraintTop_toBottomOf="@id/result_mRv"
                     tools:layout_editor_absoluteX="346dp"
                     tools:layout_editor_absoluteY="201dp" />
-
             </LinearLayout>
 
             <com.airbnb.lottie.LottieAnimationView
@@ -148,7 +147,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/upcommingMatchsRV"
                 android:layout_width="0dp"
-                android:layout_height="190dp"
+                android:layout_height="175dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -210,5 +209,6 @@
                     android:src="@drawable/fixture" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>>
+    </androidx.core.widget.NestedScrollView>
+    >
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

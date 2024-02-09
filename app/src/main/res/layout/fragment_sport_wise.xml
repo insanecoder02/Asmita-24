@@ -6,7 +6,7 @@
     android:id="@+id/refresh"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".Fragment.SeeAll">
+    tools:context=".Fragment.Fixture_Sport_Wise">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
