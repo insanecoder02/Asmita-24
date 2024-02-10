@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.example.xenon.DataClass.Gallery2
+import com.example.xenon.DataClass.GalleryDataClass.Gallery2
 import com.example.xenon.R
 
 class Gallery2Adapter(

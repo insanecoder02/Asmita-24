@@ -1,6 +1,6 @@
 package com.example.xenon.other
 
-import com.example.xenon.DataClass.FlickrResponse
+import com.example.xenon.DataClass.GalleryDataClass.FlickrResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

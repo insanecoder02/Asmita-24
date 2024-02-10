@@ -36,7 +36,7 @@ class LeaderAdapter(
             .circleCrop()
             .into(holder.logo)
 
-        val ranking = position + 3
+        val ranking = position + 4
         holder.score.text = users.Points.toString()
         holder.name.text = users.Name
         holder.rank.text = ranking.toString()

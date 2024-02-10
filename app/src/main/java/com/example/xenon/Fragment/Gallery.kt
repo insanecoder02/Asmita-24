@@ -8,13 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.xenon.Adapter.GalleryAdapter
-import com.example.xenon.DataClass.FlickrPhoto
-import com.example.xenon.DataClass.FlickrResponse
-import com.example.xenon.DataClass.Gallery
-import com.example.xenon.R
+import com.example.xenon.DataClass.GalleryDataClass.FlickrPhoto
+import com.example.xenon.DataClass.GalleryDataClass.FlickrResponse
 import com.example.xenon.databinding.FragmentGalleryBinding
 import com.example.xenon.other.RetrofitClient
 import com.google.android.material.snackbar.Snackbar
@@ -41,7 +38,8 @@ class Gallery : Fragment() {
 
         galAdapter = GalleryAdapter(requireContext(), gal)
         binding.gallRV.adapter = galAdapter
-        binding.gallRV.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        binding.gallRV.layoutManager =
+            StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
 
         val flickrService = RetrofitClient.create()
 
@@ -64,13 +62,15 @@ class Gallery : Fragment() {
                 }
 
                 override fun onFailure(call: Call<FlickrResponse>, t: Throwable) {
-                    Toast.makeText(requireContext(),t.localizedMessage , Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), t.localizedMessage, Toast.LENGTH_SHORT).show()
                 }
             })
-        binding.backBtn.setOnClickListener {
+        binding.back.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
         val url = arguments?.getString("url")
+        val name = arguments?.getString("details")
+        binding.text1.text = name
         binding.loadBtn.setOnClickListener {
             if (!url.isNullOrBlank()) {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
@@ -81,7 +81,6 @@ class Gallery : Fragment() {
                     "Link is not Available",
                     Snackbar.LENGTH_SHORT
                 )
-
                 snackbar.show()
             }
         }

@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xenon.Activity.Main
 import com.example.xenon.Adapter.Gallery2Adapter
-import com.example.xenon.DataClass.Gallery2
+import com.example.xenon.DataClass.GalleryDataClass.Gallery2
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentGallery2Binding
 import com.google.android.material.snackbar.Snackbar
@@ -24,6 +24,8 @@ private var gall:MutableList<Gallery2> = mutableListOf()
         savedInstanceState: Bundle?
     ): View {
         binding= FragmentGallery2Binding.inflate(layoutInflater,container,false)
+        binding.sportsRv.visibility = View.INVISIBLE
+        binding.resLot.visibility = View.VISIBLE
         return binding.root
     }
 
@@ -60,7 +62,8 @@ private var gall:MutableList<Gallery2> = mutableListOf()
                 gall.add(Gallery2(title,imageurl,url))
             }
             gallAdapter.notifyDataSetChanged()
-
+            binding.resLot.visibility = View.INVISIBLE
+            binding.sportsRv.visibility = View.VISIBLE
             binding.refresh.isRefreshing=false
         }.addOnFailureListener {
             Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
@@ -86,7 +89,7 @@ private var gall:MutableList<Gallery2> = mutableListOf()
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(
             R.id.fragment_container, nextFragment
-        ) // Use nextFragment instead of basefragmentevent()
+        )
         transaction.addToBackStack(null)
         transaction.commit()
     }

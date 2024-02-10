@@ -1,4 +1,4 @@
-package com.example.xenon.Adapter
+package com.example.xenon.Adapter.ResultAdapter
 
 import android.view.LayoutInflater
 import android.view.View

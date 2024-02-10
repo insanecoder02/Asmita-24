@@ -1,4 +1,4 @@
-package com.example.xenon.DataClass
+package com.example.xenon.DataClass.EventDataClass
 
 data class Events(
     val name: String,

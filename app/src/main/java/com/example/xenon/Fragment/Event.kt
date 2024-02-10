@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xenon.Adapter.EventsAdapter.FeaturedEventsAdapter
 import com.example.xenon.Adapter.Team.EventsAdapter
-import com.example.xenon.DataClass.EveDataClass
-import com.example.xenon.DataClass.Events
+import com.example.xenon.DataClass.EventDataClass.EveDataClass
+import com.example.xenon.DataClass.EventDataClass.Events
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentEventBinding
 import com.example.xenon.other.AutoScroll

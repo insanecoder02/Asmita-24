@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.xenon.Adapter.ResultAdapter
-import com.example.xenon.Adapter.Score.UpcomingMatchAdapter
+import com.example.xenon.Adapter.ResultAdapter.ResultAdapter
 import com.example.xenon.DataClass.Score.MatchDetails
 import com.example.xenon.databinding.FragmentResultsBinding
 import com.google.android.material.snackbar.Snackbar

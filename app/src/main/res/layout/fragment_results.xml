@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:paddingHorizontal="10dp"
         android:weightSum="1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +44,7 @@
         <ImageView
             android:id="@+id/back"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.1"
             android:src="@drawable/arrow_back" />
@@ -62,7 +62,7 @@
             android:paddingHorizontal="5dp"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="24sp" />
+            android:textSize="22sp" />
     </LinearLayout>
 
     <View

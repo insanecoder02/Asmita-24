@@ -9,8 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp">
+        android:layout_height="match_parent">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/resLot"
@@ -30,8 +29,8 @@
             android:id="@+id/lay2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp"
             android:paddingHorizontal="10dp"
             android:weightSum="1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +40,7 @@
             <ImageView
                 android:id="@+id/back"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.1"
                 android:src="@drawable/arrow_back" />
@@ -50,16 +49,16 @@
                 android:id="@+id/text1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.9"
-                android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
-                android:fontFamily="@font/poppins_semibold"
                 android:layout_marginBottom="-2dp"
-                android:text="about us"
+                android:layout_weight="0.9"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center_vertical"
                 android:paddingHorizontal="5dp"
+                android:text="about us"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="22sp" />
         </LinearLayout>
 
         <View
@@ -76,8 +75,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/aboutRV"
             android:layout_width="0dp"
-            android:layout_marginTop="8dp"
             android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view1" />

@@ -11,8 +11,6 @@ import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.example.xenon.Activity.Main
 import com.example.xenon.R
-import com.google.firebase.FirebaseApp
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -22,15 +20,13 @@ const val chaName = "com.example.xenon"
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
-        val pageId = message.data["pageId"]!!
+        val pageId = message.data["pageId"]?:""
         if (message.notification != null) {
             val title = message.notification!!.title!!
             val body = message.notification!!.body!!
-            // Generate and display the notification
             generateNotification(title, body, pageId)
         }
     }
-
 
     fun getRemoteView(tit: String, msg: String): RemoteViews {
         val remoteViews = RemoteViews(chaName, R.layout.layout_notification)

@@ -1,4 +1,4 @@
-package com.example.xenon.DataClass
+package com.example.xenon.DataClass.GalleryDataClass
 
 data class Gallery(
     val img: String,

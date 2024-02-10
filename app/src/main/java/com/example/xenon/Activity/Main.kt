@@ -1,9 +1,12 @@
 package com.example.xenon.Activity
 
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.xenon.Fragment.AboutUs
@@ -20,6 +23,7 @@ import com.google.android.material.navigation.NavigationView
 
 class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -68,6 +72,8 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             }
         }
     }
+
+
 
     private fun loadFr(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
@@ -138,15 +144,26 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            if (fragment is Home) {
-                AlertDialog.Builder(this)
-                    .setMessage("Are you sure you want to exit?")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes") { _, _ -> finish() }
-                    .setNegativeButton("No", null)
-                    .show()
-            } else {
-                supportFragmentManager.popBackStack()
+            when (fragment) {
+                is Team, is Sponsors, is Gallery2, is Developer, is participating_iiits -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, Home())
+                        .commit()
+                    window.statusBarColor = 0xFFE9BD3E.toInt()
+                }
+
+                is Home -> {
+                    AlertDialog.Builder(this)
+                        .setMessage("Are you sure you want to exit?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes") { _, _ -> finish() }
+                        .setNegativeButton("No", null)
+                        .show()
+                }
+
+                else -> {
+                    supportFragmentManager.popBackStack()
+                }
             }
         }
     }

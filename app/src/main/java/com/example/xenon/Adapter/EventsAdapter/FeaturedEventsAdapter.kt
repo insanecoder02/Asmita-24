@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.xenon.DataClass.Events
+import com.example.xenon.DataClass.EventDataClass.Events
 import com.example.xenon.R
 
 class FeaturedEventsAdapter(

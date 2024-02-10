@@ -12,7 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xenon.Activity.Main
-import com.example.xenon.Adapter.ResultAdapter
+import com.example.xenon.Adapter.ResultAdapter.ResultAdapter
 import com.example.xenon.Adapter.Score.UpcomingMatchAdapter
 import com.example.xenon.DataClass.Score.MatchDetails
 import com.example.xenon.R
@@ -32,6 +32,7 @@ class Home : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        requireActivity().window.statusBarColor = 0xFFE9BD3E.toInt()
         binding.upcommingMatchsRV.visibility = View.INVISIBLE
         binding.resultMRv.visibility = View.INVISIBLE
         binding.resLot.visibility = View.VISIBLE
@@ -112,6 +113,7 @@ class Home : Fragment() {
     }
 
     private fun loadFragment(fragment: Fragment) {
+        requireActivity().window.statusBarColor = 0xFF000000.toInt()
         val transaction = parentFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment)
         transaction.addToBackStack(null)
