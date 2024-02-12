@@ -83,12 +83,13 @@
             <com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
                 android:id="@+id/result_mRv"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
                 android:layout_marginTop="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view1"
-                tools:listitem="@layout/layout_football" />
+                tools:listitem="@layout/layout_cricket" />
 
             <LinearLayout
                 android:id="@+id/lay3"
@@ -107,6 +108,7 @@
                     android:layout_weight="0.8"
                     android:fontFamily="@font/poppins_semibold"
                     android:letterSpacing="0.035"
+                    android:gravity="center_vertical"
                     android:text="Upcoming Matches"
                     android:textColor="@color/white"
                     android:textSize="20sp"
@@ -118,10 +120,9 @@
                     android:id="@+id/seeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/upcommingMatchTextView"
-                    android:layout_alignParentEnd="true"
                     android:layout_weight="0.2"
                     android:gravity="end"
+                    android:layout_gravity="center_vertical"
                     android:text="See all"
                     android:textColor="#E9BD3E"
                     android:textSize="17sp"
@@ -147,7 +148,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/upcommingMatchsRV"
                 android:layout_width="0dp"
-                android:layout_height="175dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -29,7 +29,9 @@ class Gallery : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGalleryBinding.inflate(layoutInflater, container, false)
-
+        binding.gallRV.visibility = View.INVISIBLE
+        binding.resLot.visibility = View.VISIBLE
+        binding.loadBtn.visibility = View.INVISIBLE
         return binding.root
     }
 
@@ -58,6 +60,9 @@ class Gallery : Fragment() {
                             gal.add(FlickrPhoto(photo.id, photo.farm, photo.server, photo.secret))
                         }
                         galAdapter.notifyDataSetChanged()
+                        binding.resLot.visibility = View.INVISIBLE
+                        binding.gallRV.visibility = View.VISIBLE
+                        binding.loadBtn.visibility = View.VISIBLE
                     }
                 }
 

@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
     android:background="@drawable/fade3">
 
     <LinearLayout
         android:id="@+id/lay1"
         android:layout_width="300dp"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,12 +20,12 @@
         <TextView
             android:id="@+id/matchName"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center_vertical|start"
             android:hint="match name"
-            android:paddingHorizontal="2dp"
+            android:paddingHorizontal="5dp"
             android:textAllCaps="true"
             android:textColor="#E9E9E9"
             android:textColorHint="@color/white"
@@ -34,7 +34,7 @@
         <TextView
             android:id="@+id/date"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.3"
             android:visibility="gone"
@@ -71,18 +71,17 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="-10dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingBottom="10dp"
         android:weightSum="1"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayout">
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.45"
             android:orientation="vertical">
 
@@ -99,6 +98,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
+                android:paddingHorizontal="5dp"
                 android:hint="clg-1"
                 android:letterSpacing="0.1"
                 android:textAllCaps="true"
@@ -120,7 +120,7 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.45"
             android:orientation="vertical">
 
@@ -137,6 +137,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
+                android:paddingHorizontal="5dp"
                 android:hint="clg-2"
                 android:letterSpacing="0.1"
                 android:textAllCaps="true"

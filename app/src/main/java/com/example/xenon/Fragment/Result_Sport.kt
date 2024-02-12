@@ -11,6 +11,7 @@ import com.example.xenon.databinding.FragmentResultSportBinding
 
 class Result_Sport : Fragment() {
     private lateinit var binding: FragmentResultSportBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -21,6 +22,9 @@ class Result_Sport : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.back.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
 
     }
 }

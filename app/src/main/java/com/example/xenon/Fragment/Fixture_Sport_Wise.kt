@@ -11,20 +11,20 @@ import com.example.xenon.Adapter.Fixture_Sport_Adapter
 import com.example.xenon.DataClass.FixtureDataClass.Fixture_Day_DataClass
 import com.example.xenon.DataClass.FixtureDataClass.FixtureSportDataClass
 import com.example.xenon.R
-import com.example.xenon.databinding.FragmentSportWiseBinding
+import com.example.xenon.databinding.FragmentFixtureSportWiseBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 
 class Fixture_Sport_Wise : Fragment() {
-    private lateinit var binding:FragmentSportWiseBinding
+    private lateinit var binding:FragmentFixtureSportWiseBinding
     private lateinit var fixAdapter: Fixture_Sport_Adapter
     private var fixture:MutableList<FixtureSportDataClass> = mutableListOf()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSportWiseBinding.inflate(layoutInflater, container, false)
+        binding = FragmentFixtureSportWiseBinding.inflate(layoutInflater, container, false)
         binding.seeRv.visibility = View.INVISIBLE
         binding.resLot.visibility = View.VISIBLE
         return binding.root

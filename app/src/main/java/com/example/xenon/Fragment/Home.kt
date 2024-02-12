@@ -15,6 +15,7 @@ import com.example.xenon.Activity.Main
 import com.example.xenon.Adapter.ResultAdapter.ResultAdapter
 import com.example.xenon.Adapter.Score.UpcomingMatchAdapter
 import com.example.xenon.DataClass.Score.MatchDetails
+import com.example.xenon.DataClass.Score.Matches
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentHomeBinding
 import com.example.xenon.other.AutoScroll
@@ -25,6 +26,7 @@ class Home : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var upcommingmatchesadapter: UpcomingMatchAdapter
     private lateinit var resultAdapter: ResultAdapter
+    private var resultList:MutableList<Matches> = mutableListOf()
     private var upcomingMatchesList: MutableList<MatchDetails> = mutableListOf()
     private lateinit var firestore: FirebaseFirestore
     private val autoScrollManagers = mutableListOf<AutoScroll>()
@@ -57,43 +59,30 @@ class Home : Fragment() {
 
         binding.refresh.setOnRefreshListener {
             Handler(Looper.getMainLooper()).postDelayed({
-                    fetchMatches()
-                }, 2000)
-
+                fetchMatches()
+            }, 2000)
 //            Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
-
         fetchMatches()
-
         binding.seeText.setOnClickListener {
             loadFragment(Fixture_Sport_Wise())
         }
-
         binding.events.setOnClickListener {
             loadFragment(Event())
         }
-
         binding.leaderboard.setOnClickListener {
             loadFragment(LeaderBoard())
         }
-
         binding.results.setOnClickListener {
             loadFragment(results())
         }
-
         binding.menu.setOnClickListener {
             openDrawer()
         }
         binding.fixture.setOnClickListener {
             loadFragment(Fixture_Sport_Wise())
         }
-
-//        binding.noti.setOnClickListener {
-//            loadFragment(Notification())
-//        }
-
         rotor(binding.upcommingMatchsRV)
-
         val autoScrollManager = AutoScroll(binding.resultMRv)
         autoScrollManager.startAutoScroll()
         autoScrollManagers.add(autoScrollManager)
@@ -123,6 +112,8 @@ class Home : Fragment() {
     private fun fetchMatches() {
         firestore.collection("Schedule").limit(5).get().addOnSuccessListener { documents ->
             upcomingMatchesList.clear()
+            resultList.clear()
+            val fixMap = mutableMapOf<String, MutableList<MatchDetails>>()
             for (document in documents) {
                 val matchName = document.getString("matchname") ?: ""
                 val date = document.getString("date") ?: ""
@@ -170,23 +161,12 @@ class Home : Fragment() {
                 binding.resultMRv.visibility = View.VISIBLE
                 binding.refresh.isRefreshing = false
             } else {
-                // Handle case where dataset is empty
-                // For example, you can show a message or hide the RecyclerViews
                 Toast.makeText(requireContext(), "No upcoming matches found", Toast.LENGTH_SHORT)
                     .show()
-                // Hide RecyclerViews
                 binding.upcommingMatchsRV.visibility = View.GONE
                 binding.resultMRv.visibility = View.GONE
-                // Show refresh layout again
                 binding.refresh.isRefreshing = false
             }
-//            upcommingmatchesadapter.notifyDataSetChanged()
-//            resultAdapter.notifyDataSetChanged()
-//            binding.matLot.visibility = View.INVISIBLE
-//            binding.resLot.visibility = View.INVISIBLE
-//            binding.upcommingMatchsRV.visibility = View.VISIBLE
-//            binding.resultMRv.visibility = View.VISIBLE
-//            binding.refresh.isRefreshing = false
         }.addOnFailureListener { e ->
             Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
         }
