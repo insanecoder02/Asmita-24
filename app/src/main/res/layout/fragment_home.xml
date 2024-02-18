@@ -83,8 +83,7 @@
             <com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
                 android:id="@+id/result_mRv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -148,7 +147,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/upcommingMatchsRV"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="180dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"

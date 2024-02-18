@@ -52,7 +52,7 @@ class Home : Fragment() {
         binding.resultMRv.layoutManager = CarouselLayoutManager(
             true, false, 0.7F, false, false, true, LinearLayoutManager.HORIZONTAL
         )
-        upcommingmatchesadapter = UpcomingMatchAdapter(upcomingMatchesList)
+        upcommingmatchesadapter = UpcomingMatchAdapter(upcomingMatchesList,parentFragmentManager,true)
         binding.upcommingMatchsRV.adapter = upcommingmatchesadapter
         binding.upcommingMatchsRV.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

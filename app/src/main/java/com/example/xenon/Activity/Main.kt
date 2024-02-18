@@ -1,12 +1,9 @@
 package com.example.xenon.Activity
 
-import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.xenon.Fragment.AboutUs
@@ -28,19 +25,8 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        setSupportActionBar(binding.toolbar)
         window.statusBarColor = 0xFFE9BD3E.toInt()
         binding.navView.setNavigationItemSelectedListener(this)
-//        val toggle = ActionBarDrawerToggle(
-//            this, binding.drawerLayout, binding.toolbar, R.string.open_nav, R.string.close_nav
-//        )
-//        binding.drawerLayout.addDrawerListener(toggle)
-//        toggle.syncState()
-//
-//        binding.notify.setOnClickListener {
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.fragment_container, Notification()).commit()
-//        }
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Home())
                 .commit()
@@ -49,7 +35,6 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         val openFragment = intent.getStringExtra("open")
         if (openFragment != null) {
-            // Open the appropriate fragment based on the extra data
             when (openFragment) {
                 "dev" -> {
                     val notificationContent = intent.getStringExtra("NotificationContent")
@@ -57,24 +42,18 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         loadFr(Developer())
                     }
                 }
-
                 "gal" -> {
                     loadFr(Gallery())
                 }
-
                 "team" -> {
                     loadFr(Team())
                 }
-
                 "abt" -> {
                     loadFr(AboutUs())
                 }
             }
         }
     }
-
-
-
     private fun loadFr(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragment_container, fragment)
@@ -116,11 +95,6 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
                 }
             }
-//            R.id.nav_contact -> {
-//                if (currentFragment !is AboutUs) {
-//                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AboutUs()).commit()
-//                }
-//            }
             R.id.nav_iiits -> {
                 if (currentFragment !is participating_iiits) {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, participating_iiits()).commit()
@@ -136,11 +110,9 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         binding.drawerLayout.openDrawer(GravityCompat.START)
     }
 
-
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
@@ -151,7 +123,6 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         .commit()
                     window.statusBarColor = 0xFFE9BD3E.toInt()
                 }
-
                 is Home -> {
                     AlertDialog.Builder(this)
                         .setMessage("Are you sure you want to exit?")
@@ -160,21 +131,10 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         .setNegativeButton("No", null)
                         .show()
                 }
-
                 else -> {
                     supportFragmentManager.popBackStack()
                 }
             }
         }
     }
-
-
-//    private fun setToolbarAndStatusBarColor(toolbarColorResId: Int, statusBarColorResId: Int) {
-//        binding.toolbar.setBackgroundColor(ContextCompat.getColor(this, toolbarColorResId))
-//        window.statusBarColor = ContextCompat.getColor(this, statusBarColorResId)
-//    }
-
-//    private fun resetToolbarAndStatusBarColor() {
-//        setToolbarAndStatusBarColor(R.color.black, R.color.black)
-//    }
 }

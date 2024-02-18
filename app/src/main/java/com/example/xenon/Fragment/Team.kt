@@ -18,6 +18,7 @@ import com.example.xenon.DataClass.Team.TeamMember
 import com.example.xenon.DataClass.Team.TeamSection
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentTeamBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Team : Fragment() {
@@ -42,6 +43,10 @@ class Team : Fragment() {
         binding.teamRV.layoutManager = LinearLayoutManager(requireContext())
         binding.imageView4.setOnClickListener {
             loadFragment(AboutUs())
+        }
+        binding.refresh.setOnRefreshListener {
+            fetch()
+            Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
 
         binding.menu.setOnClickListener {
@@ -138,6 +143,7 @@ class Team : Fragment() {
             wingAdapter.notifyDataSetChanged()
             binding.resLot.visibility = View.INVISIBLE
             binding.teamRV.visibility = View.VISIBLE
+            binding.refresh.isRefreshing = false
         }.addOnFailureListener { exception ->
             Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT).show()
         }

@@ -7,72 +7,87 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     tools:context=".Fragment.Developer">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/lay2"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:paddingHorizontal="10dp"
-            android:weightSum="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/menu"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/lay2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.1"
-                android:src="@drawable/menu_black" />
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                android:weightSum="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/text1"
+                <ImageView
+                    android:id="@+id/menu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.1"
+                    android:src="@drawable/menu_black" />
+
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="-2dp"
+                    android:layout_weight="0.9"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="5dp"
+                    android:text="developer"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view1"
                 android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lay2" />.
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/resLot"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="300dp"
+                android:elevation="5dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/asmita" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/devRv"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginBottom="-2dp"
-                android:layout_weight="0.9"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="5dp"
-                android:text="developer"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="22sp" />
-        </LinearLayout>
-
-        <View
-            android:id="@+id/view1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lay2" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/devRv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:paddingHorizontal="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view1"
-            tools:listitem="@layout/layout_developer" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_marginTop="5dp"
+                android:paddingHorizontal="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view1"
+                tools:listitem="@layout/layout_developer" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
