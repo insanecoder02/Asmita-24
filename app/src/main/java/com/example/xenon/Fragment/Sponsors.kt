@@ -8,11 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.xenon.Activity.Main
 import com.example.xenon.Adapter.SponserAdapter
-import com.example.xenon.DataClass.DeveloperDataClass
 import com.example.xenon.DataClass.Sponser
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentSponsorsBinding
@@ -56,6 +54,8 @@ class Sponsors : Fragment() {
     }
     private fun fetchIfNeeded() {
         if (shouldFetchData()) {
+            binding.sponsRV.visibility = View.INVISIBLE
+            binding.resLot.visibility = View.VISIBLE
             fetchFromFirestore()
         } else {
             loadFromCache()
@@ -78,6 +78,8 @@ class Sponsors : Fragment() {
             spon.clear()
             spon.addAll(sponsList)
             sponsAdapter.notifyDataSetChanged()
+            binding.resLot.visibility = View.INVISIBLE
+            binding.sponsRV.visibility = View.VISIBLE
         }
     }
 

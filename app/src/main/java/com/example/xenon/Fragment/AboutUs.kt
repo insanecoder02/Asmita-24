@@ -1,5 +1,7 @@
 package com.example.xenon.Fragment
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,19 +12,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xenon.Adapter.AboutAdapter
 import com.example.xenon.DataClass.AboutUs
 import com.example.xenon.databinding.FragmentAboutUsBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class AboutUs : Fragment() {
     private lateinit var binding: FragmentAboutUsBinding
     private val abtus: MutableList<AboutUs> = mutableListOf()
     private lateinit var abtAdapter: AboutAdapter
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentAboutUsBinding.inflate(layoutInflater, container, false)
-        binding.aboutRV.visibility = View.INVISIBLE
-        binding.resLot.visibility = View.VISIBLE
+        sharedPreferences = requireActivity().getSharedPreferences("About",Context.MODE_PRIVATE)
         return binding.root
     }
 
@@ -36,9 +41,41 @@ class AboutUs : Fragment() {
         binding.back.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
-        fetchFromFirestore()
+        binding.refresh.setOnRefreshListener {
+            fetchFromFirestore()
+            Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
+        }
+        fetchIfNeeded()
     }
-
+    private fun fetchIfNeeded() {
+        if(shouldFetchData()){
+            fetchFromFirestore()
+            binding.aboutRV.visibility = View.INVISIBLE
+            binding.resLot.visibility = View.VISIBLE
+        }
+        else{
+            loadFromCache()
+        }
+    }
+    private fun shouldFetchData(): Boolean {
+        val lastFetchTime = sharedPreferences.getLong("lastAboutFetchTime",0)
+        val currentTime = System.currentTimeMillis()
+        val elapsedTime = currentTime-lastFetchTime
+        val fetchInterval = 24*60*60*1000
+        return !sharedPreferences.getBoolean("dataAboutFetched",false) || elapsedTime>=fetchInterval
+    }
+    private fun loadFromCache() {
+        val json = sharedPreferences.getString("cachedAboutData",null)
+        if(json!=null){
+            val type = object :TypeToken<List<AboutUs>>() {}.type
+            val aboutList:List<AboutUs> = Gson().fromJson(json,type)
+            abtus.clear()
+            abtus.addAll(aboutList)
+            abtAdapter.notifyDataSetChanged()
+            binding.aboutRV.visibility = View.VISIBLE
+            binding.resLot.visibility = View.INVISIBLE
+        }
+    }
     private fun fetchFromFirestore() {
         abtus.clear()
         val db = FirebaseFirestore.getInstance()
@@ -50,10 +87,21 @@ class AboutUs : Fragment() {
                 abtus.add(item)
             }
             abtAdapter.notifyDataSetChanged()
+            binding.refresh.isRefreshing = false
             binding.resLot.visibility = View.INVISIBLE
             binding.aboutRV.visibility = View.VISIBLE
+            updateSharedPreferences()
         }.addOnFailureListener { e ->
             Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun updateSharedPreferences() {
+        val json = Gson().toJson(abtus)
+        sharedPreferences.edit().apply{
+            putBoolean("dataAboutFetched",true)
+            putLong("lastAboutFetchTime",System.currentTimeMillis())
+            putString("cachedAboutData",json)
+            apply()
         }
     }
 }

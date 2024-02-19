@@ -113,60 +113,6 @@ class LeaderBoard : Fragment() {
                 // Handle failure to fetch data
                 Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
             }
-
-//        db.collection("IIITS").orderBy("Points", Query.Direction.DESCENDING).get()
-//            .addOnSuccessListener { documents ->
-//                var count = 0 // Counter to track the top 3 records
-//                val top3List = mutableListOf<ParticipateIIITS>()
-//                val remainingList = mutableListOf<ParticipateIIITS>()
-//                for (document in documents) {
-//                    val name = document.getString("Name") ?: ""
-//                    val Logo = document.getString("logo") ?: ""
-//                    val Points = document.getLong("Points") ?: 0
-//                    val user = ParticipateIIITS(name, Logo, Points)
-//                    if (count < 3) {
-//                        top3List.add(user)
-//                    } else {
-//                        remainingList.add(user)
-//                    }
-//                    count++
-//                }
-//                top3.addAll(top3List.map { TopDataClass(it.Name, it.logo, it.Points) })
-//                user.addAll(remainingList)
-//                useAdapter.notifyDataSetChanged()
-//
-//                if (top3.isNotEmpty()) {
-//                    binding.first.text = top3[0].Name
-//                    binding.firstScore.text = top3[0].Points.toString()
-//                    Glide.with(requireContext())
-//                        .load(top3[0].logo)
-//                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-//                        .into(binding.firImg)
-//                }
-//                if (top3.size > 1) {
-//                    binding.second.text = top3[1].Name
-//                    binding.secondScore.text = top3[1].Points.toString()
-//                    Glide.with(requireContext())
-//                        .load(top3[1].logo)
-//                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-//                        .into(binding.secImg)
-//                }
-//                if (top3.size > 2) {
-//                    binding.third.text = top3[2].Name
-//                    binding.thirdScore.text = top3[2].Points.toString()
-//                    Glide.with(requireContext())
-//                        .load(top3[2].logo)
-//                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-//                        .into(binding.thiImg)
-//                }
-//                binding.resLot.visibility = View.INVISIBLE
-//                binding.leaderRv.visibility = View.VISIBLE
-//                binding.refresh.isRefreshing=false
-//
-//            }
-//            .addOnFailureListener { e ->
-//                Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
-//            }
         }
     }
 }

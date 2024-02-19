@@ -56,6 +56,8 @@ class Developer : Fragment() {
     private fun fetchIfNeeded() {
         if (shouldFetchData()) {
             fetch()
+            binding.resLot.visibility = View.VISIBLE
+            binding.devRv.visibility = View.INVISIBLE
         } else {
             loadFromCache()
         }
@@ -79,6 +81,8 @@ class Developer : Fragment() {
             dev.clear()
             dev.addAll(developerList)
             devAdapter.notifyDataSetChanged()
+            binding.resLot.visibility = View.INVISIBLE
+            binding.devRv.visibility = View.VISIBLE
         }
     }
 
@@ -96,6 +100,8 @@ class Developer : Fragment() {
             devAdapter.notifyDataSetChanged()
             Log.d("hello","data fetched")
             binding.refresh.isRefreshing = false
+            binding.resLot.visibility = View.INVISIBLE
+            binding.devRv.visibility = View.VISIBLE
             updateSharedPreferences()
         }.addOnFailureListener { e ->
             Toast.makeText(requireContext(), "Failed to fetch data: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()

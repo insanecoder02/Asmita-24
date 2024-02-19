@@ -1,6 +1,7 @@
 package com.example.xenon.Fragment
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,25 +15,28 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.xenon.Activity.Main
 import com.example.xenon.Adapter.Team.WingAdapter
+import com.example.xenon.DataClass.ParticipateIIITS
 import com.example.xenon.DataClass.Team.TeamMember
 import com.example.xenon.DataClass.Team.TeamSection
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentTeamBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class Team : Fragment() {
     private lateinit var binding: FragmentTeamBinding
     private var teamSections: MutableList<TeamSection> = mutableListOf()
     private lateinit var wingAdapter: WingAdapter
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentTeamBinding.inflate(layoutInflater, container, false)
-        binding.teamRV.visibility = View.INVISIBLE
-        binding.resLot.visibility = View.VISIBLE
+        sharedPreferences = requireActivity().getSharedPreferences("Team", Context.MODE_PRIVATE)
         return binding.root
     }
 
@@ -45,43 +49,24 @@ class Team : Fragment() {
             loadFragment(AboutUs())
         }
         binding.refresh.setOnRefreshListener {
-            fetch()
             Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
-
         binding.menu.setOnClickListener {
             openDrawer()
         }
-        fetchFromFirestore()
+        fetchIfNeeded()
         fetch()
     }
-    private fun openDrawer() {
-        val mainActivity = requireActivity() as Main
-        mainActivity.openDrawer()
+    private fun fetchIfNeeded() {
+        if (shouldFetchData()) {
+            binding.teamRV.visibility = View.INVISIBLE
+            binding.resLot.visibility = View.VISIBLE
+            fetchFromFirestore()
+        } else {
+            loadFromCache()
+        }
     }
 
-    private fun loadFragment(fragment: Fragment) {
-        val transaction = parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-    }
-
-    //    private fun loadData() {
-//        // Try to fetch data from SharedPreferences
-//        val sharedPreferences = requireContext().getSharedPreferences("TeamData", Context.MODE_PRIVATE)
-//        val savedDataJson = sharedPreferences.getString("teamSections", null)
-//
-//        if (savedDataJson != null) {
-//            // Data exists in SharedPreferences, load and display
-//            val savedData = Gson().fromJson(savedDataJson, TeamData::class.java)
-//            teamSections.addAll(savedData.teamSections)
-//            wingAdapter.notifyDataSetChanged()
-//        }
-//
-//        // Fetch data from Firestore
-//        fetchFromFirestore()
-//    }
     private fun fetch() {
         val sharedPreferences =
             requireContext().getSharedPreferences("ImageData", Context.MODE_PRIVATE)
@@ -117,7 +102,38 @@ class Team : Fragment() {
                 .into(binding.imageView4)
         }
     }
+    private fun shouldFetchData(): Boolean {
+        val lastFetchTime = sharedPreferences.getLong("lastTeamFetchTime", 0)
+        val currentTime = System.currentTimeMillis()
+        val elapsedTime = currentTime - lastFetchTime
+        val fetchInterval = 24 * 60 * 60 * 1000 // 24 hours in milliseconds
 
+        // Check if data has never been fetched or if more than 24 hours have passed since last fetch
+        return !sharedPreferences.getBoolean("teamDataFetched", false) || elapsedTime >= fetchInterval
+    }
+    private fun loadFromCache() {
+        val json = sharedPreferences.getString("cachedTeamData", null)
+        if (json != null) {
+            val type = object : TypeToken<List<TeamSection>>() {}.type
+            val partList: List<TeamSection> = Gson().fromJson(json, type)
+            teamSections.clear()
+            teamSections.addAll(partList)
+            wingAdapter.notifyDataSetChanged()
+            binding.resLot.visibility = View.INVISIBLE
+            binding.teamRV.visibility = View.VISIBLE
+        }
+    }
+    private fun openDrawer() {
+        val mainActivity = requireActivity() as Main
+        mainActivity.openDrawer()
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        val transaction = parentFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
     private fun fetchFromFirestore() {
         teamSections.clear()
         val db = FirebaseFirestore.getInstance()
@@ -144,69 +160,18 @@ class Team : Fragment() {
             binding.resLot.visibility = View.INVISIBLE
             binding.teamRV.visibility = View.VISIBLE
             binding.refresh.isRefreshing = false
+            updateSharedPreferences()
         }.addOnFailureListener { exception ->
             Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT).show()
         }
     }
-
-
-//    private fun updateLocalCache(snapshots: QuerySnapshot) {
-//        teamSections.clear()
-//        val wingMap = mutableMapOf<String, MutableList<TeamMember>>()
-//        for (document in snapshots.documents) {
-//            // Process Firestore document and update local cache
-//            val name = document.getString("name") ?: ""
-//            val role = document.getString("role") ?: ""
-//            val wing = document.getString("wing") ?: ""
-//            val teamMember = TeamMember(name)
-//            if (wingMap.containsKey(wing)) {
-//                wingMap[wing]?.add(teamMember)
-//            } else {
-//                wingMap[wing] = mutableListOf(teamMember)
-//            }
-//        }
-//        for ((wing, members) in wingMap) {
-//            val teamSection = TeamSection(wing, members)
-//            teamSections.add(teamSection)
-//        }
-//        wingAdapter.notifyDataSetChanged()
-//
-//        // Save the updated data to SharedPreferences
-//        saveDataToSharedPreferences()
-//    }
-
-//    .get().addOnSuccessListener { documents ->
-//            val wingMap = mutableMapOf<String, MutableList<TeamMember>>()
-//            for (document in documents) {
-//                val name = document.getString("name") ?: ""
-//                val role = document.getString("role") ?: ""
-//                val wing = document.getString("wing") ?: ""
-//                val teamMember = TeamMember(name)
-//                if (wingMap.containsKey(wing)) {
-//                    wingMap[wing]?.add(teamMember)
-//                } else {
-//                    wingMap[wing] = mutableListOf(teamMember)
-//                }
-//            }
-//            for ((wing, members) in wingMap) {
-//                val teamSection = TeamSection(wing, members)
-//                teamSections.add(teamSection)
-//            }
-//            wingAdapter.notifyDataSetChanged()
-//            saveDataToSharedPreferences()
-//        }.addOnFailureListener { exception ->
-//            Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT).show()
-//        }
-//    }
-//    private fun saveDataToSharedPreferences() {
-//        val sharedPreferences = requireContext().getSharedPreferences("TeamData", Context.MODE_PRIVATE)
-//        val editor = sharedPreferences.edit()
-//
-//        val teamData = TeamData(teamSections.toList())
-//        val dataJson = Gson().toJson(teamData)
-//
-//        editor.putString("teamSections", dataJson)
-//        editor.apply()
-//    }
-//    data class TeamData(val teamSections: List<TeamSection>)
+    private fun updateSharedPreferences() {
+        val json = Gson().toJson(teamSections)
+        sharedPreferences.edit().apply {
+            putBoolean("teamDataFetched", true)
+            putLong("lastTeamFetchTime", System.currentTimeMillis())
+            putString("cachedTeamData", json)
+            apply()
+        }
+    }
 }

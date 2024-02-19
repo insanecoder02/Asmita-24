@@ -23,7 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.7"
+            android:layout_weight="0.6"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center_vertical|start"
             android:hint="match name"
@@ -38,7 +38,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.3"
+            android:layout_weight="0.4"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center_vertical|end"
             android:hint="date"
@@ -168,6 +168,22 @@
                 android:textColor="@color/white"
                 android:textSize="18dp" />
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/backlesss"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center|bottom"
+            android:layout_gravity="center_horizontal"
+            android:paddingHorizontal="8dp"
+            android:text="inter iiit 2024"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </LinearLayout>
 
     <TextView
@@ -178,12 +194,11 @@
         android:fontFamily="@font/poppins_medium"
         android:gravity="center|bottom"
         android:paddingHorizontal="8dp"
-        android:paddingTop="3dp"
         android:text="inter iiit 2024"
+        android:visibility="gone"
         android:textAllCaps="true"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

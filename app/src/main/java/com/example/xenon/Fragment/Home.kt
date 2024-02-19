@@ -19,6 +19,7 @@ import com.example.xenon.DataClass.Score.Matches
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentHomeBinding
 import com.example.xenon.other.AutoScroll
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jackandphantom.carouselrecyclerview.CarouselLayoutManager
 
@@ -58,10 +59,8 @@ class Home : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         binding.refresh.setOnRefreshListener {
-            Handler(Looper.getMainLooper()).postDelayed({
                 fetchMatches()
-            }, 2000)
-//            Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
         fetchMatches()
         binding.seeText.setOnClickListener {
@@ -126,7 +125,7 @@ class Home : Fragment() {
                 val score2 = document.getString("score2") ?: "0"
                 val ov1 = document.getString("over1") ?: "0"
                 val ov2 = document.getString("over2") ?: "0"
-                val type = document.getString("type") ?: "0"
+                val type = document.getString("type") ?: "football"
                 val pt = document.getString("point") ?: "0"
                 val p1 = document.getString("player1") ?: "0"
                 val p2 = document.getString("player2") ?: "0"
