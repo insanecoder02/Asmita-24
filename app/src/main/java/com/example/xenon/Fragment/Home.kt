@@ -2,8 +2,6 @@ package com.example.xenon.Fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +10,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xenon.Activity.Main
+import com.example.xenon.Adapter.FixAdapter
 import com.example.xenon.Adapter.ResultAdapter.ResultAdapter
-import com.example.xenon.Adapter.Score.UpcomingMatchAdapter
+import com.example.xenon.DataClass.FixtureDataClass.FixtureSportDataClass
+import com.example.xenon.DataClass.FixtureDataClass.Fixture_Day_DataClass
 import com.example.xenon.DataClass.Score.MatchDetails
 import com.example.xenon.DataClass.Score.Matches
 import com.example.xenon.R
@@ -25,9 +25,10 @@ import com.jackandphantom.carouselrecyclerview.CarouselLayoutManager
 
 class Home : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var upcommingmatchesadapter: UpcomingMatchAdapter
+    private lateinit var fixAdapter: FixAdapter
     private lateinit var resultAdapter: ResultAdapter
-    private var resultList:MutableList<Matches> = mutableListOf()
+    private var resultList: MutableList<Matches> = mutableListOf()
+    private var fixture: MutableList<FixtureSportDataClass> = mutableListOf()
     private var upcomingMatchesList: MutableList<MatchDetails> = mutableListOf()
     private lateinit var firestore: FirebaseFirestore
     private val autoScrollManagers = mutableListOf<AutoScroll>()
@@ -53,16 +54,18 @@ class Home : Fragment() {
         binding.resultMRv.layoutManager = CarouselLayoutManager(
             true, false, 0.7F, false, false, true, LinearLayoutManager.HORIZONTAL
         )
-        upcommingmatchesadapter = UpcomingMatchAdapter(upcomingMatchesList,parentFragmentManager,true)
-        binding.upcommingMatchsRV.adapter = upcommingmatchesadapter
+        fixAdapter = FixAdapter(fixture,parentFragmentManager)
+        binding.upcommingMatchsRV.adapter = fixAdapter
         binding.upcommingMatchsRV.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         binding.refresh.setOnRefreshListener {
-                fetchMatches()
+            fetchResult()
+            fetchFixtures()
             Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
-        fetchMatches()
+        fetchResult()
+        fetchFixtures()
         binding.seeText.setOnClickListener {
             loadFragment(Fixture_Sport_Wise())
         }
@@ -73,7 +76,7 @@ class Home : Fragment() {
             loadFragment(LeaderBoard())
         }
         binding.results.setOnClickListener {
-            loadFragment(results())
+            loadFragment(Result_Sport())
         }
         binding.menu.setOnClickListener {
             openDrawer()
@@ -108,11 +111,51 @@ class Home : Fragment() {
         transaction.commit()
     }
 
-    private fun fetchMatches() {
-        firestore.collection("Schedule").limit(5).get().addOnSuccessListener { documents ->
-            upcomingMatchesList.clear()
-            resultList.clear()
-            val fixMap = mutableMapOf<String, MutableList<MatchDetails>>()
+    private fun fetchFixtures() {
+        fixture.clear()
+        firestore.collection("Fixture").orderBy("no").get().addOnSuccessListener { documents ->
+            val fixMap = mutableMapOf<String, MutableList<Fixture_Day_DataClass>>()
+            for (document in documents) {
+                val name = document.getString("day") ?: ""
+                val image = document.getString("image") ?: ""
+                val type = document.getString("type") ?: ""
+                val dayWise = Fixture_Day_DataClass(name)
+                if (fixMap.containsKey(type)) {
+                    fixMap[type]?.add(dayWise)
+                } else {
+                    fixMap[type] = mutableListOf(dayWise)
+                }
+            }
+            for ((type, day) in fixMap) {
+                val teamSection = FixtureSportDataClass(type, day)
+                fixture.add(teamSection)
+            }
+            fixAdapter.notifyDataSetChanged()
+            binding.resLot.visibility = View.INVISIBLE
+            binding.upcommingMatchsRV.visibility = View.VISIBLE
+            binding.refresh.isRefreshing = false
+
+        }.addOnFailureListener { e ->
+            Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
+        }
+    }
+//    private fun loadNextFragment(data: YourDataClass) {
+//        val jsonString = Gson().toJson(data)
+//        val bundle = Bundle().apply {
+//            putString("jsonData", jsonString)
+//        }
+//        val nextFragment = Fixture_Sport_Wise()
+//        nextFragment.arguments = bundle
+//        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+//        transaction.replace(R.id.fragment_container, nextFragment)
+//        transaction.addToBackStack(null)
+//        transaction.commit()
+//    }
+
+
+    private fun fetchResult() {
+        firestore.collection("Schedule").get().addOnSuccessListener { documents ->
+            val allResult = mutableListOf<MatchDetails>()
             for (document in documents) {
                 val matchName = document.getString("matchname") ?: ""
                 val date = document.getString("date") ?: ""
@@ -130,7 +173,7 @@ class Home : Fragment() {
                 val p1 = document.getString("player1") ?: "0"
                 val p2 = document.getString("player2") ?: "0"
                 val p3 = document.getString("player3") ?: "0"
-                upcomingMatchesList.add(
+                allResult.add(
                     MatchDetails(
                         matchName,
                         date,
@@ -151,21 +194,14 @@ class Home : Fragment() {
                     )
                 )
             }
-            if (upcomingMatchesList.isNotEmpty()) {
-                upcommingmatchesadapter.notifyDataSetChanged()
-                resultAdapter.notifyDataSetChanged()
-                binding.matLot.visibility = View.INVISIBLE
-                binding.resLot.visibility = View.INVISIBLE
-                binding.upcommingMatchsRV.visibility = View.VISIBLE
-                binding.resultMRv.visibility = View.VISIBLE
-                binding.refresh.isRefreshing = false
-            } else {
-                Toast.makeText(requireContext(), "No upcoming matches found", Toast.LENGTH_SHORT)
-                    .show()
-                binding.upcommingMatchsRV.visibility = View.GONE
-                binding.resultMRv.visibility = View.GONE
-                binding.refresh.isRefreshing = false
-            }
+            upcomingMatchesList.clear()
+            upcomingMatchesList.addAll(allResult.take(5))
+            resultAdapter.notifyDataSetChanged()
+            binding.matLot.visibility = View.INVISIBLE
+            binding.resLot.visibility = View.INVISIBLE
+            binding.upcommingMatchsRV.visibility = View.VISIBLE
+            binding.resultMRv.visibility = View.VISIBLE
+            binding.refresh.isRefreshing = false
         }.addOnFailureListener { e ->
             Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
         }

@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.xenon.DataClass.ParticipateIIITS
 import com.example.xenon.R
+import kotlin.random.Random
 
 class ParticipatingAdapter(
     private val iiits: MutableList<ParticipateIIITS>
@@ -32,6 +33,15 @@ class ParticipatingAdapter(
             .error(R.drawable.group)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(holder.logo)
+        holder.itemView.setOnClickListener { itemView ->
+                itemView.isClickable = false // Disable click on the clicked item
+
+                val rotationDirection = if (Random.nextBoolean()) 1 else -1
+                itemView.animate().rotationYBy(rotationDirection * 360f).setDuration(1000)
+                    .withEndAction {
+                        itemView.isClickable = true // Enable click once animation is completed
+                    }.start()
+        }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

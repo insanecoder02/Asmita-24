@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.xenon.Adapter.FixAdapter
 import com.example.xenon.Adapter.Fixture_Sport_Adapter
 import com.example.xenon.DataClass.FixtureDataClass.Fixture_Day_DataClass
 import com.example.xenon.DataClass.FixtureDataClass.FixtureSportDataClass
@@ -91,4 +92,5 @@ class Fixture_Sport_Wise : Fragment() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
 }

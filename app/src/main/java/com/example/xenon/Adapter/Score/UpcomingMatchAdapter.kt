@@ -18,7 +18,6 @@ class UpcomingMatchAdapter(
     private val fragmentManager: FragmentManager,
     private val isHomeFragment: Boolean
 ) : RecyclerView.Adapter<UpcomingMatchAdapter.viewHolder>() {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_schedule, parent, false)
         return viewHolder(view)

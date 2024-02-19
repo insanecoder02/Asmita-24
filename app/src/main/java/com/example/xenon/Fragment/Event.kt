@@ -1,5 +1,7 @@
 package com.example.xenon.Fragment
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,11 +14,14 @@ import com.example.xenon.Adapter.EventsAdapter.FeaturedEventsAdapter
 import com.example.xenon.Adapter.Team.EventsAdapter
 import com.example.xenon.DataClass.EventDataClass.EveDataClass
 import com.example.xenon.DataClass.EventDataClass.Events
+import com.example.xenon.DataClass.ParticipateIIITS
 import com.example.xenon.R
 import com.example.xenon.databinding.FragmentEventBinding
 import com.example.xenon.other.AutoScroll
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class Event : Fragment() {
     private lateinit var binding: FragmentEventBinding
@@ -25,13 +30,14 @@ class Event : Fragment() {
     private var featuredClass: MutableList<Events> = mutableListOf()
     private lateinit var eventsAdapter: FeaturedEventsAdapter
     private val autoScrollManagers = mutableListOf<AutoScroll>()
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentEventBinding.inflate(layoutInflater, container, false)
-        binding.resLot.visibility = View.VISIBLE
+        sharedPreferences = requireActivity().getSharedPreferences("Event", Context.MODE_PRIVATE)
         return binding.root
     }
 
@@ -46,7 +52,6 @@ class Event : Fragment() {
         binding.featuredRv.adapter = eventsAdapter
         binding.featuredRv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        fetchFromFirestore()
         binding.back.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
@@ -54,8 +59,38 @@ class Event : Fragment() {
             fetchFromFirestore()
             Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
-
+//        fetchIfNeeded()
+        fetchFromFirestore()
         rotor(binding.featuredRv)
+    }
+    private fun fetchIfNeeded() {
+//        if (shouldFetchData()) {
+//            binding.resLot.visibility = View.VISIBLE
+//            fetchFromFirestore()
+//        } else {
+//            loadFromCache()
+//        }
+    }
+    private fun shouldFetchData(): Boolean {
+        val lastFetchTime = sharedPreferences.getLong("lastEveFetchTime", 0)
+        val currentTime = System.currentTimeMillis()
+        val elapsedTime = currentTime - lastFetchTime
+        val fetchInterval = 1 * 60 * 1000 // 1 hours in milliseconds
+
+        // Check if data has never been fetched or if more than 24 hours have passed since last fetch
+        return !sharedPreferences.getBoolean("eveDataFetched", false) || elapsedTime >= fetchInterval
+    }
+
+    private fun loadFromCache() {
+        val json = sharedPreferences.getString("cachedEveData", null)
+        if (json != null) {
+            val type = object : TypeToken<List<EveDataClass>>() {}.type
+            val eveList: List<EveDataClass> = Gson().fromJson(json, type)
+            eventClass.clear()
+            eventClass.addAll(eveList)
+            wingAdapter.notifyDataSetChanged()
+            binding.resLot.visibility = View.INVISIBLE
+        }
     }
 
     private fun rotor(recyclerView: RecyclerView) {
@@ -102,11 +137,21 @@ class Event : Fragment() {
                 wingAdapter.notifyDataSetChanged()
                 binding.resLot.visibility = View.INVISIBLE
                 binding.refresh.isRefreshing=false
-
+//                updateSharedPreferences()
             }.addOnFailureListener { exception ->
                 Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT)
                     .show()
             }
+    }
+
+    private fun updateSharedPreferences() {
+        val json = Gson().toJson(eventClass)
+        sharedPreferences.edit().apply {
+            putBoolean("eveDataFetched", true)
+            putLong("lastEveFetchTime", System.currentTimeMillis())
+            putString("cachedEveData", json)
+            apply()
+        }
     }
 
     fun onItemClick(item: Events) {

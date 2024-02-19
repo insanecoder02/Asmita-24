@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.xenon.DataClass.Score.MatchDetails
+import com.example.xenon.Fragment.Result_Sport
 import com.example.xenon.Fragment.results
 import com.example.xenon.R
 
@@ -123,11 +124,10 @@ class ResultAdapter (val sch: List<MatchDetails>,
             }
             else -> throw IllegalArgumentException("Invalid view type")
         }
-
     }
     private fun load(){
         fragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, results())
+            .replace(R.id.fragment_container, Result_Sport())
             .addToBackStack(null)
             .commit()
     }
