@@ -24,6 +24,7 @@ class results : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentResultsBinding.inflate(layoutInflater, container, false)
+        requireActivity().window.statusBarColor = 0xFF000000.toInt()
         binding.resultRv.visibility = View.INVISIBLE
         binding.resLot.visibility = View.VISIBLE
         return binding.root

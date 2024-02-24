@@ -81,7 +81,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.3"
+            android:layout_weight="0.35"
             android:orientation="vertical">
 
             <ImageView
@@ -97,6 +97,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
+                android:textSize="14dp"
                 android:hint="clg-1"
                 android:letterSpacing="0.1"
                 android:paddingHorizontal="5dp"
@@ -110,10 +111,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.4"
+            android:layout_weight="0.3"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
-            android:text="3 - 2"
             android:textColor="@color/white"
             android:textSize="28dp" />
 
@@ -121,7 +121,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.3"
+            android:layout_weight="0.35"
             android:orientation="vertical">
 
             <ImageView
@@ -135,6 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:textSize="14dp"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:hint="clg-2"
@@ -155,6 +156,7 @@
         android:fontFamily="@font/poppins_medium"
         android:gravity="center|bottom"
         android:paddingHorizontal="8dp"
+        android:textSize="14dp"
         android:paddingTop="3dp"
         android:text="inter iiit 2024"
         android:textAllCaps="true"

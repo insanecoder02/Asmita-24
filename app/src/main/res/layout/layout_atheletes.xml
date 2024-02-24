@@ -179,6 +179,7 @@
             android:layout_gravity="center_horizontal"
             android:paddingHorizontal="8dp"
             android:text="inter iiit 2024"
+            android:textSize="14dp"
             android:textAllCaps="true"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -186,19 +187,19 @@
             app:layout_constraintStart_toStartOf="parent" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/backlesss"
-        android:fontFamily="@font/poppins_medium"
-        android:gravity="center|bottom"
-        android:paddingHorizontal="8dp"
-        android:text="inter iiit 2024"
-        android:visibility="gone"
-        android:textAllCaps="true"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:background="@drawable/backlesss"-->
+<!--        android:fontFamily="@font/poppins_medium"-->
+<!--        android:gravity="center|bottom"-->
+<!--        android:paddingHorizontal="8dp"-->
+<!--        android:text="inter iiit 2024"-->
+<!--        android:visibility="gone"-->
+<!--        android:textAllCaps="true"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
