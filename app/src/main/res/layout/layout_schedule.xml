@@ -37,7 +37,7 @@
         android:text="Sports name"
         android:textColor="@color/white"
         android:textAllCaps="true"
-        android:textSize="24sp"
+        android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

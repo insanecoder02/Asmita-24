@@ -53,7 +53,7 @@
                     android:text="Name"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -64,7 +64,7 @@
                     android:fontFamily="@font/poppins_light"
                     android:text="desgination"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

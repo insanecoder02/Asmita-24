@@ -48,7 +48,7 @@
                     android:paddingHorizontal="5dp"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
-                    android:textSize="22sp" />
+                    android:textSize="22dp" />
             </LinearLayout>
 
             <View
