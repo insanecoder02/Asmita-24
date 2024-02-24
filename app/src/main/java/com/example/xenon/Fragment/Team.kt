@@ -15,7 +15,6 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.xenon.Activity.Main
 import com.example.xenon.Adapter.Team.WingAdapter
-import com.example.xenon.DataClass.ParticipateIIITS
 import com.example.xenon.DataClass.Team.TeamMember
 import com.example.xenon.DataClass.Team.TeamSection
 import com.example.xenon.R
@@ -49,6 +48,7 @@ class Team : Fragment() {
             loadFragment(AboutUs())
         }
         binding.refresh.setOnRefreshListener {
+            fetchFromFirestore()
             Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
         binding.menu.setOnClickListener {

@@ -127,7 +127,7 @@ class ResultAdapter (val sch: List<MatchDetails>,
     }
     private fun load(){
         fragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, Result_Sport())
+            .replace(R.id.fragment_container, results())
             .addToBackStack(null)
             .commit()
     }

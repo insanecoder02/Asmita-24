@@ -78,13 +78,6 @@ class Fixture_Sport_Wise : Fragment() {
         val bundle = Bundle()
         bundle.putString("name", item.type ?: "Name")
         bundle.putString("dayListJson", Gson().toJson(item.fix))
-//        bundle.putString("date", item.date ?: "Date")
-//        bundle.putString("image", item.image ?: "image")
-//        bundle.putString("discription", item.discription ?: "Discription")
-//        bundle.putString("heading", item.heading ?: "Heading")
-//        bundle.putString("length", item.length ?: "Length")
-//        bundle.putString("location", item.location ?: "Location")
-//        bundle.putString("type", item.type ?: "Type")
         val nextFragment = Fixture_Day_Wise()
         nextFragment.arguments = bundle
         val transaction = requireActivity().supportFragmentManager.beginTransaction()

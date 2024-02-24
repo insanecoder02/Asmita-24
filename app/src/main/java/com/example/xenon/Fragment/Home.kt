@@ -21,6 +21,7 @@ import com.example.xenon.databinding.FragmentHomeBinding
 import com.example.xenon.other.AutoScroll
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
 import com.jackandphantom.carouselrecyclerview.CarouselLayoutManager
 
 class Home : Fragment() {
@@ -54,7 +55,7 @@ class Home : Fragment() {
         binding.resultMRv.layoutManager = CarouselLayoutManager(
             true, false, 0.7F, false, false, true, LinearLayoutManager.HORIZONTAL
         )
-        fixAdapter = FixAdapter(fixture,parentFragmentManager)
+        fixAdapter = FixAdapter(fixture,parentFragmentManager,this)
         binding.upcommingMatchsRV.adapter = fixAdapter
         binding.upcommingMatchsRV.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -76,7 +77,7 @@ class Home : Fragment() {
             loadFragment(LeaderBoard())
         }
         binding.results.setOnClickListener {
-            loadFragment(Result_Sport())
+            loadFragment(results())
         }
         binding.menu.setOnClickListener {
             openDrawer()
@@ -139,20 +140,6 @@ class Home : Fragment() {
             Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
         }
     }
-//    private fun loadNextFragment(data: YourDataClass) {
-//        val jsonString = Gson().toJson(data)
-//        val bundle = Bundle().apply {
-//            putString("jsonData", jsonString)
-//        }
-//        val nextFragment = Fixture_Sport_Wise()
-//        nextFragment.arguments = bundle
-//        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//        transaction.replace(R.id.fragment_container, nextFragment)
-//        transaction.addToBackStack(null)
-//        transaction.commit()
-//    }
-
-
     private fun fetchResult() {
         firestore.collection("Schedule").get().addOnSuccessListener { documents ->
             val allResult = mutableListOf<MatchDetails>()
@@ -205,5 +192,16 @@ class Home : Fragment() {
         }.addOnFailureListener { e ->
             Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
         }
+    }
+    fun onItemClick(item: FixtureSportDataClass) {
+        val bundle = Bundle()
+        bundle.putString("name", item.type ?: "Name")
+        bundle.putString("dayListJson", Gson().toJson(item.fix))
+        val nextFragment = Fixture_Day_Wise()
+        nextFragment.arguments = bundle
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, nextFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }

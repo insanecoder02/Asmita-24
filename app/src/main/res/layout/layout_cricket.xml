@@ -42,7 +42,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center_vertical|end"
             android:hint="date"
-            android:paddingEnd="10dp"
+            android:paddingHorizontal="5dp"
             android:textColor="#E9E9E9"
             android:textColorHint="@color/white"
             android:textSize="16dp" />
@@ -98,7 +98,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:hint="clg-1"
-                android:letterSpacing="0.01"
+                android:letterSpacing="0.1"
                 android:paddingHorizontal="5dp"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
@@ -217,10 +217,12 @@
         android:fontFamily="@font/poppins_medium"
         android:gravity="center|bottom"
         android:paddingHorizontal="8dp"
+        android:paddingTop="3dp"
         android:text="inter iiit 2024"
         android:textAllCaps="true"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

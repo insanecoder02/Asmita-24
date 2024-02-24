@@ -13,7 +13,8 @@ import com.example.xenon.R
 
 class FixAdapter(
     private val day: MutableList<FixtureSportDataClass>,
-    private val fragmentManager: FragmentManager
+    private val fragmentManager: FragmentManager,
+    private val itemClickListener: com.example.xenon.Fragment.Home
 ) : RecyclerView.Adapter<FixAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.name)
@@ -32,7 +33,7 @@ class FixAdapter(
         val fix = day[position]
         holder.name.text = fix.type
         holder.itemView.setOnClickListener {
-                load()
+            itemClickListener.onItemClick(day[position])
         }
     }
     private fun load(){
