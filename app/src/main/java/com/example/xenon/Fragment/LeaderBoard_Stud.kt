@@ -1,31 +1,37 @@
 package com.example.xenon.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.xenon.Adapter.LeaderAdapter
-import com.example.xenon.DataClass.ParticipateIIITS
-import com.example.xenon.DataClass.TopDataClass
 import com.example.xenon.databinding.FragmentLeaderBoardStudBinding
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
+import org.json.JSONException
+
+
+data class IIITData(
+    val Name: String,
+    val Logo: String,
+    val Points: Int,
+)
+
 
 class LeaderBoard_Stud : Fragment() {
     private lateinit var binding: FragmentLeaderBoardStudBinding
-    private var user: MutableList<ParticipateIIITS> = mutableListOf()
-    private var top3: MutableList<TopDataClass> = mutableListOf()
+    private var userListNo3: MutableList<IIITData> = mutableListOf()
+    private var top3iiitslist3: MutableList<IIITData> = mutableListOf()
     private lateinit var useAdapter: LeaderAdapter
+    private val leaderBoardURL = "https://app-admin-api.asmitaiiita.org/api/leaderboard/"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,77 +45,92 @@ class LeaderBoard_Stud : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        useAdapter = LeaderAdapter(user)
+        useAdapter = LeaderAdapter(userListNo3)
         binding.leaderRv.layoutManager = LinearLayoutManager(context)
         binding.leaderRv.adapter = useAdapter
-        fetchFromFirestore()
+        fetchFromURl()
         binding.refresh.setOnRefreshListener {
-            fetchFromFirestore()
+            fetchFromURl()
             Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
     }
 
-    private fun fetchFromFirestore() {
-        user.clear()
-        top3.clear()
-        val db = FirebaseFirestore.getInstance()
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                val documents = db.collection("IIITS")
-                    .orderBy("Points", Query.Direction.DESCENDING)
-                    .get()
-                    .await()
+    private fun fetchFromURl() {
+            userListNo3.clear()
+            top3iiitslist3.clear()
+            val url = leaderBoardURL // Replace with your actual URL
+            val requestQueue = Volley.newRequestQueue(requireContext())
+            val jsonObjectRequest = JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                { response ->
+                    try {
+                        val top3List = mutableListOf<IIITData>()
+                        val remainingList = mutableListOf<IIITData>()
+                        val dataArray = response.getJSONArray("data")
+                        for (i in 0 until dataArray.length()) {
+                            val jsonObject = dataArray.getJSONObject(i)
+                            val name = jsonObject.getString("Name")
+                            val logo = jsonObject.getString("Logo")
+                            val points = jsonObject.getInt("Points")
+                            val leaderBoardData = IIITData( Name = name, Logo = logo, Points = points)
+                            if(i < 3 ){
+                                top3List.add(leaderBoardData)
+                            }
+                            else{
+                                remainingList.add(leaderBoardData)
+                            }
+                        }
+                        top3iiitslist3.addAll(top3List.map { IIITData(it.Name, it.Logo, it.Points) })
+                        userListNo3.addAll(remainingList)
+                        useAdapter.notifyDataSetChanged()
 
-                var count = 0 // Counter to track the top 3 records
-                val top3List = mutableListOf<ParticipateIIITS>()
-                val remainingList = mutableListOf<ParticipateIIITS>()
-                for (document in documents) {
-                    val name = document.getString("Name") ?: ""
-                    val Logo = document.getString("logo") ?: ""
-                    val Points = document.getLong("Points") ?: 0
-                    val user = ParticipateIIITS(name, Logo, Points)
-                    if (count < 3) {
-                        top3List.add(user)
-                    } else {
-                        remainingList.add(user)
+
+                        if (top3iiitslist3.isNotEmpty()) {
+                            binding.first.text = top3iiitslist3[0].Name
+                            binding.firstScore.text = top3iiitslist3[0].Points.toString()
+                            Glide.with(requireContext())
+                                .load(top3iiitslist3[0].Logo)
+                                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                                .into(binding.firImg)
+                        }
+                        if (top3iiitslist3.size > 1) {
+                            binding.second.text = top3iiitslist3[1].Name
+                            binding.secondScore.text = top3iiitslist3[1].Points.toString()
+                            Glide.with(requireContext())
+                                .load(top3iiitslist3[1].Logo)
+                                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                                .into(binding.secImg)
+                        }
+                        if (top3iiitslist3.size > 2) {
+                            binding.third.text = top3iiitslist3[2].Name
+                            binding.thirdScore.text = top3iiitslist3[2].Points.toString()
+                            Glide.with(requireContext())
+                                .load(top3iiitslist3[2].Logo)
+                                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                                .into(binding.thiImg)
+                        }
+
+
+                        binding.resLot.visibility = View.INVISIBLE
+                        binding.leaderRv.visibility = View.VISIBLE
+                        binding.refresh.isRefreshing = false
+                        Log.d("LeaderBoard_Stud", "Data fetched successfully: $dataArray")
+                    } catch (e: JSONException) {
+                        // Handle failure to parse JSON
+                        Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
+                        Log.e("LeaderBoard_Stud", "Error parsing JSON", e)
                     }
-                    count++
+                },
+                { error ->
+                    // Handle failure to fetch data
+                    Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT).show()
+                    Log.e("LeaderBoard_Stud", "Error parsing JSON",error)
                 }
-                top3.addAll(top3List.map { TopDataClass(it.Name, it.logo, it.Points) })
-                user.addAll(remainingList)
-                useAdapter.notifyDataSetChanged()
+            )
+            requestQueue.add(jsonObjectRequest)
 
-                if (top3.isNotEmpty()) {
-                    binding.first.text = top3[0].Name
-                    binding.firstScore.text = top3[0].Points.toString()
-                    Glide.with(requireContext())
-                        .load(top3[0].logo)
-                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                        .into(binding.firImg)
-                }
-                if (top3.size > 1) {
-                    binding.second.text = top3[1].Name
-                    binding.secondScore.text = top3[1].Points.toString()
-                    Glide.with(requireContext())
-                        .load(top3[1].logo)
-                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                        .into(binding.secImg)
-                }
-                if (top3.size > 2) {
-                    binding.third.text = top3[2].Name
-                    binding.thirdScore.text = top3[2].Points.toString()
-                    Glide.with(requireContext())
-                        .load(top3[2].logo)
-                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                        .into(binding.thiImg)
-                }
-                binding.resLot.visibility = View.INVISIBLE
-                binding.leaderRv.visibility = View.VISIBLE
-                binding.refresh.isRefreshing = false
-            } catch (e: Exception) {
-                // Handle failure to fetch data
-                Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
-            }
-        }
+
     }
 }
