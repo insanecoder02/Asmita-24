@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/mem_img"
             android:layout_width="110dp"
             android:layout_height="110dp"
@@ -20,17 +20,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/fade2"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/mem_img"
-            app:layout_constraintEnd_toEndOf="@id/mem_img"
-            app:layout_constraintStart_toStartOf="@id/mem_img"
-            app:layout_constraintTop_toTopOf="@id/mem_img" />
 
         <TextView
             android:id="@+id/nameTextView"

@@ -1,15 +1,16 @@
 {
   "project_info": {
     "project_number": "479562500512",
+    "firebase_url": "https://argon-c1d67-default-rtdb.firebaseio.com",
     "project_id": "argon-c1d67",
     "storage_bucket": "argon-c1d67.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:479562500512:android:0965aa6a2aee293b88bcc5",
+        "mobilesdk_app_id": "1:479562500512:android:ab9329826fcd6a3c88bcc5",
         "android_client_info": {
-          "package_name": "com.example.argon"
+          "package_name": "com.example.adminappasmita"
         }
       },
       "oauth_client": [],
@@ -29,6 +30,25 @@
         "mobilesdk_app_id": "1:479562500512:android:d538468489c6fa4288bcc5",
         "android_client_info": {
           "package_name": "com.example.xenon"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRVXJU5V23abHiXuvoVEWqpCY6uVWIFrI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479562500512:android:21c69fa5ff6bc79688bcc5",
+        "android_client_info": {
+          "package_name": "com.interiiit.xenon"
         }
       },
       "oauth_client": [],

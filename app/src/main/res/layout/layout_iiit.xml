@@ -34,8 +34,8 @@
                 android:paddingHorizontal="5dp"
                 android:fontFamily="@font/poppins_medium"
                 android:textColor="@color/black"
-                android:breakStrategy="balanced"
-                android:textSize="16dp" />
+                android:gravity="start"
+                android:textSize="14dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

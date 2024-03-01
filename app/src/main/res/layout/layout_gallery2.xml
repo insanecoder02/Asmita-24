@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp"
+    android:paddingHorizontal="20dp"
     android:layout_marginVertical="10dp">
 
     <ImageView
         android:id="@+id/Sport_img"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="200dp"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,9 +17,10 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="200dp"
         android:scaleType="fitXY"
         android:src="@drawable/fade2"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/Sport_img"
         app:layout_constraintStart_toStartOf="@id/Sport_img"
         app:layout_constraintTop_toTopOf="@id/Sport_img" />
@@ -28,11 +29,12 @@
         android:id="@+id/sport"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/fade1"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
         android:text="TextView"
         android:textColor="@color/white"
-        android:textSize="16dp"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

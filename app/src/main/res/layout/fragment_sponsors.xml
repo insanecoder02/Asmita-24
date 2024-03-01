@@ -7,7 +7,74 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     tools:context=".Fragment.Sponsors">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/error"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cricket"
+            android:layout_marginTop="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.108" />
+
+        <TextView
+            android:id="@+id/text11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image11"
+            android:text="Network Error"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="24dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:fontFamily="@font/poppins_light"
+            android:gravity="center"
+            android:text="We cannot open this page. Please check your network connection."
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text11" />
+
+        <Button
+            android:id="@+id/loadBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#FFD633"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Reload"
+            android:layout_marginHorizontal="30dp"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/normal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -45,10 +112,9 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="5dp"
-                android:text="sponsors"
-                android:textAllCaps="true"
+                android:text="Sponsors"
                 android:textColor="@color/white"
-                android:textSize="22dp" />
+                android:textSize="20dp" />
         </LinearLayout>
 
         <View
@@ -62,25 +128,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lay2" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:elevation="1dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/fade1"
-            app:layout_constraintBottom_toBottomOf="@id/lay1"
-            app:layout_constraintEnd_toEndOf="@id/lay1"
-            app:layout_constraintStart_toStartOf="@id/lay1"
-            app:layout_constraintTop_toTopOf="@+id/lay1" />
-
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:id="@+id/lay1"
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:layout_marginTop="10dp"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginHorizontal="15dp"
             android:background="@drawable/fade3"
             android:backgroundTint="#FFD633"
+            app:cardCornerRadius="20dp"
             android:orientation="horizontal"
             android:weightSum="1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,17 +144,16 @@
             app:layout_constraintTop_toBottomOf="@id/view1">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="-20dp"
-                android:layout_weight="0.6"
+                android:layout_marginTop="-10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="28dp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="ASMITA"
                     android:textColor="@color/black"
@@ -112,17 +167,16 @@
                     android:fontFamily="@font/poppins_medium"
                     android:text="IIIT ALLAHABAD"
                     android:textColor="@color/black"
-                    android:textSize="26dp" />
+                    android:textSize="24dp" />
 
             </LinearLayout>
 
             <ImageView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sponimg" />
-        </LinearLayout>
+                android:layout_gravity="end"
+                android:src="@drawable/spons" />
+        </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sponsRV"
@@ -151,4 +205,5 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

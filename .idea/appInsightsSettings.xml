@@ -9,8 +9,8 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.example.xenon" />
-                  <option name="mobileSdkAppId" value="1:479562500512:android:d538468489c6fa4288bcc5" />
+                  <option name="appId" value="com.interiiit.xenon" />
+                  <option name="mobileSdkAppId" value="1:479562500512:android:21c69fa5ff6bc79688bcc5" />
                   <option name="projectId" value="argon-c1d67" />
                   <option name="projectNumber" value="479562500512" />
                 </ConnectionSetting>

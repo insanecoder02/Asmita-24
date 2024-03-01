@@ -26,10 +26,9 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
-                android:hint="S.no"
                 android:textColor="@color/black"
                 android:layout_weight="0.1"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textStyle="bold" />
 
             <ImageView
@@ -47,10 +46,9 @@
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.6"
-                android:hint="College name"
                 android:fontFamily="@font/poppins_medium"
                 android:textColor="@color/black"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -60,9 +58,8 @@
                 android:layout_gravity="end"
                 android:layout_weight="0.1"
                 android:gravity="center_vertical"
-                android:hint="Points"
                 android:textColor="#FFA41F"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="bold" />
 
 

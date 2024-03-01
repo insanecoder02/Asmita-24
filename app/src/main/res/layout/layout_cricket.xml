@@ -51,9 +51,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="-8dp"
         android:orientation="vertical"
-        android:visibility="gone">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lay1">
 
         <TextView
             android:id="@+id/time"
@@ -61,7 +63,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
-            android:hint="time"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="16dp" />
@@ -98,18 +99,19 @@
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:hint="clg-1"
-                android:textSize="14dp"
                 android:letterSpacing="0.1"
                 android:paddingHorizontal="5dp"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:textSize="12dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="5dp"
             android:layout_weight="0.4"
             android:orientation="vertical"
             android:weightSum="1">
@@ -131,7 +133,7 @@
                     android:hint="--"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
-                    android:textSize="18dp" />
+                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/poi2"
@@ -143,7 +145,7 @@
                     android:hint="--"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
-                    android:textSize="18dp" />
+                    android:textSize="16dp" />
 
             </LinearLayout>
 
@@ -164,7 +166,7 @@
                     android:hint="--"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/ov2"
@@ -176,7 +178,7 @@
                     android:hint="--"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
 
             </LinearLayout>
         </LinearLayout>
@@ -202,12 +204,12 @@
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:hint="clg-2"
-                android:textSize="14dp"
                 android:letterSpacing="0.1"
                 android:paddingHorizontal="5dp"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:textSize="12dp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -221,9 +223,9 @@
         android:paddingHorizontal="8dp"
         android:paddingTop="3dp"
         android:text="inter iiit 2024"
-        android:textSize="14dp"
         android:textAllCaps="true"
         android:textColor="@color/black"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
