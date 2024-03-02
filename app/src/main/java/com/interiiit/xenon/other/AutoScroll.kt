@@ -18,17 +18,25 @@ class AutoScroll(private val recyclerView: RecyclerView) {
                     val handler = Handler(recyclerView.context.mainLooper)
                     handler.post {
                         val layoutManager = recyclerView.layoutManager as? LinearLayoutManager
-                        val firstVisibleItemPosition = layoutManager?.findFirstVisibleItemPosition() ?: 0
-                        val child = recyclerView.getChildAt(0)
+                        val itemCount = recyclerView.adapter?.itemCount ?: 0
 
-                        if (child != null) {
-                            val itemWidth = child.width
-                            val currentPosition = firstVisibleItemPosition + 1
+                        if (itemCount > 0) {
+                            val firstVisibleItemPosition = layoutManager?.findFirstVisibleItemPosition() ?: 0
+                            val child = recyclerView.getChildAt(0)
 
-                            if (currentPosition == recyclerView.adapter?.itemCount) {
-                                recyclerView.scrollToPosition(0)
-                            } else {
-                                recyclerView.smoothScrollBy(itemWidth, 0)
+                            if (child != null) {
+                                val itemWidth = child.width
+                                val currentPosition = firstVisibleItemPosition + 1
+
+                                val scrollAmount = itemWidth
+
+//                                val isAtEnd = currentPosition == itemCount
+
+                                if (currentPosition==recyclerView.adapter?.itemCount) {
+                                    recyclerView.scrollToPosition(0)
+                                } else {
+                                    recyclerView.smoothScrollBy(scrollAmount, 0)
+                                }
                             }
                         }
                     }
@@ -43,6 +51,6 @@ class AutoScroll(private val recyclerView: RecyclerView) {
         isAutoScrolling = false
     }
     companion object {
-        private const val AUTO_SCROLL_INTERVAL_MS = 6000L // Adjust the interval as needed
+        private const val AUTO_SCROLL_INTERVAL_MS = 6000L
     }
 }

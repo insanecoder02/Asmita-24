@@ -16,6 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.interiiit.xenon.Adapter.LeaderAdapter
 import com.interiiit.xenon.databinding.FragmentLeaderBoardStudBinding
 import com.google.android.material.snackbar.Snackbar
+import com.interiiit.xenon.R
 import org.json.JSONException
 
 data class IIITData(
@@ -42,7 +43,34 @@ class LeaderBoard_Stud : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        useAdapter = LeaderAdapter(userListNo3)
+        val logo = mapOf(
+            "Allahabad" to R.drawable.allahabad,
+            "Gwalior" to R.drawable.gwalior,
+            "Kota" to R.drawable.kota,
+            "Lucknow" to R.drawable.lucknow,
+            "Manipur" to R.drawable.manipur,
+            "Nagpur" to R.drawable.nagpur,
+            "Pune" to R.drawable.pune,
+            "Raichur" to R.drawable.raichur,
+            "Ranchi" to R.drawable.ranchi,
+            "Sonepat" to R.drawable.sonepat,
+            "Surat" to R.drawable.surat,
+            "Tiruchirappalli" to R.drawable.trichy,
+            "Una" to R.drawable.una,
+            "Vadodara" to R.drawable.vadodra,
+            "Agartala" to R.drawable.agar,
+            "Bhagalpur" to R.drawable.bhagalpur,
+            "Bhopal" to R.drawable.bhopal,
+            "Chittoor" to R.drawable.chittor,
+            "Dharwad" to R.drawable.dharwad,
+            "Guwahati" to R.drawable.guwahati,
+            "Jabalpur" to R.drawable.jabalpur,
+            "Kalyani" to R.drawable.kalyani,
+            "Kancheepuram" to R.drawable.kancheepuram,
+            "Kottayam" to R.drawable.kottayam,
+            "Kurnool" to R.drawable.kurnool
+        )
+        useAdapter = LeaderAdapter(userListNo3,logo)
         binding.leaderRv.layoutManager = LinearLayoutManager(context)
         binding.leaderRv.adapter = useAdapter
         fetchFromURl()

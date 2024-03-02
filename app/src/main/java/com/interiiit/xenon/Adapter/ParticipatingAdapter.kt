@@ -11,7 +11,8 @@ import com.interiiit.xenon.R
 import kotlin.random.Random
 
 class ParticipatingAdapter(
-    private val iiits: MutableList<ParticipateIIITS>
+    private val iiits: MutableList<ParticipateIIITS>,
+    private  val logo:Map<String,Int>
 ) : RecyclerView.Adapter<ParticipatingAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,7 +29,7 @@ class ParticipatingAdapter(
 
         holder.name.text = IIIT.Name
         Glide.with(holder.itemView.context)
-            .load(IIIT.logo)
+            .load(logo[IIIT.Name])
             .thumbnail(0.1f)
             .error(R.drawable.group)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)

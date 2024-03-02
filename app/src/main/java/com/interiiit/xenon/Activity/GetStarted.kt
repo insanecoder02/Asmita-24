@@ -6,10 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.firebase.firestore.FirebaseFirestore
 import com.interiiit.xenon.databinding.ActivityGetStrtedBinding
+import java.io.File
+import java.io.IOException
 
 class GetStarted : AppCompatActivity() {
     private lateinit var binding: ActivityGetStrtedBinding
+    private var list:MutableList<String> = mutableListOf()
     var permissionGranted = false
     val notificationPermissionCode = 100
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,10 +25,14 @@ class GetStarted : AppCompatActivity() {
         window.statusBarColor = 0xFF000000.toInt()
 
         binding.getStartedBut.setOnClickListener {
+
            startActivity(Intent(this,Main::class.java))
             finish()
         }
+
     }
+
+
     private fun checkPermissions() {
         val notification = ContextCompat.checkSelfPermission(
             this, android.Manifest.permission.POST_NOTIFICATIONS

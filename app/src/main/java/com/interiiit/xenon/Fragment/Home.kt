@@ -56,7 +56,7 @@ class Home : Fragment() {
         resultAdapter = ResultAdapter(upcomingMatchesList)
         binding.resultMRv.adapter = resultAdapter
         binding.resultMRv.layoutManager = CarouselLayoutManager(
-            true, false, 0.7F, false, false, true, LinearLayoutManager.HORIZONTAL
+            false, false, 0.7F, false, false, true, LinearLayoutManager.HORIZONTAL
         )
         fixAdapter = FixAdapter(fixture,this)
         binding.upcommingMatchsRV.adapter = fixAdapter

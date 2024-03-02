@@ -12,7 +12,8 @@ import com.interiiit.xenon.Fragment.IIITEData
 import com.interiiit.xenon.R
 
 class EmloyeerAdapter(
-    private val empl: MutableList<IIITEData>
+    private val empl: MutableList<IIITEData>,
+    private val logo:Map<String,Int>
 ): RecyclerView.Adapter<EmloyeerAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(com.interiiit.xenon.R.id.teamName)
@@ -33,7 +34,7 @@ class EmloyeerAdapter(
     override fun onBindViewHolder(holder: EmloyeerAdapter.ViewHolder, position: Int) {
         val users = empl[position]
         Glide.with(holder.itemView.context)
-            .load(users.Logo)
+            .load(logo[users.Name])
             .thumbnail(0.1f)
             .error(R.drawable.group)
             .placeholder(R.drawable.place_leader)

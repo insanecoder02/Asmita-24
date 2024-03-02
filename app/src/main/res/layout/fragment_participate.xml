@@ -128,19 +128,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lay2" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/resLot"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="300dp"
-            android:elevation="5dp"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/asmita" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/playing_iits"

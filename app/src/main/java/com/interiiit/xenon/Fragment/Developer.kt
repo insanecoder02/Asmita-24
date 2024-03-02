@@ -2,7 +2,10 @@ package com.interiiit.xenon.Fragment
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.opengl.Visibility
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.interiiit.xenon.R
 
 class Developer : Fragment() {
     private lateinit var binding: FragmentDeveloperBinding
@@ -39,6 +43,8 @@ class Developer : Fragment() {
         devAdapter = DevAdapter(dev)
         binding.devRv.adapter = devAdapter
         binding.devRv.layoutManager = LinearLayoutManager(requireContext())
+        binding.lottie.playAnimation()
+        binding.lottie.speed=2f
         binding.refresh.setOnRefreshListener {
             fetch()
             Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
@@ -47,6 +53,20 @@ class Developer : Fragment() {
             openDrawer()
         }
         fetchIfNeeded()
+        binding.esterEgg.setOnClickListener {
+            binding.dil.visibility=View.GONE
+            binding.lottie.visibility=View.VISIBLE
+            Handler(Looper.getMainLooper()).postDelayed({
+                val nextFragment = DevelopersImage()
+                val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                transaction.replace(
+                    R.id.fragment_container, nextFragment
+                )
+                transaction.addToBackStack(null)
+                transaction.commit()
+            },5000)
+            binding
+        }
     }
     private fun openDrawer() {
         val mainActivity = requireActivity() as Main

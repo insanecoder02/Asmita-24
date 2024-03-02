@@ -12,7 +12,8 @@ import com.interiiit.xenon.Fragment.IIITData
 import com.interiiit.xenon.R
 
 class LeaderAdapter(
-    private val usr: MutableList<IIITData>
+    private val usr: MutableList<IIITData>,
+    private val logo: Map<String,Int>
 ) : RecyclerView.Adapter<LeaderAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,7 +29,7 @@ class LeaderAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val users = usr[position]
         Glide.with(holder.itemView.context)
-            .load(users.Logo)
+            .load(logo[usr[position].Name])
             .thumbnail(0.1f)
             .error(R.drawable.group)
             .placeholder(R.drawable.place_leader)

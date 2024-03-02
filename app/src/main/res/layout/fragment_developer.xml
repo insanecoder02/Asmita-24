@@ -154,6 +154,32 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view1"
                 tools:listitem="@layout/layout_developer" />
+            <TextView
+                android:id="@+id/ester_egg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Made With Love By Team Asmita"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="#ffc0cb"/>
+            <ImageView
+                android:id="@+id/dil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/heart"
+                app:layout_constraintStart_toEndOf="@+id/ester_egg"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:lottie_autoPlay="true"
+                android:visibility="gone"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/heart"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
