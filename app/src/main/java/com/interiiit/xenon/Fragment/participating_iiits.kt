@@ -102,7 +102,7 @@ class participating_iiits : Fragment() {
             updateSharedPreferences()
         }.addOnFailureListener{ e->
             handleNetworkError()
-            Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
         }
     }
     private fun handleNetworkError() {

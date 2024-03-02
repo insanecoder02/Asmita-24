@@ -19,7 +19,6 @@ class Gallery2Adapter(
     class GalleryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var sport_name = itemView.findViewById<TextView>(R.id.sport)
         var sport_img = itemView.findViewById<ImageView>(R.id.Sport_img)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {

@@ -69,7 +69,7 @@ private var gall:MutableList<Gallery2> = mutableListOf()
             binding.refresh.isRefreshing=false
         }.addOnFailureListener {
             handleNetworkError()
-            Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
         }
     }
     private fun handleNetworkError() {

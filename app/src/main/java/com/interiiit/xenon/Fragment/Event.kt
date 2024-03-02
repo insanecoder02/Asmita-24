@@ -141,8 +141,8 @@ class Event : Fragment() {
 //                updateSharedPreferences()
             }.addOnFailureListener { exception ->
                 handleNetworkError()
-                Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT)
-                    .show()
+//                Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT)
+//                    .show()
             }
     }
     private fun handleNetworkError() {

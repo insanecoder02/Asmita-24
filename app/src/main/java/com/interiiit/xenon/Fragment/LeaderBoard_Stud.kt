@@ -115,14 +115,14 @@ class LeaderBoard_Stud : Fragment() {
                     } catch (e: JSONException) {
                         // Handle failure to parse JSON
                         handleNetworkError()
-                        Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
                         Log.e("LeaderBoard_Stud", "Error parsing JSON", e)
                     }
                 },
                 { error ->
                     // Handle failure to fetch data
                     handleNetworkError()
-                    Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT).show()
                     Log.e("LeaderBoard_Stud", "Error parsing JSON",error)
                 }
             )

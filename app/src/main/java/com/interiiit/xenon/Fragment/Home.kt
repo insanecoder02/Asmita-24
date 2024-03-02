@@ -147,12 +147,12 @@ class Home : Fragment() {
                     binding.upcommingMatchsRV.visibility = View.VISIBLE
                     binding.refresh.isRefreshing = false
                 } catch (e: JSONException) {
-                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT/2).show()
+//                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT/2).show()
                     Log.e("fetchFixtures", "Error parsing JSON", e)
                 }
             },
             { error ->
-                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT/2).show()
+//                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT/2).show()
                 Log.e("fetchFixtures", "Error fetching fixtures", error)
             }
         )
@@ -241,12 +241,12 @@ class Home : Fragment() {
                     binding.resultMRv.visibility = View.VISIBLE
                     binding.refresh.isRefreshing = false
                 } catch (e: JSONException) {
-                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT/2).show()
+//                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT/2).show()
                     Log.e("fetchResult", "Error parsing JSON", e)
                 }
             },
             { error ->
-                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT/2).show()
+//                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT/2).show()
                 Log.e("fetchResult", "Error fetching data", error)
             }
         )

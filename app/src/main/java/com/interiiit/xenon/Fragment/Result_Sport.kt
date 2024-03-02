@@ -153,13 +153,13 @@ class Result_Sport : Fragment() {
                     binding.error.visibility = View.INVISIBLE
                 } catch (e: JSONException) {
                     handleNetworkError()
-                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
                     Log.e("fetchMatches", "Error parsing JSON", e)
                 }
             },
             { error ->
                 handleNetworkError()
-                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT).show()
                 Log.e("fetchMatches", "Error fetching data", error)
             }
         )

@@ -95,7 +95,7 @@ class AboutUs : Fragment() {
             updateSharedPreferences()
         }.addOnFailureListener { e ->
             handleNetworkError()
-            Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
         }
     }
 

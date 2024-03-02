@@ -47,8 +47,11 @@ class ResultAdapter (val sch: List<MatchDetails>
         else if(matchDetails.matchType=="football"){
             FOOBALL
         }
-        else {
+        else if (matchDetails.matchType=="athelete") {
             ATHELETE
+        }
+        else{
+            throw IllegalArgumentException("Invalid view type")
         }
     }
 

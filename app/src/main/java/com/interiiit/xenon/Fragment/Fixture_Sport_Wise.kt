@@ -91,13 +91,13 @@ class Fixture_Sport_Wise : Fragment() {
                     binding.error.visibility = View.INVISIBLE
                     binding.refresh.isRefreshing = false
                 } catch (e: JSONException) {
-                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
                     handleNetworkError()
                     Log.e("fetch", "Error parsing JSON", e)
                 }
             },
             { error ->
-                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT).show()
                 handleNetworkError()
                 Log.e("fetch", "Error fetching data", error)
             }

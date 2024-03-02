@@ -107,7 +107,7 @@ class Sponsors : Fragment() {
             if (e.code == FirebaseFirestoreException.Code.UNAVAILABLE) {
                 handleNetworkError()
             } else {
-                Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT/2).show()
+//                Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT/2).show()
                 Log.e("FirestoreFetch", "Error fetching data from Firestore", e)
             }
         }

@@ -67,7 +67,7 @@ class Gallery : Fragment() {
                 }
 
                 override fun onFailure(call: Call<FlickrResponse>, t: Throwable) {
-                    Toast.makeText(requireContext(), t.localizedMessage, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireContext(), t.localizedMessage, Toast.LENGTH_SHORT).show()
                 }
             })
         binding.back.setOnClickListener {

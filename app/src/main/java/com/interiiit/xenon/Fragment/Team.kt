@@ -55,7 +55,6 @@ class Team : Fragment() {
             openDrawer()
         }
         fetchIfNeeded()
-        fetch()
     }
     private fun fetchIfNeeded() {
         if (shouldFetchData()) {
@@ -67,48 +66,11 @@ class Team : Fragment() {
         }
     }
 
-    private fun fetch() {
-        val sharedPreferences =
-            requireContext().getSharedPreferences("ImageData", Context.MODE_PRIVATE)
-        val imageUrl = sharedPreferences.getString("imageUrl", "")
-
-        if (imageUrl.isNullOrEmpty()) {
-            val db = FirebaseFirestore.getInstance()
-            db.collection("Meet").get().addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val img = document.getString("img") ?: ""
-                    Glide.with(requireContext())
-                        .load(img)
-                        .error(R.drawable.group)
-                        .placeholder(R.drawable.placeholder)
-                        .transform(CenterCrop(), RoundedCorners(20))
-                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                        .into(binding.imageView4)
-
-                    val editor = sharedPreferences.edit()
-                    editor.putString("imageUrl", img)
-                    editor.apply()
-                }
-            }
-                .addOnFailureListener { exception ->
-                    Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT)
-                        .show()
-                }
-        } else {
-            Glide.with(requireContext())
-                .load(imageUrl)
-                .transform(CenterCrop(), RoundedCorners(20))
-                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                .into(binding.imageView4)
-        }
-    }
     private fun shouldFetchData(): Boolean {
         val lastFetchTime = sharedPreferences.getLong("lastTeamFetchTime", 0)
         val currentTime = System.currentTimeMillis()
         val elapsedTime = currentTime - lastFetchTime
-        val fetchInterval = 24 * 60 * 60 * 1000 // 24 hours in milliseconds
-
-        // Check if data has never been fetched or if more than 24 hours have passed since last fetch
+        val fetchInterval = 24 * 60 * 60 * 1000
         return !sharedPreferences.getBoolean("teamDataFetched", false) || elapsedTime >= fetchInterval
     }
     private fun loadFromCache() {
@@ -137,6 +99,21 @@ class Team : Fragment() {
     private fun fetchFromFirestore() {
         teamSections.clear()
         val db = FirebaseFirestore.getInstance()
+        db.collection("Meet").get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                val img = document.getString("img") ?: ""
+                Glide.with(requireContext())
+                    .load(img)
+                    .error(R.drawable.group)
+                    .placeholder(R.drawable.placeholder)
+                    .transform(CenterCrop(), RoundedCorners(20))
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                    .into(binding.imageView4)
+            }
+        }.addOnFailureListener { exception ->
+                    Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT)
+                        .show()
+                }
         val teamCollection = db.collection("Team").orderBy("no")
         teamCollection.get().addOnSuccessListener { documents ->
             val wingMap = mutableMapOf<String, MutableList<TeamMember>>()
@@ -165,9 +142,10 @@ class Team : Fragment() {
             updateSharedPreferences()
         }.addOnFailureListener { exception ->
             handleNetworkError()
-            Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun handleNetworkError() {
         binding.normal.visibility = View.INVISIBLE
         binding.error.visibility = View.VISIBLE
