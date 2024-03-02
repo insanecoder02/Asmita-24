@@ -70,4 +70,11 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation ("com.android.volley:volley:1.2.1")
+
+
+
+
+        implementation(platform("com.google.firebase:firebase-bom:32.7.3"))
+        implementation("com.google.firebase:firebase-storage")
+
 }

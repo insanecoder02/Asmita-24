@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.interiiit.xenon.DataClass.GalleryDataClass.FlickrPhoto
+import com.interiiit.xenon.DataClass.GalleryDataClass.GalleryFb
 import com.interiiit.xenon.R
 
-class GalleryAdapter(val context: Context, private val gallery: List<FlickrPhoto>) :
+class GalleryAdapter(val context: Context, private val gallery: MutableList<FlickrPhoto>) :
     RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

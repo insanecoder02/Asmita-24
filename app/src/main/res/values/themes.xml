@@ -40,4 +40,8 @@
     </style>
 
     <string name="empty">"Home"</string>
+
+    <style name="MyCustomTabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14dp</item>
+    </style>
 </resources>

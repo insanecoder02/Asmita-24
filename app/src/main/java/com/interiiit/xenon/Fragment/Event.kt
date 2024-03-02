@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +38,14 @@ class Event : Fragment() {
     ): View {
         binding = FragmentEventBinding.inflate(layoutInflater, container, false)
         sharedPreferences = requireActivity().getSharedPreferences("Event", Context.MODE_PRIVATE)
+
+        activity?.window?.apply {
+            // Set flags for full-screen mode
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+            addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+            clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN)
+        }
+
         return binding.root
     }
 

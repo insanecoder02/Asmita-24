@@ -23,7 +23,7 @@ private var gall:MutableList<Gallery2> = mutableListOf()
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding= FragmentGallery2Binding.inflate(layoutInflater,container,false)
+        binding = FragmentGallery2Binding.inflate(layoutInflater,container,false)
         binding.sportsRv.visibility = View.INVISIBLE
         binding.resLot.visibility = View.VISIBLE
         return binding.root
@@ -32,7 +32,7 @@ private var gall:MutableList<Gallery2> = mutableListOf()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        gallAdapter=Gallery2Adapter(gall,this)
+        gallAdapter = Gallery2Adapter(gall,this)
         binding.sportsRv.adapter=gallAdapter
         binding.sportsRv.layoutManager=LinearLayoutManager(requireContext())
         binding.menu.setOnClickListener {

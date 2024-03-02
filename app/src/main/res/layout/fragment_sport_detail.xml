@@ -17,6 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="330dp"
             android:scaleType="fitXY"
+            android:src="@drawable/ic_launcher_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -92,6 +93,7 @@
                 android:paddingVertical="10dp"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
+                android:layout_margin="5dp"
                 android:textColor="#A6A6A6"
                 android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +104,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/backlesss"
             android:backgroundTint="#1C1C1E"
             android:orientation="vertical"
@@ -116,26 +118,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="2dp"
                 android:fontFamily="@font/poppins_medium"
                 android:paddingHorizontal="10dp"
                 android:textColor="#E4DFDF"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/discription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="7dp"
                 android:layout_weight="1"
                 android:paddingHorizontal="10dp"
                 android:textColor="@color/white"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:drawablePadding="5dp"
                 android:fontFamily="@font/poppins_medium"
