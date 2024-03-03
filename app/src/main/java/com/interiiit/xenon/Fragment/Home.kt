@@ -45,6 +45,13 @@ class Home : Fragment() {
         binding.resultMRv.visibility = View.INVISIBLE
         binding.resLot.visibility = View.VISIBLE
         binding.matLot.visibility = View.VISIBLE
+
+        binding.refresh.isEnabled = false
+
+        binding.normal.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+            // Enable or disable swipe refresh based on scroll position
+            binding.refresh.isEnabled = scrollY == 0
+        }
         return binding.root
     }
 
@@ -52,7 +59,6 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         firestore = FirebaseFirestore.getInstance()
-
         resultAdapter = ResultAdapter(upcomingMatchesList)
         binding.resultMRv.adapter = resultAdapter
         binding.resultMRv.layoutManager = CarouselLayoutManager(
@@ -93,7 +99,6 @@ class Home : Fragment() {
         autoScrollManager.startAutoScroll()
         autoScrollManagers.add(autoScrollManager)
     }
-
     private fun openDrawer() {
         val mainActivity = requireActivity() as Main
         mainActivity.openDrawer()

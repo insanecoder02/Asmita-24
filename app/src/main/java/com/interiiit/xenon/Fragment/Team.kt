@@ -35,6 +35,13 @@ class Team : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentTeamBinding.inflate(layoutInflater, container, false)
+        binding.refresh.isEnabled = false
+
+        binding.normal.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+            // Enable or disable swipe refresh based on scroll position
+            binding.refresh.isEnabled = scrollY == 0
+        }
+        
         sharedPreferences = requireActivity().getSharedPreferences("Team", Context.MODE_PRIVATE)
         return binding.root
     }

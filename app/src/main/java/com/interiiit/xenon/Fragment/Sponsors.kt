@@ -20,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
+
 class Sponsors : Fragment() {
     private lateinit var binding:FragmentSponsorsBinding
     private val spon:MutableList<Sponser> = mutableListOf()
@@ -30,6 +31,14 @@ class Sponsors : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSponsorsBinding.inflate(layoutInflater, container, false)
+
+        // Disable SwipeRefreshLayout by default
+        binding.refresh.isEnabled = false
+
+        binding.normal.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+            // Enable or disable swipe refresh based on scroll position
+            binding.refresh.isEnabled = scrollY == 0
+        }
         sharedPreferences = requireActivity().getSharedPreferences("Sponser", Context.MODE_PRIVATE)
         return binding.root
     }
