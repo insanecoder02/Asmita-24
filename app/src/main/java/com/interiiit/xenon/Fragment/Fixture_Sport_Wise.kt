@@ -1,5 +1,7 @@
 package com.interiiit.xenon.Fragment
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,20 +20,22 @@ import com.interiiit.xenon.R
 import com.interiiit.xenon.databinding.FragmentFixtureSportWiseBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.interiiit.xenon.DataClass.AboutUs
 import org.json.JSONException
 import org.json.JSONObject
 
 class Fixture_Sport_Wise : Fragment() {
     private lateinit var binding:FragmentFixtureSportWiseBinding
     private lateinit var fixAdapter: Fixture_Sport_Adapter
+    private lateinit var sharedPreferences: SharedPreferences
     private var fixture:MutableList<FixtureSportDataClass> = mutableListOf()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFixtureSportWiseBinding.inflate(layoutInflater, container, false)
-        binding.seeRv.visibility = View.INVISIBLE
-        binding.resLot.visibility = View.VISIBLE
+        sharedPreferences = requireActivity().getSharedPreferences("Fix", Context.MODE_PRIVATE)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,7 +53,36 @@ class Fixture_Sport_Wise : Fragment() {
 //        binding.loadBtn.setOnClickListener{
 //            fetch()
 //        }
-        fetch()
+        fetchIfNeeded()
+    }
+    private fun fetchIfNeeded() {
+        if(shouldFetchData()){
+            fetch()
+            binding.seeRv.visibility = View.INVISIBLE
+            binding.resLot.visibility = View.VISIBLE
+        }
+        else{
+            loadFromCache()
+        }
+    }
+    private fun shouldFetchData(): Boolean {
+        val lastFetchTime = sharedPreferences.getLong("lastFixFetchTime",0)
+        val currentTime = System.currentTimeMillis()
+        val elapsedTime = currentTime-lastFetchTime
+        val fetchInterval = 2*60*1000
+        return !sharedPreferences.getBoolean("dataFixFetched",false) || elapsedTime>=fetchInterval
+    }
+    private fun loadFromCache() {
+        val json = sharedPreferences.getString("cachedFixData",null)
+        if(json!=null){
+            val type = object : TypeToken<List<FixtureSportDataClass>>() {}.type
+            val fixList:List<FixtureSportDataClass> = Gson().fromJson(json,type)
+            fixture.clear()
+            fixture.addAll(fixList)
+            fixAdapter.notifyDataSetChanged()
+            binding.seeRv.visibility = View.VISIBLE
+            binding.resLot.visibility = View.INVISIBLE
+        }
     }
     private fun fetch() {
         fixture.clear()
@@ -90,6 +123,7 @@ class Fixture_Sport_Wise : Fragment() {
                     binding.normal.visibility = View.VISIBLE
                     binding.error.visibility = View.INVISIBLE
                     binding.refresh.isRefreshing = false
+                    updateSharedPreferences()
                 } catch (e: JSONException) {
 //                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
                     handleNetworkError()
@@ -103,6 +137,15 @@ class Fixture_Sport_Wise : Fragment() {
             }
         )
         requestQueue.add(jsonObjectRequest)
+    }
+    private fun updateSharedPreferences() {
+        val json = Gson().toJson(fixture)
+        sharedPreferences.edit().apply{
+            putBoolean("dataFixFetched",true)
+            putLong("lastFixFetchTime",System.currentTimeMillis())
+            putString("cachedFixData",json)
+            apply()
+        }
     }
     private fun handleNetworkError() {
         binding.normal.visibility = View.INVISIBLE

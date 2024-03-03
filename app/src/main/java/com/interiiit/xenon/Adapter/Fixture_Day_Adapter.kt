@@ -29,7 +29,7 @@ class Fixture_Day_Adapter(
         val fix = day[position]
         holder.name.text = fix.day
         holder.itemView.setOnClickListener {
-            itemClickListener.onItemClick(day[position])
+//            itemClickListener.onItemClick(day[position])
         }
     }
 }

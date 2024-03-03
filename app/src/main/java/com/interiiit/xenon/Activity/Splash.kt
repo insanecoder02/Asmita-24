@@ -33,11 +33,10 @@ class Splash : AppCompatActivity() {
 
         handler.postDelayed({
             middleElement.startAnimation(animationSetFadeIn)
-        }, 90) // Delayed to make sure all animations start together
+        }, 90)
 
         val commonAnimationListener = object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {}
-
             override fun onAnimationEnd(animation: Animation?) {
                 if (isFirstTime()) {
                     startActivity(Intent(this@Splash, GetStarted::class.java))
@@ -50,7 +49,6 @@ class Splash : AppCompatActivity() {
         }
         animationSetFadeIn.setAnimationListener(commonAnimationListener)
     }
-
     private fun createTranslateAlphaAnimationSet(
         fromXDelta: Float,
         toXDelta: Float,

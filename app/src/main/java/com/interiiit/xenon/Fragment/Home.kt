@@ -26,6 +26,7 @@ import com.interiiit.xenon.other.AutoScroll
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
+import com.interiiit.xenon.other.IIITSlogo
 import com.jackandphantom.carouselrecyclerview.CarouselLayoutManager
 import org.json.JSONException
 
@@ -36,6 +37,7 @@ class Home : Fragment() {
     private var fixture: MutableList<FixtureSportDataClass> = mutableListOf()
     private var upcomingMatchesList: MutableList<MatchDetails> = mutableListOf()
     private lateinit var firestore: FirebaseFirestore
+    private var logo = IIITSlogo.logo
     private val autoScrollManagers = mutableListOf<AutoScroll>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -50,7 +52,6 @@ class Home : Fragment() {
         binding.refresh.isEnabled = false
 
         binding.normal.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            // Enable or disable swipe refresh based on scroll position
             binding.refresh.isEnabled = scrollY == 0
         }
         return binding.root
@@ -60,7 +61,8 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         firestore = FirebaseFirestore.getInstance()
-        resultAdapter = ResultAdapter(upcomingMatchesList)
+
+        resultAdapter = ResultAdapter(upcomingMatchesList,logo,this,true)
         binding.resultMRv.adapter = resultAdapter
         binding.resultMRv.orientation=ViewPager2.ORIENTATION_HORIZONTAL
         binding.indicator.setViewPager(binding.resultMRv)
@@ -99,6 +101,7 @@ class Home : Fragment() {
 //        autoScrollManager.startAutoScroll()
 //        autoScrollManagers.add(autoScrollManager)
     }
+
     private fun openDrawer() {
         val mainActivity = requireActivity() as Main
         mainActivity.openDrawer()
@@ -269,6 +272,16 @@ class Home : Fragment() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
+    fun onResClick() {
+        val nextFragment = Result_Sport()
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, nextFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+
 
 //    fun onResClick(item: Matches) {
 //        val bundle = Bundle()

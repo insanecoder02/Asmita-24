@@ -15,7 +15,6 @@ import com.interiiit.xenon.DataClass.EventDataClass.Events
 import com.interiiit.xenon.Fragment.sport_detail
 import com.interiiit.xenon.R
 
-
 class Adapter(private val fragmentManager: FragmentManager, private val evee:List<Events>
 ) :
     RecyclerView.Adapter<Adapter.ViewHolder>() {

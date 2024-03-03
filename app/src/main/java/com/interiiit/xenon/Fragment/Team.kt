@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.interiiit.xenon.Activity.Main
 import com.interiiit.xenon.Adapter.Team.WingAdapter
 import com.interiiit.xenon.DataClass.Team.TeamMember
@@ -29,6 +30,8 @@ class Team : Fragment() {
     private var teamSections: MutableList<TeamSection> = mutableListOf()
     private lateinit var wingAdapter: WingAdapter
     private lateinit var sharedPreferences: SharedPreferences
+    private val SHARED_PREF_NAME = "MySharedPref"
+    private val IMG_URL_KEY = "imgUrl"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +51,14 @@ class Team : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPreferences = requireContext().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
+
+        val imgUrl = sharedPreferences.getString(IMG_URL_KEY, "")
+        if (imgUrl.isNullOrEmpty()) {
+            fetchFromFirestore()
+        } else {
+            loadImageFromUrl(imgUrl)
+        }
         wingAdapter = WingAdapter(requireContext(), teamSections)
         binding.teamRV.adapter = wingAdapter
         binding.teamRV.layoutManager = LinearLayoutManager(requireContext())
@@ -109,13 +120,9 @@ class Team : Fragment() {
         db.collection("Meet").get().addOnSuccessListener { documents ->
             for (document in documents) {
                 val img = document.getString("img") ?: ""
-                Glide.with(requireContext())
-                    .load(img)
-                    .error(R.drawable.group)
-                    .placeholder(R.drawable.placeholder)
-                    .transform(CenterCrop(), RoundedCorners(20))
-                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                    .into(binding.imageView4)
+                saveDataToSharedPreferences(img)
+                // Load image from URL
+                loadImageFromUrl(img)
             }
         }.addOnFailureListener { exception ->
                     Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT)
@@ -151,6 +158,23 @@ class Team : Fragment() {
             handleNetworkError()
 //            Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT).show()
         }
+    }
+    private fun saveDataToSharedPreferences(imgUrl: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString(IMG_URL_KEY, imgUrl)
+        editor.apply()
+    }
+    private fun loadImageFromUrl(imgUrl: String) {
+        Glide.with(requireContext())
+            .load(imgUrl)
+            .apply(
+                RequestOptions()
+                    .error(R.drawable.group)
+                    .placeholder(R.drawable.placeholder)
+                    .transform(CenterCrop(), RoundedCorners(20))
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            )
+            .into(binding.imageView4)
     }
 
     private fun handleNetworkError() {

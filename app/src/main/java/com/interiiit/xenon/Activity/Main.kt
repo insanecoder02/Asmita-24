@@ -5,9 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
-import com.interiiit.xenon.Fragment.AboutUs
-import com.interiiit.xenon.Fragment.Gallery
 import com.interiiit.xenon.Fragment.Home
 import com.interiiit.xenon.Fragment.Developer
 import com.interiiit.xenon.Fragment.Gallery2
@@ -32,34 +29,7 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 .commit()
             binding.navView.setCheckedItem(R.id.nav_home)
         }
-
-//        val openFragment = intent.getStringExtra("open")
-//        if (openFragment != null) {
-//            when (openFragment) {
-//                "dev" -> {
-//                    val notificationContent = intent.getStringExtra("NotificationContent")
-//                    if (notificationContent != null && notificationContent.contains("DeveloperFragment")) {
-//                        loadFr(Developer())
-//                    }
-//                }
-//                "gal" -> {
-//                    loadFr(Gallery())
-//                }
-//                "team" -> {
-//                    loadFr(Team())
-//                }
-//                "abt" -> {
-//                    loadFr(AboutUs())
-//                }
-//            }
-//        }
     }
-//    private fun loadFr(fragment: Fragment) {
-//        val fragmentTransaction = supportFragmentManager.beginTransaction()
-//        fragmentTransaction.replace(R.id.fragment_container, fragment)
-//        fragmentTransaction.commit()
-//    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         when (item.itemId) {

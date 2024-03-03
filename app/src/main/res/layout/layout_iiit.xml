@@ -19,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="2dp">
 
             <ImageView
                 android:id="@+id/teamLogo"
@@ -31,11 +32,10 @@
                 android:id="@+id/teamName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="5dp"
                 android:fontFamily="@font/poppins_medium"
                 android:textColor="@color/black"
-                android:gravity="start"
-                android:textSize="14dp" />
+                android:gravity="center_horizontal"
+                android:textSize="13dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

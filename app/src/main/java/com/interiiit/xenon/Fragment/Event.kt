@@ -39,13 +39,6 @@ class Event : Fragment() {
         binding = FragmentEventBinding.inflate(layoutInflater, container, false)
         sharedPreferences = requireActivity().getSharedPreferences("Event", Context.MODE_PRIVATE)
 
-        activity?.window?.apply {
-            // Set flags for full-screen mode
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-            addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-            clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN)
-        }
-
         return binding.root
     }
 
@@ -67,25 +60,24 @@ class Event : Fragment() {
             fetchFromFirestore()
             Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
-//        fetchIfNeeded()
-        fetchFromFirestore()
+        fetchIfNeeded()
         rotor(binding.featuredRv)
     }
     private fun fetchIfNeeded() {
-//        if (shouldFetchData()) {
-//            binding.resLot.visibility = View.VISIBLE
-//            fetchFromFirestore()
-//        } else {
-//            loadFromCache()
-//        }
+        if (shouldFetchData()) {
+            binding.resLot.visibility = View.VISIBLE
+            binding.featuredRv.visibility = View.INVISIBLE
+            binding.teamRV.visibility = View.INVISIBLE
+            fetchFromFirestore()
+        } else {
+            loadFromCache()
+        }
     }
     private fun shouldFetchData(): Boolean {
         val lastFetchTime = sharedPreferences.getLong("lastEveFetchTime", 0)
         val currentTime = System.currentTimeMillis()
         val elapsedTime = currentTime - lastFetchTime
-        val fetchInterval = 1 * 60 * 1000 // 1 hours in milliseconds
-
-        // Check if data has never been fetched or if more than 24 hours have passed since last fetch
+        val fetchInterval = 5 * 60 * 1000
         return !sharedPreferences.getBoolean("eveDataFetched", false) || elapsedTime >= fetchInterval
     }
 
@@ -95,9 +87,20 @@ class Event : Fragment() {
             val type = object : TypeToken<List<EveDataClass>>() {}.type
             val eveList: List<EveDataClass> = Gson().fromJson(json, type)
             eventClass.clear()
+            featuredClass.clear()
             eventClass.addAll(eveList)
+            for (eveDataClass in eveList) {
+                for (event in eveDataClass.eve) {
+                    if (event.feat.equals("y", ignoreCase = true)) {
+                        featuredClass.add(event)
+                    }
+                }
+            }
+            eventsAdapter.notifyDataSetChanged()
             wingAdapter.notifyDataSetChanged()
             binding.resLot.visibility = View.INVISIBLE
+            binding.featuredRv.visibility = View.VISIBLE
+            binding.teamRV.visibility = View.VISIBLE
         }
     }
 
@@ -145,10 +148,12 @@ class Event : Fragment() {
                 wingAdapter.notifyDataSetChanged()
                 binding.resLot.visibility = View.INVISIBLE
                 binding.refresh.isRefreshing=false
+                binding.featuredRv.visibility = View.VISIBLE
+                binding.teamRV.visibility = View.VISIBLE
                 binding.normal.visibility = View.VISIBLE
                 binding.error.visibility = View.INVISIBLE
-//                updateSharedPreferences()
-            }.addOnFailureListener { exception ->
+                updateSharedPreferences()
+            }.addOnFailureListener { e ->
                 handleNetworkError()
 //                Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT)
 //                    .show()

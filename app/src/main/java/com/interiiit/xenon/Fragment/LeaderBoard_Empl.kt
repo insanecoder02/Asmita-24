@@ -19,11 +19,11 @@ import com.interiiit.xenon.Adapter.EmloyeerAdapter
 import com.interiiit.xenon.Adapter.LeaderAdapter
 import com.interiiit.xenon.R
 import com.interiiit.xenon.databinding.FragmentLeaderBoardEmplBinding
+import com.interiiit.xenon.other.IIITSlogo
 import org.json.JSONException
 
 data class IIITEData(
     val Name: String,
-    val Logo: String,
     val Points: Int,
 )
 
@@ -32,6 +32,7 @@ class LeaderBoard_Empl : Fragment() {
     private var userListNo3: MutableList<IIITEData> = mutableListOf()
     private var top3iiitslist3: MutableList<IIITEData> = mutableListOf()
     private lateinit var emplAdapter: EmloyeerAdapter
+    private var logo = IIITSlogo.logo
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,33 +45,7 @@ class LeaderBoard_Empl : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val logo = mapOf(
-            "Allahabad" to R.drawable.allahabad,
-            "Gwalior" to R.drawable.gwalior,
-            "Kota" to R.drawable.kota,
-            "Lucknow" to R.drawable.lucknow,
-            "Manipur" to R.drawable.manipur,
-            "Nagpur" to R.drawable.nagpur,
-            "Pune" to R.drawable.pune,
-            "Raichur" to R.drawable.raichur,
-            "Ranchi" to R.drawable.ranchi,
-            "Sonepat" to R.drawable.sonepat,
-            "Surat" to R.drawable.surat,
-            "Tiruchirappalli" to R.drawable.trichy,
-            "Una" to R.drawable.una,
-            "Vadodara" to R.drawable.vadodra,
-            "Agartala" to R.drawable.agar,
-            "Bhagalpur" to R.drawable.bhagalpur,
-            "Bhopal" to R.drawable.bhopal,
-            "Chittoor" to R.drawable.chittor,
-            "Dharwad" to R.drawable.dharwad,
-            "Guwahati" to R.drawable.guwahati,
-            "Jabalpur" to R.drawable.jabalpur,
-            "Kalyani" to R.drawable.kalyani,
-            "Kancheepuram" to R.drawable.kancheepuram,
-            "Kottayam" to R.drawable.kottayam,
-            "Kurnool" to R.drawable.kurnool
-        )
+
         emplAdapter = EmloyeerAdapter(userListNo3,logo)
         binding.leaderRv.layoutManager = LinearLayoutManager(context)
         binding.leaderRv.adapter = emplAdapter
@@ -98,23 +73,22 @@ class LeaderBoard_Empl : Fragment() {
                     for (i in 0 until dataArray.length()) {
                         val jsonObject = dataArray.getJSONObject(i)
                         val name = jsonObject.getString("Name")
-                        val logo = jsonObject.getString("Logo")
                         val points = jsonObject.getInt("Points")
-                        val leaderBoardData = IIITEData(Name = name, Logo = logo, Points = points)
+                        val leaderBoardData = IIITEData(Name = name, Points = points)
                         if (i < 3) {
                             top3List.add(leaderBoardData)
                         } else {
                             remainingList.add(leaderBoardData)
                         }
                     }
-                    top3iiitslist3.addAll(top3List.map { IIITEData(it.Name, it.Logo, it.Points) })
+                    top3iiitslist3.addAll(top3List.map { IIITEData(it.Name, it.Points) })
                     userListNo3.addAll(remainingList)
                     emplAdapter.notifyDataSetChanged()
                     if (top3iiitslist3.isNotEmpty()) {
                         binding.first.text = top3iiitslist3[0].Name
                         binding.firstScore.text = top3iiitslist3[0].Points.toString()
                         Glide.with(requireContext())
-                            .load(top3iiitslist3[0].Logo)
+                            .load(logo[top3iiitslist3[0].Name])
                             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                             .into(binding.firImg)
                     }
@@ -122,7 +96,7 @@ class LeaderBoard_Empl : Fragment() {
                         binding.second.text = top3iiitslist3[1].Name
                         binding.secondScore.text = top3iiitslist3[1].Points.toString()
                         Glide.with(requireContext())
-                            .load(top3iiitslist3[1].Logo)
+                            .load(logo[top3iiitslist3[1].Name])
                             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                             .into(binding.secImg)
                     }
@@ -130,7 +104,7 @@ class LeaderBoard_Empl : Fragment() {
                         binding.third.text = top3iiitslist3[2].Name
                         binding.thirdScore.text = top3iiitslist3[2].Points.toString()
                         Glide.with(requireContext())
-                            .load(top3iiitslist3[2].Logo)
+                            .load(logo[top3iiitslist3[2].Name])
                             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                             .into(binding.thiImg)
                     }

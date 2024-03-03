@@ -11,7 +11,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.interiiit.xenon.DataClass.Score.MatchDetails
 import com.interiiit.xenon.R
 
-class ResultAdapter (val sch: List<MatchDetails>
+class ResultAdapter (val sch: List<MatchDetails>,
+    val logo:Map<String,Int>,
+    private val resClickListener: com.interiiit.xenon.Fragment.Home,
+    val boolean: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val CRICKET = 1
@@ -47,7 +50,7 @@ class ResultAdapter (val sch: List<MatchDetails>
         else if(matchDetails.matchType=="football"){
             FOOBALL
         }
-        else if (matchDetails.matchType=="athelete") {
+        else if (matchDetails.matchType=="athlete") {
             ATHELETE
         }
         else{
@@ -60,10 +63,6 @@ class ResultAdapter (val sch: List<MatchDetails>
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewType = getItemViewType(position)
         val scc = sch[position]
-
-//        holder.itemView.setOnClickListener {
-////            itemClickListener.onResClick(sch[position])
-//        }
 
         when (viewType) {
             CRICKET -> {
@@ -79,13 +78,13 @@ class ResultAdapter (val sch: List<MatchDetails>
                 crickHolder.ov2.text = "ov: ${scc.over2}"
 
                 Glide.with(crickHolder.itemView.context)
-                    .load(scc.clgImg1)
+                    .load(logo[scc.clgName1])
                     .error(R.drawable.group)
                     .thumbnail(0.1f)
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .into(crickHolder.img1)
                 Glide.with(crickHolder.itemView.context)
-                    .load(scc.clgImg2)
+                    .load(logo[scc.clgName2])
                     .error(R.drawable.group)
                     .thumbnail(0.1f)
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
@@ -100,13 +99,13 @@ class ResultAdapter (val sch: List<MatchDetails>
                 footHolder.point.text = scc.point
                 footHolder.grpStage.text = scc.time
                 Glide.with(footHolder.itemView.context)
-                    .load(scc.clgImg1)
+                    .load(logo[scc.clgName1])
                     .error(R.drawable.group)
                     .thumbnail(0.1f)
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .into(footHolder.img1)
                 Glide.with(footHolder.itemView.context)
-                    .load(scc.clgImg2)
+                    .load(logo[scc.clgName2])
                     .thumbnail(0.1f)
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .error(R.drawable.group)
@@ -123,6 +122,12 @@ class ResultAdapter (val sch: List<MatchDetails>
             }
             else -> throw IllegalArgumentException("Invalid view type")
         }
+        if(boolean){
+            holder.itemView.setOnClickListener {
+                resClickListener.onResClick()
+            }
+        }
+
     }
     class CricketViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val name: TextView = itemView.findViewById(R.id.matchName)

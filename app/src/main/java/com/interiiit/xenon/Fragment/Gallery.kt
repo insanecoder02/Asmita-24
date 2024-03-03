@@ -28,27 +28,14 @@ class Gallery : Fragment() {
     private val storageRef: StorageReference = FirebaseStorage.getInstance().reference.child("gallery")
     private val api_key = "c04b69fd41509ef0642390c428f22081"
 
-    //getting firebase storage
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentGalleryBinding.inflate(layoutInflater, container, false)
         binding.gallRV.visibility = View.INVISIBLE
         binding.resLot.visibility = View.VISIBLE
-        binding.loadBtn.visibility = View.INVISIBLE
-
-
-
-
-
-
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,23 +44,41 @@ class Gallery : Fragment() {
         val url = arguments?.getString("url")
         val name = arguments?.getString("details")
 
-        storageRef.child(name.toString())
         galfbAdapter = GalleryFbAdapter(requireContext(), fbgal)
         binding.gallRV.adapter = galfbAdapter
         binding.gallRV.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
 
-        storageRef.listAll()
+        storageRef.child(name!!).listAll()
             .addOnSuccessListener { listResult ->
                 listResult.items.forEach { imageRef ->
                     imageRef.downloadUrl.addOnSuccessListener { url ->
-                        fbgal.add(url.toString())
-                        galAdapter.notifyDataSetChanged()
-                        Toast.makeText(context, "hi url $url", Toast.LENGTH_SHORT).show()
+                        fbgal.add(GalleryFb(url.toString()))
+                        galfbAdapter.notifyDataSetChanged()
                     }
                 }
+                binding.gallRV.visibility = View.VISIBLE
+                binding.resLot.visibility = View.INVISIBLE
             }
             .addOnFailureListener { exception ->
+                // Handle failure
             }
+
+//        storageRef.child(name.toString())
+//        galfbAdapter = GalleryFbAdapter(requireContext(), fbgal)
+//        binding.gallRV.adapter = galfbAdapter
+//        binding.gallRV.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+//
+//        storageRef.listAll()
+//            .addOnSuccessListener { listResult ->
+//                listResult.items.forEach { imageRef ->
+//                    imageRef.downloadUrl.addOnSuccessListener { url ->
+//                        fbgal.add(GalleryFb(url.toString()))
+//                        galAdapter.notifyDataSetChanged()
+//                    }
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//            }
 
 
 
@@ -104,28 +109,18 @@ class Gallery : Fragment() {
 ////                    Toast.makeText(requireContext(), t.localizedMessage, Toast.LENGTH_SHORT).show()
 //                }
 //            })
-
-
-
         binding.back.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
-
         binding.text1.text = name
         binding.loadBtn.setOnClickListener {
             if (!url.isNullOrBlank()) {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 startActivity(intent)
             } else {
-                val snackbar = Snackbar.make(
-                    binding.root,
-                    "Link is not Available",
-                    Snackbar.LENGTH_SHORT
-                )
-                snackbar.show()
+                Snackbar.make( binding.root,"Link is not Available",Snackbar.LENGTH_SHORT).show()
             }
         }
-//        fetchFromFirestore()
 
     }
 
