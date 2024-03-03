@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.interiiit.xenon.Activity.Main
@@ -61,9 +62,8 @@ class Home : Fragment() {
         firestore = FirebaseFirestore.getInstance()
         resultAdapter = ResultAdapter(upcomingMatchesList)
         binding.resultMRv.adapter = resultAdapter
-        binding.resultMRv.layoutManager = CarouselLayoutManager(
-            false, false, 0.7F, false, false, true, LinearLayoutManager.HORIZONTAL
-        )
+        binding.resultMRv.orientation=ViewPager2.ORIENTATION_HORIZONTAL
+        binding.indicator.setViewPager(binding.resultMRv)
         fixAdapter = FixAdapter(fixture,this)
         binding.upcommingMatchsRV.adapter = fixAdapter
         binding.upcommingMatchsRV.layoutManager =
@@ -95,9 +95,9 @@ class Home : Fragment() {
             loadFragment(Fixture_Sport_Wise())
         }
         rotor(binding.upcommingMatchsRV)
-        val autoScrollManager = AutoScroll(binding.resultMRv)
-        autoScrollManager.startAutoScroll()
-        autoScrollManagers.add(autoScrollManager)
+//        val autoScrollManager = AutoScroll(cobinding.resultMRv)
+//        autoScrollManager.startAutoScroll()
+//        autoScrollManagers.add(autoScrollManager)
     }
     private fun openDrawer() {
         val mainActivity = requireActivity() as Main
