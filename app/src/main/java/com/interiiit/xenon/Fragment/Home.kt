@@ -71,9 +71,12 @@ class Home : Fragment() {
         binding.upcommingMatchsRV.adapter = fixAdapter
         binding.upcommingMatchsRV.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.upcommingMatchsRV.isNestedScrollingEnabled=false
+
         val pagerSnapHelper = PagerSnapHelper()
         pagerSnapHelper.attachToRecyclerView(binding.resultMRv)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.upcommingMatchsRV.isNestedScrollingEnabled=false
+
 
         binding.refresh.setOnRefreshListener {
             fetchResult()
@@ -211,6 +214,7 @@ class Home : Fragment() {
                         val date = jsonObject.getString("Date") ?: ""
                         val time = jsonObject.getString("GroupStage") ?: ""
                         val type = jsonObject.getString("Type") ?: ""
+                        val sport = jsonObject.getString("SportName")?:""
                         var clgName1: String =""
                         var clgImg1: String = ""
                         var clgName2: String = ""
@@ -261,6 +265,7 @@ class Home : Fragment() {
                                 ov1,
                                 ov2,
                                 type,
+                                sport,
                                 pt,
                                 p1,
                                 p2,
@@ -292,9 +297,25 @@ class Home : Fragment() {
                         fetchResult()
                         binding.refresh.isRefreshing = true
                     }
+                    Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT/2).show()
+                    binding.resLot.visibility = View.INVISIBLE
+                    binding.loadBtn.visibility = View.VISIBLE
+                    binding.refresh.isRefreshing = false
+                    binding.loadBtn.setOnClickListener{
+                        fetchFixtures()
+                        binding.refresh.isRefreshing = true
+                    }
                 }
             },
             { error ->
+//                Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT/2).show()
+                binding.resLot.visibility = View.INVISIBLE
+                binding.loadBtn.visibility = View.VISIBLE
+                binding.refresh.isRefreshing = false
+                binding.loadBtn.setOnClickListener{
+                    fetchResult()
+                    binding.refresh.isRefreshing = true
+                }
                 Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT/2).show()
                 binding.resLot.visibility = View.INVISIBLE
                 binding.loadBtn.visibility = View.VISIBLE

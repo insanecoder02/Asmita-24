@@ -83,6 +83,7 @@ class Result_Sport : Fragment() {
                         val date = jsonObject.getString("Date") ?: ""
                         val time = jsonObject.getString("GroupStage") ?: ""
                         val type = jsonObject.getString("Type") ?: ""
+                        val sport = jsonObject.getString("SportName")?:""
                         var clgName1: String =""
                         var clgImg1: String = ""
                         var clgName2: String = ""
@@ -133,6 +134,7 @@ class Result_Sport : Fragment() {
                             ov1,
                             ov2,
                             type,
+                            sport,
                             pt,
                             p1,
                             p2,
@@ -140,9 +142,9 @@ class Result_Sport : Fragment() {
                         )
 
                         if (fixMap.containsKey(matchName)) {
-                            fixMap[matchName]?.add(sprtWise)
+                            fixMap[sport]?.add(sprtWise)
                         } else {
-                            fixMap[matchName] = mutableListOf(sprtWise)
+                            fixMap[sport] = mutableListOf(sprtWise)
                         }
                     }
 
@@ -184,7 +186,7 @@ class Result_Sport : Fragment() {
     }
     fun onItemClick(item: Matches) {
         val bundle = Bundle()
-        bundle.putString("name", item.type ?: "Name")
+        bundle.putString("name", item.matchName ?: "Name")
         bundle.putString("dayListJson", Gson().toJson(item.match))
         val nextFragment = results()
         nextFragment.arguments = bundle

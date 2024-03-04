@@ -108,7 +108,8 @@ class Developer : Fragment() {
                 val name = document.getString("name") ?: ""
                 val pos = document.getString("pos") ?: ""
                 val image = document.getString("image") ?: ""
-                val item = DeveloperDataClass(name, pos, image)
+                val link = document.getString("link") ?:""
+                val item = DeveloperDataClass(name, pos, image,link)
                 dev.add(item)
             }
             devAdapter.notifyDataSetChanged()

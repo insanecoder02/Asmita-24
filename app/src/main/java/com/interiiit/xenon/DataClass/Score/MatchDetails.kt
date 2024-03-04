@@ -13,6 +13,7 @@ data class MatchDetails(
     val over1:String,
     val over2:String,
     val matchType:String,
+    val sport:String,
     val point:String,
     val play1:String,
     val play2:String,

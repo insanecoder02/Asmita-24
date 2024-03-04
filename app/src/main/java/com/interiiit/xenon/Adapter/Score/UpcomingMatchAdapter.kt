@@ -28,7 +28,7 @@ class UpcomingMatchAdapter(
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
         val scc = sch[position]
 
-        holder.matName.text = scc.matchName
+        holder.matName.text = scc.sport
         holder.itemView.setOnClickListener {
             if(isHomeFragment){
                 load()
