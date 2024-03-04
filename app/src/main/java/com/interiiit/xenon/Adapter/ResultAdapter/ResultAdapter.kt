@@ -73,7 +73,7 @@ class ResultAdapter (
         when (viewType) {
             CRICKET -> {
                 val crickHolder = holder as CricketViewHolder
-                crickHolder.name.text = scc.sport
+                crickHolder.name.text = scc.matchName
                 crickHolder.date.text = scc.date
                 crickHolder.clg1.text = scc.clgName1
                 crickHolder.clg2.text = scc.clgName2
@@ -98,7 +98,7 @@ class ResultAdapter (
             }
             FOOBALL -> {
                 val footHolder = holder as FootballViewHolder
-                footHolder.name.text = scc.sport
+                footHolder.name.text = scc.matchName
                 footHolder.date.text = scc.date
                 footHolder.clg1.text = scc.clgName1
                 footHolder.clg2.text = scc.clgName2
@@ -119,7 +119,7 @@ class ResultAdapter (
             }
             ATHELETE -> {
                 val atHolder = holder as AtheleteViewHolder
-                atHolder.name.text = scc.sport
+                atHolder.name.text = scc.matchName
                 atHolder.date.text = scc.date
                 atHolder.play1.text = scc.play1
                 atHolder.play2.text = scc.play2
