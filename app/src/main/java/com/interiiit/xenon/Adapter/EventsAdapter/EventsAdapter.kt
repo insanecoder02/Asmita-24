@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.interiiit.xenon.DataClass.EventDataClass.EveDataClass
 import com.interiiit.xenon.R
 
-class EventsAdapter(private val context: Context, private val eve: MutableList<EveDataClass>, private val fragmentManager: FragmentManager) :
+class EventsAdapter(private val context: Context,
+                    private val eve: MutableList<EveDataClass>,
+                    private val fragmentManager: FragmentManager) :
     RecyclerView.Adapter<EventsAdapter.viewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_eve1, parent, false)

@@ -10,8 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.interiiit.xenon.Activity.Main
@@ -27,6 +27,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.interiiit.xenon.other.IIITSlogo
+import com.interiiit.xenon.other.ScalingLayoutManager
 import com.jackandphantom.carouselrecyclerview.CarouselLayoutManager
 import org.json.JSONException
 
@@ -43,17 +44,17 @@ class Home : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
-        requireActivity().window.statusBarColor = 0xFFE9BD3E.toInt()
+        requireActivity().window.statusBarColor = 0xFF000000.toInt()
         binding.upcommingMatchsRV.visibility = View.INVISIBLE
         binding.resultMRv.visibility = View.INVISIBLE
         binding.resLot.visibility = View.VISIBLE
         binding.matLot.visibility = View.VISIBLE
 
-        binding.refresh.isEnabled = false
+//        binding.refresh.isEnabled = false
 
-        binding.normal.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            binding.refresh.isEnabled = scrollY == 0
-        }
+//        binding.normal.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+//            binding.refresh.isEnabled = scrollY == 0
+//        }
         return binding.root
     }
 
@@ -64,20 +65,29 @@ class Home : Fragment() {
 
         resultAdapter = ResultAdapter(upcomingMatchesList,logo,this,true)
         binding.resultMRv.adapter = resultAdapter
-        binding.resultMRv.orientation=ViewPager2.ORIENTATION_HORIZONTAL
-        binding.indicator.setViewPager(binding.resultMRv)
+        binding.resultMRv.layoutManager = ScalingLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
         fixAdapter = FixAdapter(fixture,this)
         binding.upcommingMatchsRV.adapter = fixAdapter
         binding.upcommingMatchsRV.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        val pagerSnapHelper = PagerSnapHelper()
+        pagerSnapHelper.attachToRecyclerView(binding.resultMRv)
 
         binding.refresh.setOnRefreshListener {
             fetchResult()
             fetchFixtures()
             Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
+
+        binding.abtus.setOnClickListener {
+            loadFragment(AboutUs())
+        }
+
         fetchResult()
         fetchFixtures()
+
         binding.seeText.setOnClickListener {
             loadFragment(Fixture_Sport_Wise())
         }
@@ -96,10 +106,7 @@ class Home : Fragment() {
         binding.fixture.setOnClickListener {
             loadFragment(Fixture_Sport_Wise())
         }
-        rotor(binding.upcommingMatchsRV)
-//        val autoScrollManager = AutoScroll(cobinding.resultMRv)
-//        autoScrollManager.startAutoScroll()
-//        autoScrollManagers.add(autoScrollManager)
+//        rotor(binding.resultMRv)
     }
 
     private fun openDrawer() {
@@ -107,13 +114,11 @@ class Home : Fragment() {
         mainActivity.openDrawer()
     }
 
-    private fun rotor(recyclerView: RecyclerView) {
-        recyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        val autoScroll = AutoScroll(recyclerView)
-        autoScroll.startAutoScroll()
-        autoScrollManagers.add(autoScroll)
-    }
+//    private fun rotor(recyclerView: RecyclerView) {
+//        val autoScroll = AutoScroll(recyclerView)
+//        autoScroll.startAutoScroll()
+//        autoScrollManagers.add(autoScroll)
+//    }
 
     private fun loadFragment(fragment: Fragment) {
         requireActivity().window.statusBarColor = 0xFF000000.toInt()
@@ -124,7 +129,7 @@ class Home : Fragment() {
     }
     private fun fetchFixtures() {
         fixture.clear()
-        val url = "https://app-admin-api.asmitaiiita.org/api/fixtures"
+        val url = "https://app-admin-api.asmitaiiita.org/api/fixtures/upcoming"
         val requestQueue = Volley.newRequestQueue(requireContext())
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET,
@@ -134,7 +139,7 @@ class Home : Fragment() {
                 try {
                     val fixMap = mutableMapOf<String, MutableList<Fixture_Day_DataClass>>()
                     val dataArray = response.getJSONArray("data")
-                    for (i in 0 until dataArray.length()) {
+                    for (i in 0 until minOf(dataArray.length(), 5)) {
                         val jsonObject = dataArray.getJSONObject(i)
                         val name = jsonObject.getString("Day") ?: ""
                         val type = jsonObject.getString("Sport") ?: ""
@@ -151,17 +156,40 @@ class Home : Fragment() {
                         fixture.add(teamSection)
                     }
                     fixAdapter.notifyDataSetChanged()
-                    binding.resLot.visibility = View.INVISIBLE
-                    binding.upcommingMatchsRV.visibility = View.VISIBLE
+                    if(fixture.isEmpty()){
+                        binding.t2.visibility = View.VISIBLE
+                        binding.matLot.visibility = View.INVISIBLE
+                        binding.upcommingMatchsRV.visibility = View.INVISIBLE
+                        binding.seeText.visibility = View.INVISIBLE
+                    }
+                    else{
+                        binding.t2.visibility = View.INVISIBLE
+                        binding.matLot.visibility = View.INVISIBLE
+                        binding.upcommingMatchsRV.visibility = View.VISIBLE
+                        binding.seeText.visibility = View.VISIBLE
+                    }
+                    binding.loadBtn2.visibility = View.INVISIBLE
                     binding.refresh.isRefreshing = false
                 } catch (e: JSONException) {
-//                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT/2).show()
-                    Log.e("fetchFixtures", "Error parsing JSON", e)
+                    Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT/2).show()
+                    binding.matLot.visibility = View.INVISIBLE
+                    binding.loadBtn2.visibility = View.VISIBLE
+                    binding.seeText.visibility = View.INVISIBLE
+                    binding.loadBtn2.setOnClickListener{
+                        fetchFixtures()
+                        binding.refresh.isRefreshing = true
+                    }
                 }
             },
             { error ->
-//                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT/2).show()
-                Log.e("fetchFixtures", "Error fetching fixtures", error)
+                Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT/2).show()
+                binding.matLot.visibility = View.INVISIBLE
+                binding.loadBtn2.visibility = View.VISIBLE
+                binding.seeText.visibility = View.INVISIBLE
+                binding.loadBtn2.setOnClickListener{
+                    fetchFixtures()
+                    binding.refresh.isRefreshing = true
+                }
             }
         )
         requestQueue.add(jsonObjectRequest)
@@ -242,20 +270,39 @@ class Home : Fragment() {
                     }
                     upcomingMatchesList.clear()
                     upcomingMatchesList.addAll(allResult.take(5))
+                    if(upcomingMatchesList.isEmpty()){
+                        binding.t1.visibility = View.VISIBLE
+                        binding.resLot.visibility = View.INVISIBLE
+                        binding.resultMRv.visibility = View.INVISIBLE
+                    }
+                    else{
+                        binding.t1.visibility = View.INVISIBLE
+                        binding.resLot.visibility = View.INVISIBLE
+                        binding.resultMRv.visibility = View.VISIBLE
+                    }
+                    binding.loadBtn.visibility = View.INVISIBLE
                     resultAdapter.notifyDataSetChanged()
-                    binding.matLot.visibility = View.INVISIBLE
-                    binding.resLot.visibility = View.INVISIBLE
-                    binding.upcommingMatchsRV.visibility = View.VISIBLE
-                    binding.resultMRv.visibility = View.VISIBLE
                     binding.refresh.isRefreshing = false
                 } catch (e: JSONException) {
-//                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT/2).show()
-                    Log.e("fetchResult", "Error parsing JSON", e)
+                    Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT/2).show()
+                    binding.resLot.visibility = View.INVISIBLE
+                    binding.loadBtn.visibility = View.VISIBLE
+                    binding.refresh.isRefreshing = false
+                    binding.loadBtn.setOnClickListener{
+                        fetchFixtures()
+                        binding.refresh.isRefreshing = true
+                    }
                 }
             },
             { error ->
-//                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT/2).show()
-                Log.e("fetchResult", "Error fetching data", error)
+                Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT/2).show()
+                binding.resLot.visibility = View.INVISIBLE
+                binding.loadBtn.visibility = View.VISIBLE
+                binding.refresh.isRefreshing = false
+                binding.loadBtn.setOnClickListener{
+                    fetchResult()
+                    binding.refresh.isRefreshing = true
+                }
             }
         )
         requestQueue.add(jsonObjectRequest)

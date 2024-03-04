@@ -7,10 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.interiiit.xenon.Adapter.GalleryAdapter
-import com.interiiit.xenon.DataClass.GalleryDataClass.FlickrPhoto
 import com.interiiit.xenon.databinding.FragmentGalleryBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.storage.FirebaseStorage
@@ -21,12 +18,10 @@ import com.interiiit.xenon.DataClass.GalleryDataClass.GalleryFb
 class Gallery : Fragment() {
 
     private lateinit var binding: FragmentGalleryBinding
-    private lateinit var galAdapter: GalleryAdapter
     private lateinit var galfbAdapter: GalleryFbAdapter
-    private val gal: MutableList<FlickrPhoto> = mutableListOf()
-    private val fbgal : MutableList<GalleryFb> = mutableListOf()
-    private val storageRef: StorageReference = FirebaseStorage.getInstance().reference.child("gallery")
-    private val api_key = "c04b69fd41509ef0642390c428f22081"
+    private val fbgal: MutableList<GalleryFb> = mutableListOf()
+    private val storageRef: StorageReference =
+        FirebaseStorage.getInstance().reference.child("gallery")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +41,8 @@ class Gallery : Fragment() {
 
         galfbAdapter = GalleryFbAdapter(requireContext(), fbgal)
         binding.gallRV.adapter = galfbAdapter
-        binding.gallRV.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        binding.gallRV.layoutManager =
+            StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
 
         storageRef.child(name!!).listAll()
             .addOnSuccessListener { listResult ->
@@ -60,55 +56,9 @@ class Gallery : Fragment() {
                 binding.resLot.visibility = View.INVISIBLE
             }
             .addOnFailureListener { exception ->
-                // Handle failure
+
             }
 
-//        storageRef.child(name.toString())
-//        galfbAdapter = GalleryFbAdapter(requireContext(), fbgal)
-//        binding.gallRV.adapter = galfbAdapter
-//        binding.gallRV.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-//
-//        storageRef.listAll()
-//            .addOnSuccessListener { listResult ->
-//                listResult.items.forEach { imageRef ->
-//                    imageRef.downloadUrl.addOnSuccessListener { url ->
-//                        fbgal.add(GalleryFb(url.toString()))
-//                        galAdapter.notifyDataSetChanged()
-//                    }
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//            }
-
-
-
-//        val flickrService = RetrofitClient.create()
-
-//        flickrService.getPhotos(apiKey = api_key)
-//            .enqueue(object : Callback<FlickrResponse> {
-//                override fun onResponse(
-//                    call: Call<FlickrResponse>,
-//                    response: Response<FlickrResponse>
-//                ) {
-//                    if (response.isSuccessful) {
-//                        val photos = response.body()?.photos?.photo
-//
-//                        photos?.forEach { photo ->
-//                            val imageUrl =
-//                                "https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg"
-//                            gal.add(FlickrPhoto(photo.id, photo.farm, photo.server, photo.secret))
-//                        }
-//                        galAdapter.notifyDataSetChanged()
-//                        binding.resLot.visibility = View.INVISIBLE
-//                        binding.gallRV.visibility = View.VISIBLE
-//                        binding.loadBtn.visibility = View.VISIBLE
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<FlickrResponse>, t: Throwable) {
-////                    Toast.makeText(requireContext(), t.localizedMessage, Toast.LENGTH_SHORT).show()
-//                }
-//            })
         binding.back.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
@@ -118,10 +68,9 @@ class Gallery : Fragment() {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 startActivity(intent)
             } else {
-                Snackbar.make( binding.root,"Link is not Available",Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, "Link is not Available", Snackbar.LENGTH_SHORT).show()
             }
         }
-
     }
 
 }

@@ -13,7 +13,6 @@ class Result_Sport_Adapter (val sch: List<Matches>,
 ) : RecyclerView.Adapter<Result_Sport_Adapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
-
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_fix, parent, false)
         return ViewHolder(view)
     }

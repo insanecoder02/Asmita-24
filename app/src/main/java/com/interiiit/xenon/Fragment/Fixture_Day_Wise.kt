@@ -1,22 +1,13 @@
 package com.interiiit.xenon.Fragment
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
-import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
-import com.interiiit.xenon.Adapter.Fixture_Day_Adapter
+import android.widget.Button
 import com.interiiit.xenon.DataClass.FixtureDataClass.Fixture_Day_DataClass
 import com.interiiit.xenon.R
 import com.interiiit.xenon.databinding.FragmentFixtureDayWiseBinding
@@ -25,9 +16,7 @@ import com.google.gson.reflect.TypeToken
 
 class Fixture_Day_Wise : Fragment() {
     private lateinit var binding:FragmentFixtureDayWiseBinding
-    private lateinit var dayAdapter:Fixture_Day_Adapter
-    private val dayList:MutableList<Fixture_Day_DataClass> = mutableListOf()
-    private var htmlString: String? = null
+    private var dayList:MutableList<Fixture_Day_DataClass> = mutableListOf()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,90 +27,68 @@ class Fixture_Day_Wise : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val name = arguments?.getString("name")
         binding.text1.text = name
-
         val dayListJson = arguments?.getString("dayListJson")
         val type = object : TypeToken<List<Fixture_Day_DataClass>>() {}.type
-        val dayList: MutableList<Fixture_Day_DataClass> = Gson().fromJson(dayListJson, type)
-        binding.viewPager.adapter = DayPagerAdapter(dayList.map { it.data }, requireActivity())
-
-        // Connect TabLayout with ViewPager
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = dayList[position].day
-        }.attach()
-
-//        for (day in dayList) {
-//            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(day.day))
-//        }
-//        binding.tabLayout.setTabTextColors(Color.WHITE,0xFFE9BE3E.toInt())
-//        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-//            override fun onTabSelected(tab: TabLayout.Tab?) {
-////                tab?.let {
-////                    binding.viewPager.currentItem = it.position
-////                }
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-//
-//            override fun onTabReselected(tab: TabLayout.Tab?) {}
-//        })
-//        val webView: WebView = binding.root.findViewById(R.id.web)
-//        webView.settings.javaScriptEnabled = true
-//        htmlString?.let { webView.loadData(it, "text/html", "UTF-8") }
-//
-//        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//                super.onPageSelected(position)
-//                binding.tabLayout.selectTab(binding.tabLayout.getTabAt(position))
-//            }
-//        })
-
-        dayAdapter = Fixture_Day_Adapter(dayList, this)
-        binding.dayRv.adapter = dayAdapter
-        binding.dayRv.layoutManager = GridLayoutManager(requireContext(), 2)
+        dayList= Gson().fromJson(dayListJson, type)
         binding.back.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
+        setupButtonClickListeners()
+        handleButtonClick(R.id.day1)
     }
+    private fun setupButtonClickListeners() {
+        val buttons = listOf(
+            binding.day1,
+            binding.day2,
+            binding.day3,
+            binding.day4,
+            binding.day5,
+            binding.day6,
+            binding.day7
+        )
 
-    companion object {
-        private const val HTML_STRING_KEY = "html_string_key"
-        fun newInstance(dayListJson: String): Fixture_Day_Wise {
-            val fragment = Fixture_Day_Wise()
-            val args = Bundle()
-            args.putString("dayListJson", dayListJson)
-            fragment.arguments = args
-            return fragment
+        buttons.forEach { button ->
+            button.setOnClickListener {
+                handleButtonClick(button.id)
+                updateButtonBackground(buttons, button)
+            }
         }
     }
-    class DayPagerAdapter(
-        private val htmlStrings: List<String>,
-        fragmentActivity: FragmentActivity
-    ) : FragmentStateAdapter(fragmentActivity) {
-
-        override fun getItemCount(): Int = htmlStrings.size
-
-        override fun createFragment(position: Int): Fragment {
-            return DayClassFragment.newInstance(htmlStrings[position])
+    private fun updateButtonBackground(buttons: List<Button>, selectedButton: Button) {
+        buttons.forEach { button ->
+            if (button == selectedButton) {
+                button.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E9BD3E"))
+            } else {
+                button.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#000000"))
+            }
         }
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            htmlString = it.getString(HTML_STRING_KEY)
+    private fun handleButtonClick(buttonId: Int) {
+        val filteredList = when (buttonId) {
+            R.id.day1 -> dayList.filter { it.day == "1" }
+            R.id.day2 -> dayList.filter { it.day == "2" }
+            R.id.day3 -> dayList.filter { it.day == "3" }
+            R.id.day4 -> dayList.filter { it.day == "4" }
+            R.id.day5 -> dayList.filter { it.day == "5" }
+            R.id.day6 -> dayList.filter { it.day == "6" }
+            R.id.day7 -> dayList.filter { it.day == "7" }
+            else -> listOf()
+        }
+        if (filteredList.isEmpty()) {
+            binding.nore.visibility = View.VISIBLE
+            binding.web.visibility = View.INVISIBLE
+        } else {
+            binding.nore.visibility = View.GONE
+            binding.web.visibility = View.VISIBLE
+        }
+        displayHTMLContent(filteredList)
+    }
+    private fun displayHTMLContent(filteredList: List<Fixture_Day_DataClass>) {
+        if (filteredList.isNotEmpty()) {
+            val htmlContent = filteredList[0].data
+            binding.web.loadDataWithBaseURL(null, htmlContent, "text/html", "UTF-8", null)
         }
     }
-//    fun onItemClick(item: Fixture_Day_DataClass) {
-//        val bundle = Bundle()
-//        bundle.putString("name", item.day ?: "Name")
-//        bundle.putString("data", item.data ?: "Date")
-//        val nextFragment = Fixture()
-//        nextFragment.arguments = bundle
-//        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//        transaction.replace(R.id.fragment_container, nextFragment)
-//        transaction.addToBackStack(null)
-//        transaction.commit()
-//    }
 }

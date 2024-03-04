@@ -19,6 +19,7 @@ import com.interiiit.xenon.databinding.FragmentResultSportBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
+import com.interiiit.xenon.Activity.Main
 import org.json.JSONException
 
 class Result_Sport : Fragment() {
@@ -53,11 +54,16 @@ class Result_Sport : Fragment() {
         }
         fetchMatches()
         binding.back.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            openDrawer()
         }
     }
 
-    private fun fetchMatches() {
+    private fun openDrawer() {
+        val mainActivity = requireActivity() as Main
+        mainActivity.openDrawer()
+    }
+
+        private fun fetchMatches() {
         reSport.clear()
         val url = "https://app-admin-api.asmitaiiita.org/api/results/getResults"
         val requestQueue = Volley.newRequestQueue(requireContext())
@@ -133,10 +139,10 @@ class Result_Sport : Fragment() {
                             p3
                         )
 
-                        if (fixMap.containsKey(type)) {
-                            fixMap[type]?.add(sprtWise)
+                        if (fixMap.containsKey(matchName)) {
+                            fixMap[matchName]?.add(sprtWise)
                         } else {
-                            fixMap[type] = mutableListOf(sprtWise)
+                            fixMap[matchName] = mutableListOf(sprtWise)
                         }
                     }
 
@@ -173,6 +179,7 @@ class Result_Sport : Fragment() {
         binding.refresh.isRefreshing = false
         binding.loadBtn.setOnClickListener {
             fetchMatches()
+            binding.refresh.isRefreshing = true
         }
     }
     fun onItemClick(item: Matches) {

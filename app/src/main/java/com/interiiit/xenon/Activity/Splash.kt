@@ -21,20 +21,14 @@ class Splash : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         window.statusBarColor = 0xFF000000.toInt()
-
         sharedPreferences = getPreferences(Context.MODE_PRIVATE)
-
         val middleElement = binding.middleElement
         val animationSetFadeIn = createTranslateAlphaAnimationSet(0f, 0f, 0f, 1f)
-
         val handler = Handler(Looper.getMainLooper())
-
         handler.postDelayed({
             middleElement.startAnimation(animationSetFadeIn)
         }, 90)
-
         val commonAnimationListener = object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {}
             override fun onAnimationEnd(animation: Animation?) {
@@ -64,7 +58,6 @@ class Splash : AppCompatActivity() {
         animationSet.addAnimation(fadeInAnimation)
         return animationSet
     }
-
     private fun isFirstTime(): Boolean {
         val firstTime = sharedPreferences.getBoolean("firstTime", true)
         sharedPreferences.edit().putBoolean("firstTime", false).apply()

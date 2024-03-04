@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/day6"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="5dp"
+    android:background="@drawable/rectangle_bg"
+    android:backgroundTint="@color/black"
+    android:text="Thu 14 Mar"
+    android:textAllCaps="false"
+    android:textColor="@color/white"
+    android:textSize="12dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

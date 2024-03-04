@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black"
-    android:fillViewport="true">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".Fragment.results">
+    android:fillViewport="true"
+    tools:context=".Fragment.results">
+
     <LinearLayout
         android:id="@+id/lay2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="10dp"
+        android:orientation="horizontal"
         android:paddingHorizontal="10dp"
         android:weightSum="1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,15 +32,152 @@
             android:id="@+id/text1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.9"
-            android:gravity="center_vertical"
             android:layout_gravity="center_vertical"
-            android:fontFamily="@font/poppins_semibold"
             android:layout_marginBottom="-2dp"
+            android:layout_weight="0.9"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center_vertical"
             android:paddingHorizontal="5dp"
             android:textColor="@color/white"
             android:textSize="20dp" />
     </LinearLayout>
+
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/resultRv"-->
+    <!--        android:visibility="gone"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_marginTop="5dp"-->
+    <!--        android:orientation="vertical"-->
+    <!--        android:paddingHorizontal="5dp"-->
+    <!--        tools:listitem="@layout/layout_football"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/view1"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
+
+    <HorizontalScrollView
+        android:id="@+id/hor"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:paddingHorizontal="10dp"
+        android:layout_marginTop="5dp"
+        android:background="#151515"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lay2">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="#151515"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/rectangle_bg"
+                android:backgroundTint="#E9BD3E"
+                android:text="ALL"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginVertical="5dp"
+                android:background="@color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/day1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/rectangle_bg"
+                android:backgroundTint="@color/black"
+                android:text="Sat 9 Mar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/day2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle_bg"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="@color/black"
+                android:text="Sun 10 Mar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/day3"
+                android:layout_width="wrap_content"
+                android:background="@drawable/rectangle_bg"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="@color/black"
+                android:text="Mon 11 Mar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/day4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/rectangle_bg"
+                android:backgroundTint="@color/black"
+                android:text="Tue 12 Mar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/day5"
+                android:background="@drawable/rectangle_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="@color/black"
+                android:text="Wed 13 Mar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/day6"
+                android:layout_width="wrap_content"
+                android:background="@drawable/rectangle_bg"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="@color/black"
+                android:text="Thu 14 Mar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/day7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/rectangle_bg"
+                android:backgroundTint="@color/black"
+                android:text="Fri 15 Mar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <View
         android:id="@+id/view1"
@@ -53,43 +188,54 @@
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lay2" />
+        app:layout_constraintTop_toBottomOf="@id/hor" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/resultRv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="5dp"
-        android:visibility="gone"
         android:orientation="vertical"
         android:paddingHorizontal="5dp"
-        tools:listitem="@layout/layout_football"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view1"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        tools:listitem="@layout/layout_football" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:background="@color/black"
-            app:tabIndicatorColor="@color/yellow"
-            android:layout_marginTop="5dp"
-            app:tabTextAppearance="@style/MyCustomTabText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view1">
-        </com.google.android.material.tabs.TabLayout>
+    <TextView
+        android:id="@+id/nore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="No results available"
+        android:textColor="@color/white"
+        android:textSize="24dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view1" />
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tabLayout"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--        <com.google.android.material.tabs.TabLayout-->
+    <!--            android:id="@+id/tabLayout"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="45dp"-->
+    <!--            android:background="@color/black"-->
+    <!--            app:tabIndicatorColor="@color/yellow"-->
+    <!--            android:layout_marginTop="5dp"-->
+    <!--            app:tabTextAppearance="@style/MyCustomTabText"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@id/view1">-->
+    <!--        </com.google.android.material.tabs.TabLayout>-->
 
-</androidx.core.widget.NestedScrollView>
+    <!--        <androidx.viewpager2.widget.ViewPager2-->
+    <!--            android:id="@+id/viewPager"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@id/tabLayout"/>-->
+</androidx.constraintlayout.widget.ConstraintLayout>

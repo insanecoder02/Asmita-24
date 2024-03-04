@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/grp1"
+        android:visible="true">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/nav_team"
+        android:icon="@drawable/team"
+        android:title="Team" />
+
+    <item
+        android:id="@+id/nav_sponsor"
+        android:icon="@drawable/sponsers"
+        android:title="Sponsors" />
+        <item
+            android:id="@+id/nav_eve"
+            android:icon="@drawable/evelogo"
+            android:title="Events"/>
+
+    </group>
+    <group android:id="@+id/g5">
+        <item
+            android:id="@+id/nav_lead"
+            android:icon="@drawable/leadlogo"
+            android:title="Leaderboard"/>
+
+        <item
+            android:id="@+id/nav_fix"
+            android:icon="@drawable/fixlogo"
+            android:title="Fixtures"/>
+        <item
+            android:id="@+id/nav_res"
+            android:icon="@drawable/reslogo"
+            android:title="Results"/>
+    </group>
+
+<group
+    android:id="@+id/grp2">
+    <item
+        android:id="@+id/nav_gallery"
+        android:icon="@drawable/gallery"
+        android:title="Gallery" />
+    <item
+        android:id="@+id/nav_iiits"
+        android:icon="@drawable/participatingiiits"
+        android:title="Participating IIIT's" />
+
+    <item
+        android:id="@+id/nav_developer"
+        android:icon="@drawable/developers"
+        android:title="Developers" />
+
+</group>
+
+</menu>

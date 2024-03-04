@@ -3,7 +3,6 @@ package com.interiiit.xenon.Fragment
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +20,7 @@ import com.interiiit.xenon.databinding.FragmentFixtureSportWiseBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.interiiit.xenon.DataClass.AboutUs
+import com.interiiit.xenon.Activity.Main
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -40,22 +39,24 @@ class Fixture_Sport_Wise : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         fixAdapter = Fixture_Sport_Adapter(fixture,this)
         binding.seeRv.adapter = fixAdapter
         binding.seeRv.layoutManager = GridLayoutManager(requireContext(),2)
         binding.back.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            openDrawer()
         }
         binding.refresh.setOnRefreshListener {
             fetch()
             Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
-//        binding.loadBtn.setOnClickListener{
-//            fetch()
-//        }
         fetchIfNeeded()
     }
-    private fun fetchIfNeeded() {
+    private fun openDrawer() {
+        val mainActivity = requireActivity() as Main
+        mainActivity.openDrawer()
+    }
+        private fun fetchIfNeeded() {
         if(shouldFetchData()){
             fetch()
             binding.seeRv.visibility = View.INVISIBLE
@@ -118,22 +119,30 @@ class Fixture_Sport_Wise : Fragment() {
                         fixture.add(teamSection)
                     }
                     fixAdapter.notifyDataSetChanged()
-                    binding.resLot.visibility = View.INVISIBLE
-                    binding.seeRv.visibility = View.VISIBLE
-                    binding.normal.visibility = View.VISIBLE
-                    binding.error.visibility = View.INVISIBLE
+                    if(fixture.isEmpty()){
+                        binding.t1.visibility = View.VISIBLE
+                        binding.resLot.visibility = View.INVISIBLE
+                        binding.seeRv.visibility = View.INVISIBLE
+                        binding.normal.visibility = View.INVISIBLE
+                        binding.error.visibility = View.INVISIBLE
+                    }
+                    else{
+                        binding.t1.visibility = View.INVISIBLE
+                        binding.resLot.visibility = View.INVISIBLE
+                        binding.seeRv.visibility = View.VISIBLE
+                        binding.normal.visibility = View.VISIBLE
+                        binding.error.visibility = View.INVISIBLE
+                    }
                     binding.refresh.isRefreshing = false
                     updateSharedPreferences()
                 } catch (e: JSONException) {
-//                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Error Fetching Data", Toast.LENGTH_SHORT).show()
                     handleNetworkError()
-                    Log.e("fetch", "Error parsing JSON", e)
                 }
             },
             { error ->
-//                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Error Fetching Data", Toast.LENGTH_SHORT).show()
                 handleNetworkError()
-                Log.e("fetch", "Error fetching data", error)
             }
         )
         requestQueue.add(jsonObjectRequest)
@@ -153,6 +162,7 @@ class Fixture_Sport_Wise : Fragment() {
         binding.refresh.isRefreshing = false
         binding.loadBtn.setOnClickListener {
             fetch()
+            binding.refresh.isRefreshing = true
         }
     }
     fun onItemClick(item: FixtureSportDataClass) {

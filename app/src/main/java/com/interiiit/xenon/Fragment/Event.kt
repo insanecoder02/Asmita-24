@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.interiiit.xenon.Activity.Main
 
 class Event : Fragment() {
     private lateinit var binding: FragmentEventBinding
@@ -38,14 +38,13 @@ class Event : Fragment() {
     ): View {
         binding = FragmentEventBinding.inflate(layoutInflater, container, false)
         sharedPreferences = requireActivity().getSharedPreferences("Event", Context.MODE_PRIVATE)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        wingAdapter = EventsAdapter(requireContext(), eventClass,parentFragmentManager)
+        wingAdapter = EventsAdapter(requireContext(), eventClass, parentFragmentManager)
         binding.teamRV.adapter = wingAdapter
         binding.teamRV.layoutManager = LinearLayoutManager(requireContext())
 
@@ -54,7 +53,7 @@ class Event : Fragment() {
         binding.featuredRv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.back.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            openDrawer()
         }
         binding.refresh.setOnRefreshListener {
             fetchFromFirestore()
@@ -63,6 +62,11 @@ class Event : Fragment() {
         fetchIfNeeded()
         rotor(binding.featuredRv)
     }
+    private fun openDrawer() {
+        val mainActivity = requireActivity() as Main
+        mainActivity.openDrawer()
+    }
+
     private fun fetchIfNeeded() {
         if (shouldFetchData()) {
             binding.resLot.visibility = View.VISIBLE
@@ -73,12 +77,16 @@ class Event : Fragment() {
             loadFromCache()
         }
     }
+
     private fun shouldFetchData(): Boolean {
         val lastFetchTime = sharedPreferences.getLong("lastEveFetchTime", 0)
         val currentTime = System.currentTimeMillis()
         val elapsedTime = currentTime - lastFetchTime
         val fetchInterval = 5 * 60 * 1000
-        return !sharedPreferences.getBoolean("eveDataFetched", false) || elapsedTime >= fetchInterval
+        return !sharedPreferences.getBoolean(
+            "eveDataFetched",
+            false
+        ) || elapsedTime >= fetchInterval
     }
 
     private fun loadFromCache() {
@@ -128,9 +136,20 @@ class Event : Fragment() {
                     val location = document.getString("location") ?: ""
                     val type = document.getString("type") ?: ""
                     val wing = document.getString("wing") ?: ""
-                    val feat = document.getString("feat")?:""
+                    val feat = document.getString("feat") ?: ""
                     val event =
-                        Events(name, date, image, discription, heading, length, location, type,wing,feat)
+                        Events(
+                            name,
+                            date,
+                            image,
+                            discription,
+                            heading,
+                            length,
+                            location,
+                            type,
+                            wing,
+                            feat
+                        )
                     if (eveMap.containsKey(wing)) {
                         eveMap[wing]?.add(event)
                     } else {
@@ -146,19 +165,29 @@ class Event : Fragment() {
                 }
                 eventsAdapter.notifyDataSetChanged()
                 wingAdapter.notifyDataSetChanged()
-                binding.resLot.visibility = View.INVISIBLE
-                binding.refresh.isRefreshing=false
-                binding.featuredRv.visibility = View.VISIBLE
-                binding.teamRV.visibility = View.VISIBLE
-                binding.normal.visibility = View.VISIBLE
-                binding.error.visibility = View.INVISIBLE
-                updateSharedPreferences()
+
+                if (eventClass.size == 0) {
+                    binding.t1.visibility = View.VISIBLE
+                    binding.resLot.visibility = View.INVISIBLE
+                    binding.normal.visibility = View.INVISIBLE
+                    binding.error.visibility = View.INVISIBLE
+                    binding.refresh.isRefreshing = false
+                } else {
+                    binding.t1.visibility = View.INVISIBLE
+                    binding.resLot.visibility = View.INVISIBLE
+                    binding.refresh.isRefreshing = false
+                    binding.featuredRv.visibility = View.VISIBLE
+                    binding.teamRV.visibility = View.VISIBLE
+                    binding.normal.visibility = View.VISIBLE
+                    binding.error.visibility = View.INVISIBLE
+                    updateSharedPreferences()
+                }
             }.addOnFailureListener { e ->
                 handleNetworkError()
-//                Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT)
-//                    .show()
+                Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
             }
     }
+
     private fun handleNetworkError() {
         binding.normal.visibility = View.INVISIBLE
         binding.error.visibility = View.VISIBLE
