@@ -36,15 +36,15 @@
             android:id="@+id/text11"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image11"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/pjssb"
+            android:gravity="center"
             android:text="Network Error"
             android:textColor="@color/white"
-            android:gravity="center"
             android:textSize="24dp"
-            android:fontFamily="@font/poppins_semibold"
-            android:layout_marginTop="20dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image11" />
 
         <TextView
             android:id="@+id/textView3"

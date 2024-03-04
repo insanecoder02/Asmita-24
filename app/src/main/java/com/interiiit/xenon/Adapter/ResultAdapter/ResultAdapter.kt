@@ -11,11 +11,17 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.interiiit.xenon.DataClass.Score.MatchDetails
 import com.interiiit.xenon.R
 
-class ResultAdapter (val sch: List<MatchDetails>,
+class ResultAdapter (
+    var sch: List<MatchDetails>,
     val logo:Map<String,Int>,
     private val resClickListener: com.interiiit.xenon.Fragment.Home,
     val boolean: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    fun updateData(newList: List<MatchDetails>) {
+        sch = newList
+        notifyDataSetChanged()
+    }
 
     private val CRICKET = 1
     private val FOOBALL = 2

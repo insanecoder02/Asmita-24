@@ -14,10 +14,13 @@ import com.interiiit.xenon.Fragment.participating_iiits
 import com.interiiit.xenon.R
 import com.interiiit.xenon.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
+import com.interiiit.xenon.Fragment.Event
+import com.interiiit.xenon.Fragment.Fixture_Sport_Wise
+import com.interiiit.xenon.Fragment.LeaderBoard
+import com.interiiit.xenon.Fragment.Result_Sport
 
 class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -37,7 +40,7 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 if (currentFragment !is Home) {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Home())
                         .commit()
-                    window.statusBarColor = 0xFFE9BD3E.toInt()
+                    window.statusBarColor = 0xFF000000.toInt()
                 }
             }
             R.id.nav_team -> {
@@ -71,6 +74,30 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                     window.statusBarColor = 0xFF000000.toInt()
                 }
             }
+            R.id.nav_lead -> {
+                if (currentFragment !is participating_iiits) {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, LeaderBoard()).commit()
+                    window.statusBarColor = 0xFF000000.toInt()
+                }
+            }
+            R.id.nav_fix -> {
+                if (currentFragment !is participating_iiits) {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Fixture_Sport_Wise()).commit()
+                    window.statusBarColor = 0xFF000000.toInt()
+                }
+            }
+            R.id.nav_res -> {
+                if (currentFragment !is participating_iiits) {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Result_Sport()).commit()
+                    window.statusBarColor = 0xFF000000.toInt()
+                }
+            }
+            R.id.nav_eve -> {
+                if (currentFragment !is participating_iiits) {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Event()).commit()
+                    window.statusBarColor = 0xFF000000.toInt()
+                }
+            }
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -87,11 +114,11 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             when (fragment) {
-                is Team, is Sponsors, is Gallery2, is Developer, is participating_iiits -> {
+                is Team, is Sponsors, is Gallery2, is Developer, is participating_iiits, is Event, is Result_Sport, is Fixture_Sport_Wise, is LeaderBoard -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, Home())
                         .commit()
-                    window.statusBarColor = 0xFFE9BD3E.toInt()
+                    window.statusBarColor = 0xFF000000.toInt()
                 }
                 is Home -> {
                     AlertDialog.Builder(this)

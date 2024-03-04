@@ -36,7 +36,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="0dp"

@@ -31,7 +31,6 @@ private var gall:MutableList<Gallery2> = mutableListOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         gallAdapter = Gallery2Adapter(gall,this)
         binding.sportsRv.adapter=gallAdapter
         binding.sportsRv.layoutManager=LinearLayoutManager(requireContext())
@@ -54,7 +53,6 @@ private var gall:MutableList<Gallery2> = mutableListOf()
         gall.clear()
         val db=FirebaseFirestore.getInstance()
         db.collection("Gallery").get().addOnSuccessListener {documents->
-//            val list= mutableListOf<Gallery2>()
             for(document in documents){
                 val imageurl=document.getString("image")?:""
                 val title=document.getString("name")?:""
@@ -62,14 +60,25 @@ private var gall:MutableList<Gallery2> = mutableListOf()
                 gall.add(Gallery2(title,imageurl,url))
             }
             gallAdapter.notifyDataSetChanged()
-            binding.resLot.visibility = View.INVISIBLE
-            binding.sportsRv.visibility = View.VISIBLE
-            binding.normal.visibility = View.VISIBLE
-            binding.error.visibility = View.INVISIBLE
+            if(gall.isEmpty()){
+                binding.t1.visibility = View.VISIBLE
+                binding.resLot.visibility = View.INVISIBLE
+                binding.sportsRv.visibility = View.INVISIBLE
+                binding.normal.visibility = View.INVISIBLE
+                binding.error.visibility = View.INVISIBLE
+            }
+            else{
+                binding.t1.visibility = View.INVISIBLE
+                binding.resLot.visibility = View.INVISIBLE
+                binding.sportsRv.visibility = View.VISIBLE
+                binding.normal.visibility = View.VISIBLE
+                binding.error.visibility = View.INVISIBLE
+            }
+
             binding.refresh.isRefreshing=false
         }.addOnFailureListener {
             handleNetworkError()
-//            Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
         }
     }
     private fun handleNetworkError() {
@@ -78,23 +87,14 @@ private var gall:MutableList<Gallery2> = mutableListOf()
         binding.refresh.isRefreshing = false
         binding.loadBtn.setOnClickListener {
             fetchfromfirestore()
+            binding.refresh.isRefreshing = true
         }
     }
     fun onItemClick(item: Gallery2) {
-//        Log.d(
-//            "Events",
-//            "Date: ${item.date}, Details: ${item.details}, Form: ${item.form}, Name: ${item.name}, No: ${item.no}, Time: ${item.time}, URL: ${item.url}, Venue: ${item.venue}"
-//        )
         val bundle = Bundle()
         bundle.putString("date", item.sport_img ?: "Date")
         bundle.putString("details", item.sport_name)
         bundle.putString("url", item.url)
-//        bundle.putString("form", item.form ?: "Form")
-//        bundle.putString("name", item.name ?: "Name")
-//        bundle.putLong("no", item.no ?: 123)
-//        bundle.putString("time", item.time ?: "Time")
-//        bundle.putString("url", item.url ?: "Url")
-//        bundle.putString("venue", item.venue ?: "Venue")
         val nextFragment = Gallery()
         nextFragment.arguments = bundle
         val transaction = requireActivity().supportFragmentManager.beginTransaction()

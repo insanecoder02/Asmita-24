@@ -10,31 +10,27 @@
     tools:context=".Activity.Main"
     tools:openDrawer="start">
 
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:orientation="vertical">-->
-
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <!--    </LinearLayout>-->
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="250dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#FFD633"
+        android:background="#151515"
         android:fitsSystemWindows="false"
         app:headerLayout="@layout/nav_header"
         app:itemIconSize="20dp"
-        app:itemIconTint="@color/black"
-        app:itemRippleColor="#FFECA1"
+        app:dividerInsetStart="20dp"
+        app:dividerInsetEnd="20dp"
+        app:itemIconTint="@color/white"
+        app:itemRippleColor="#000000"
         app:itemTextAppearance="@style/NavDrawerTextStyle"
-        app:itemTextColor="@color/black"
-        app:menu="@menu/nav_menu" />
+        app:itemShapeFillColor="#151515"
+        app:itemTextColor="@color/white"
+        app:menu="@menu/nav__menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

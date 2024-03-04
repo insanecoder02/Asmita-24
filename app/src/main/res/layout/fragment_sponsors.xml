@@ -109,12 +109,12 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="-2dp"
                 android:layout_weight="0.9"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/montserrat_semibold"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="5dp"
                 android:text="Sponsors"
                 android:textColor="@color/white"
-                android:textSize="20dp" />
+                android:textSize="21dp" />
         </LinearLayout>
 
         <View

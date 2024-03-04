@@ -24,6 +24,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.interiiit.xenon.other.ImageViewerDialog
 
 class Team : Fragment() {
     private lateinit var binding: FragmentTeamBinding
@@ -62,9 +63,9 @@ class Team : Fragment() {
         wingAdapter = WingAdapter(requireContext(), teamSections)
         binding.teamRV.adapter = wingAdapter
         binding.teamRV.layoutManager = LinearLayoutManager(requireContext())
-        binding.imageView4.setOnClickListener {
-            loadFragment(AboutUs())
-        }
+//        binding.imageView4.setOnClickListener {
+//            loadFragment(AboutUs())
+//        }
         binding.refresh.setOnRefreshListener {
             fetchFromFirestore()
             Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
@@ -121,7 +122,6 @@ class Team : Fragment() {
             for (document in documents) {
                 val img = document.getString("img") ?: ""
                 saveDataToSharedPreferences(img)
-                // Load image from URL
                 loadImageFromUrl(img)
             }
         }.addOnFailureListener { exception ->

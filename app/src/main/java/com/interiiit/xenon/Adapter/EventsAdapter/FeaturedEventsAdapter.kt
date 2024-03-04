@@ -47,7 +47,6 @@ class FeaturedEventsAdapter(
         val name: TextView = itemView.findViewById(R.id.name)
         val date: TextView = itemView.findViewById(R.id.date)
         val image: ImageView = itemView.findViewById(R.id.image)
-
     }
 }
 

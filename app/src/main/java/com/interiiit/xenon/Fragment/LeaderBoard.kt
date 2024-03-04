@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.interiiit.xenon.Adapter.FragmentAdapter
 import com.interiiit.xenon.databinding.FragmentLeaderBoardBinding
 import com.google.android.material.tabs.TabLayout
+import com.interiiit.xenon.Activity.Main
 
 class LeaderBoard : Fragment() {
     private lateinit var binding: FragmentLeaderBoardBinding
@@ -33,7 +34,7 @@ class LeaderBoard : Fragment() {
         binding.viewPager.adapter = FragmentAdapter(lifecycle,requireActivity().supportFragmentManager)
 
         binding.back.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            openDrawer()
         }
         binding.tabLayout.setTabTextColors(Color.WHITE,0xFFE9BE3E.toInt())
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -54,5 +55,10 @@ class LeaderBoard : Fragment() {
                 binding.tabLayout.selectTab(binding.tabLayout.getTabAt(position))
             }
         })
+    }
+
+    private fun openDrawer() {
+        val mainActivity = requireActivity() as Main
+        mainActivity.openDrawer()
     }
 }

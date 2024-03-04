@@ -12,6 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/t1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No data available"
+            android:textColor="@color/white"
+            android:visibility="invisible"
+            android:textSize="24dp"
+            android:fontFamily="@font/poppins_semibold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/error"
         android:visibility="invisible"
@@ -117,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0.1"
-                    android:src="@drawable/arrow_back" />
+                    android:src="@drawable/menu_black" />
 
                 <TextView
                     android:id="@+id/text1"
@@ -126,7 +140,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginBottom="-2dp"
                     android:layout_weight="0.9"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:gravity="center_vertical"
                     android:paddingHorizontal="5dp"
                     android:text="Events"

@@ -94,6 +94,7 @@ class AboutUs : Fragment() {
             binding.error.visibility = View.INVISIBLE
             updateSharedPreferences()
         }.addOnFailureListener { e ->
+            Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
             handleNetworkError()
         }
     }

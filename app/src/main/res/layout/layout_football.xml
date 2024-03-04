@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
     android:layout_marginVertical="10dp"
-    android:background="@drawable/fade3">
+    android:background="@drawable/tiger_svg">
 
     <LinearLayout
         android:id="@+id/lay1"
@@ -24,26 +24,29 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.6"
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/poppins_bold"
             android:gravity="center_vertical|start"
             android:hint="match name"
             android:paddingHorizontal="5dp"
+
+
             android:textAllCaps="true"
-            android:textColor="#E9E9E9"
+            android:textColor="#333c3c"
             android:textColorHint="@color/white"
             android:textSize="16dp" />
 
         <TextView
             android:id="@+id/date"
             android:layout_width="0dp"
+
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.4"
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/poppins_bold"
             android:gravity="center_vertical|end"
             android:hint="date"
             android:paddingEnd="10dp"
-            android:textColor="#E9E9E9"
+            android:textColor="#333c3c"
             android:textColorHint="@color/white"
             android:textSize="16dp" />
     </LinearLayout>
@@ -61,6 +64,10 @@
             android:id="@+id/time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2.5"
+            android:shadowColor="@color/black"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
             android:textColor="@color/white"
@@ -70,6 +77,8 @@
 
     <LinearLayout
         android:id="@+id/layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -95,14 +104,15 @@
                 android:id="@+id/clgName1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:layout_marginTop="5dp"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/poppins_semibold"
                 android:gravity="center"
                 android:hint="clg-1"
                 android:letterSpacing="0.1"
                 android:paddingHorizontal="5dp"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
+                android:textColor="#333c3c"
                 android:textColorHint="@color/white"
                 android:textSize="12dp" />
         </LinearLayout>
@@ -115,7 +125,7 @@
             android:layout_weight="0.3"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="#223333"
             android:textSize="28dp" />
 
         <LinearLayout
@@ -136,35 +146,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:fontFamily="@font/poppins_medium"
+
+                android:fontFamily="@font/poppins_semibold"
                 android:gravity="center"
                 android:hint="clg-2"
                 android:letterSpacing="0.1"
                 android:paddingHorizontal="5dp"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
+                android:textColor="#333c3c"
                 android:textColorHint="@color/white"
                 android:textSize="12dp" />
         </LinearLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/backlesss"
-        android:fontFamily="@font/poppins_medium"
-        android:gravity="center|bottom"
-        android:paddingHorizontal="8dp"
-        android:paddingTop="3dp"
-        android:text="inter iiit 2024"
-        android:textAllCaps="true"
-        android:textColor="@color/black"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

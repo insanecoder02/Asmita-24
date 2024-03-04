@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:elevation="1dp"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="@font/montserrat_semibold"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="20dp"
@@ -52,13 +52,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:elevation="1dp"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="@font/pjssb"
         android:gravity="center"
         android:textColor="#A6A6A6"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/image"
-        app:layout_constraintTop_toBottomOf="@+id/name"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

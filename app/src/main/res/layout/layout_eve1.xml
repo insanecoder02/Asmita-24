@@ -14,7 +14,7 @@
         android:layout_width="0dp"
         android:paddingHorizontal="5dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_semibold"
+        android:fontFamily="@font/pjssb"
         android:text="Hello"
         android:textAllCaps="true"
         android:textColor="@color/white"

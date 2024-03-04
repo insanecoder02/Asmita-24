@@ -2,10 +2,7 @@ package com.interiiit.xenon.Fragment
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.opengl.Visibility
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +18,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.interiiit.xenon.R
 
 class Developer : Fragment() {
     private lateinit var binding: FragmentDeveloperBinding
@@ -125,7 +121,7 @@ class Developer : Fragment() {
             updateSharedPreferences()
         }.addOnFailureListener { e ->
             handleNetworkError()
-//            Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
             binding.refresh.isRefreshing = false
         }
     }

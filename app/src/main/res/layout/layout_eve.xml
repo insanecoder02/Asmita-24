@@ -28,7 +28,7 @@
         android:id="@+id/nameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_semibold"
+        android:fontFamily="@font/pjssb"
         android:textColor="@color/white"
         android:gravity="center_horizontal"
         android:paddingHorizontal="5dp"

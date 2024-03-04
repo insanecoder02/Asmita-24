@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="280dp"
-    android:layout_height="150dp"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_marginVertical="8dp"
     android:layout_marginHorizontal="10dp"
-    android:background="@drawable/fade3">
+    app:cardBackgroundColor="#151515"
+    app:cardCornerRadius="25dp">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/foot"
         android:alpha="0.4"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:alpha="0.4"
+        android:visibility="invisible"
         android:src="@drawable/crick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,8 +31,8 @@
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
         android:letterSpacing="0.1"
@@ -40,144 +44,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <!--    <LinearLayout-->
-    <!--        android:id="@+id/lay1"-->
-    <!--        android:layout_width="300dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        android:padding="5dp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent">-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/matchName"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_gravity="center_vertical"-->
-    <!--            android:fontFamily="@font/poppins_semibold"-->
-    <!--            android:gravity="center_vertical|start"-->
-    <!--            android:hint="match name"-->
-    <!--            android:paddingHorizontal="5dp"-->
-    <!--            android:textAllCaps="true"-->
-    <!--            android:textColor="#E9E9E9"-->
-    <!--            android:textColorHint="@color/white"-->
-    <!--            android:textSize="16sp" />-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/date"-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_gravity="center_vertical"-->
-    <!--            android:layout_weight="0.3"-->
-    <!--            android:visibility="gone"-->
-    <!--            android:fontFamily="@font/poppins_semibold"-->
-    <!--            android:gravity="center_vertical|end"-->
-    <!--            android:hint="date"-->
-    <!--            android:paddingHorizontal="2dp"-->
-    <!--            android:textColor="#E9E9E9"-->
-    <!--            android:textColorHint="@color/white"-->
-    <!--            android:textSize="16sp" />-->
-    <!--    </LinearLayout>-->
-
-    <!--    <LinearLayout-->
-    <!--        android:id="@+id/linearLayout"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="vertical"-->
-    <!--        android:layout_marginTop="-8dp"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/lay1">-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/grp"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:fontFamily="@font/poppins_medium"-->
-    <!--            android:textAllCaps="true"-->
-    <!--            android:gravity="center"-->
-    <!--            android:textColor="@color/white"-->
-    <!--            android:textColorHint="@color/white"-->
-    <!--            android:textSize="16sp" />-->
-    <!--    </LinearLayout>-->
-
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        android:paddingBottom="10dp"-->
-    <!--        android:weightSum="1"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/linearLayout">-->
-
-    <!--        <LinearLayout-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_weight="0.45"-->
-    <!--            android:orientation="vertical">-->
-
-    <!--            <ImageView-->
-    <!--                android:id="@+id/clgImg1"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="80dp"-->
-    <!--                android:scaleType="fitCenter" />-->
-
-    <!--            <TextView-->
-    <!--                android:id="@+id/clgName1"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_marginTop="5dp"-->
-    <!--                android:fontFamily="@font/poppins_medium"-->
-    <!--                android:gravity="center"-->
-    <!--                android:paddingHorizontal="5dp"-->
-    <!--                android:hint="clg-1"-->
-    <!--                android:letterSpacing="0.1"-->
-    <!--                android:textAllCaps="true"-->
-    <!--                android:textColor="@color/white"-->
-    <!--                android:textColorHint="@color/white" />-->
-    <!--        </LinearLayout>-->
-
-    <!--        <TextView-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_gravity="center_vertical"-->
-    <!--            android:layout_weight="0.1"-->
-    <!--            android:background="#202020"-->
-    <!--            android:fontFamily="@font/poppins_medium"-->
-    <!--            android:gravity="center"-->
-    <!--            android:text="VS"-->
-    <!--            android:textColor="@color/white"-->
-    <!--            android:textSize="18sp" />-->
-
-    <!--        <LinearLayout-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_weight="0.45"-->
-    <!--            android:orientation="vertical">-->
-
-    <!--            <ImageView-->
-    <!--                android:id="@+id/clgImg2"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="80dp"-->
-    <!--                android:scaleType="fitCenter" />-->
-
-    <!--            <TextView-->
-    <!--                android:id="@+id/clgName2"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_marginTop="5dp"-->
-    <!--                android:fontFamily="@font/poppins_medium"-->
-    <!--                android:gravity="center"-->
-    <!--                android:paddingHorizontal="5dp"-->
-    <!--                android:hint="clg-2"-->
-    <!--                android:letterSpacing="0.1"-->
-    <!--                android:textAllCaps="true"-->
-    <!--                android:textColor="@color/white"-->
-    <!--                android:textColorHint="@color/white" />-->
-    <!--        </LinearLayout>-->
-
-    <!--    </LinearLayout>-->
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

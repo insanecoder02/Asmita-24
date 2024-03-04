@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.1"
-            android:src="@drawable/arrow_back" />
+            android:src="@drawable/menu_black" />
 
         <TextView
             android:id="@+id/text1"
@@ -39,7 +39,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="-2dp"
             android:layout_weight="0.9"
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/montserrat_semibold"
             android:gravity="center_vertical"
             android:paddingHorizontal="5dp"
             android:text="Leaderboard"
