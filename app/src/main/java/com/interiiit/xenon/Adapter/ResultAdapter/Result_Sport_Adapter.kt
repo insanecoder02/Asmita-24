@@ -24,7 +24,7 @@ class Result_Sport_Adapter (val sch: List<Matches>,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val scc = sch[position]
-        holder.name.text = scc.type
+        holder.name.text = scc.matchName
         holder.itemView.setOnClickListener {
             itemClickListener.onItemClick(sch[position])
         }
