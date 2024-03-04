@@ -140,8 +140,9 @@ class Result_Sport : Fragment() {
                             p2,
                             p3
                         )
+                        Log.d("Fragment",sprtWise.toString())
 
-                        if (fixMap.containsKey(matchName)) {
+                        if (fixMap.containsKey(sport)) {
                             fixMap[sport]?.add(sprtWise)
                         } else {
                             fixMap[sport] = mutableListOf(sprtWise)

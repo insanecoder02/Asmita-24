@@ -7,14 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
-import com.interiiit.xenon.DataClass.FixtureDataClass.Fixture_Day_DataClass
 import com.interiiit.xenon.DataClass.Score.MatchDetails
 import com.interiiit.xenon.R
 
 class ResButAdapter(val butt:List<MatchDetails>,
                     private val itemClickListener: com.interiiit.xenon.Fragment.results
-//                    private val btn: AppCompatButton
-)
+    )
     : RecyclerView.Adapter<ResButAdapter.ViewHolder>(){
 
     private var selectedItemPosition: Int = 0
@@ -34,12 +32,12 @@ class ResButAdapter(val butt:List<MatchDetails>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val bt = butt[position]
         holder.day.text = bt.date
-//        holder.itemView.setOnClickListener {
-//            holder.day.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E9BD3E"))
+        holder.itemView.setOnClickListener {
+            holder.day.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E9BD3E"))
 //            btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#000000"))
-//            itemClickListener.onResClick(butt[position])
-//            setSelectedPosition(position)
-//        }
+            itemClickListener.onResClick(butt[position])
+            setSelectedPosition(position)
+        }
 
 //        btn.setOnClickListener{
 //            btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E9BD3E"))
@@ -48,8 +46,6 @@ class ResButAdapter(val butt:List<MatchDetails>,
 
         if (selectedItemPosition == position) {
             holder.day.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E9BD3E"))
-//            btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#000000"))
-
         } else {
             holder.day.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#000000"))
         }
@@ -57,6 +53,7 @@ class ResButAdapter(val butt:List<MatchDetails>,
         holder.itemView.setOnClickListener {
             setSelectedPosition(position)
 
+            // Notify adapter about the item click
             itemClickListener.onResClick(butt[position])
         }
 
