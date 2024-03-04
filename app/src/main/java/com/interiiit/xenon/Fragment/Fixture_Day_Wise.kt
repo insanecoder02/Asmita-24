@@ -48,7 +48,16 @@ class Fixture_Day_Wise : Fragment() {
     }
 
     fun onButClick(item: Fixture_Day_DataClass) {
-        val htmlContent = item.data
+        val htmlContent = item.data+"<style>\n" +
+                "    * {\n" +
+                "        background: #1e1e1e;\n" +
+                "        color: #fff;\n" +
+                "    }\n" +
+                "\n" +
+                "    tr:first-of-type td {\n" +
+                "        color: #e9bd3e;\n" +
+                "    }\n" +
+                "</style>"
         binding.web.loadDataWithBaseURL(null, htmlContent, "text/html", "UTF-8", null)
     }
 //    fun

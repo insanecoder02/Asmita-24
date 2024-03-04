@@ -64,13 +64,9 @@
             android:id="@+id/time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="2.5"
-            android:shadowColor="@color/black"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="#223333"
             android:textColorHint="@color/white"
             android:textSize="14dp" />
     </LinearLayout>
