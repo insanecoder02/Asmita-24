@@ -75,25 +75,25 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 }
             }
             R.id.nav_lead -> {
-                if (currentFragment !is participating_iiits) {
+                if (currentFragment !is LeaderBoard) {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, LeaderBoard()).commit()
                     window.statusBarColor = 0xFF000000.toInt()
                 }
             }
             R.id.nav_fix -> {
-                if (currentFragment !is participating_iiits) {
+                if (currentFragment !is Fixture_Sport_Wise) {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Fixture_Sport_Wise()).commit()
                     window.statusBarColor = 0xFF000000.toInt()
                 }
             }
             R.id.nav_res -> {
-                if (currentFragment !is participating_iiits) {
+                if (currentFragment !is Result_Sport) {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Result_Sport()).commit()
                     window.statusBarColor = 0xFF000000.toInt()
                 }
             }
             R.id.nav_eve -> {
-                if (currentFragment !is participating_iiits) {
+                if (currentFragment !is Event) {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Event()).commit()
                     window.statusBarColor = 0xFF000000.toInt()
                 }
