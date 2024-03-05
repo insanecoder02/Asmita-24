@@ -65,7 +65,6 @@
                 android:id="@+id/time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autoSizeMaxTextSize="20sp"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:textColor="@color/white"

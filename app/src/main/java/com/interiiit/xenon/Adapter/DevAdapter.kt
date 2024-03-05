@@ -1,6 +1,5 @@
 package com.interiiit.xenon.Adapter
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
@@ -9,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.google.android.material.snackbar.Snackbar
 import com.interiiit.xenon.DataClass.DeveloperDataClass
 import com.interiiit.xenon.R
 
@@ -49,15 +48,17 @@ class DevAdapter(private val dev: MutableList<DeveloperDataClass>) :
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(holder.img)
 
-        if(devel.link != ""){
+
             holder.itemView.setOnClickListener {
+                if(devel.link != ""){
                 val openUrl = Intent(Intent.ACTION_VIEW)
                 openUrl.data = Uri.parse(devel.link)
                 holder.itemView.context.startActivity(openUrl)
             }
+                else{
+                    Snackbar.make(holder.itemView, "Link Not Found", Toast.LENGTH_SHORT).show()
+                }
         }
-        else{
-            Toast.makeText(holder.itemView.context, "Link Not Found", Toast.LENGTH_SHORT).show()
-        }
+
     }
 }

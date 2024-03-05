@@ -33,6 +33,7 @@ class Adapter(private val fragmentManager: FragmentManager,
             .load(event.image)
             .thumbnail(0.1f)
             .fitCenter()
+            .placeholder(R.drawable.rectangle_bg)
             .transform(RoundedCorners(20))
             .error(R.drawable.group)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)

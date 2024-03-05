@@ -111,17 +111,12 @@ class LeaderBoard_Stud : Fragment() {
                         binding.normal.visibility = View.VISIBLE
                         binding.error.visibility = View.INVISIBLE
                         binding.refresh.isRefreshing = false
-                        Log.d("LeaderBoard_Stud", "Data fetched successfully: $dataArray")
                     } catch (e: JSONException) {
                         handleNetworkError()
-                        Toast.makeText(requireContext(), "Network Error", Toast.LENGTH_SHORT).show()
-                        Log.e("LeaderBoard_Stud", "Error parsing JSON", e)
                     }
                 },
                 { error ->
                     handleNetworkError()
-                    Toast.makeText(requireContext(), "Network Error", Toast.LENGTH_SHORT).show()
-                    Log.e("LeaderBoard_Stud", "Error parsing JSON",error)
                 }
             )
             requestQueue.add(jsonObjectRequest)

@@ -13,9 +13,7 @@ import com.interiiit.xenon.R
 class SponserAdapter(
     private val spons: MutableList<Sponser>
 ) : RecyclerView.Adapter<SponserAdapter.ViewHolder>() {
-    private var isAnimating: Boolean = false
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        val name: TextView = itemView.findViewById(R.id.sponsText)
         val img:ImageView = itemView.findViewById(R.id.sponImg)
     }
 
@@ -31,7 +29,6 @@ class SponserAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val spo = spons[position]
-
         Glide.with(holder.itemView.context)
             .load(spo.img)
             .thumbnail(0.1f)
@@ -39,17 +36,5 @@ class SponserAdapter(
             .error(R.drawable.group)
             .placeholder(R.drawable.group)
             .into(holder.img)
-
-//        holder.itemView.setOnClickListener { itemView ->
-//                itemView.isClickable = false // Disable click on the clicked item
-//
-//                val rotationDirection = if (Random.nextBoolean()) 1 else -1
-//                itemView.animate().rotationYBy(rotationDirection * 360f).setDuration(1000)
-//                    .withEndAction {
-//                        itemView.isClickable = true // Enable click once animation is completed
-//                    }.start()
-//        }
-
-//        holder.name.text = spo.name
     }
 }

@@ -9,7 +9,6 @@ import java.util.TimerTask
 class AutoScroll(private val recyclerView: RecyclerView) {
     private var timer: Timer? = null
     private var isAutoScrolling = false
-
     fun startAutoScroll() {
         if (!isAutoScrolling) {
             timer = Timer()
@@ -27,11 +26,7 @@ class AutoScroll(private val recyclerView: RecyclerView) {
                             if (child != null) {
                                 val itemWidth = child.width
                                 val currentPosition = firstVisibleItemPosition + 1
-
                                 val scrollAmount = itemWidth
-
-//                                val isAtEnd = currentPosition == itemCount
-
                                 if (currentPosition==recyclerView.adapter?.itemCount) {
                                     recyclerView.scrollToPosition(0)
                                 } else {

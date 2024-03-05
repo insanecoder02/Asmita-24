@@ -63,17 +63,11 @@ dependencies {
     implementation ("com.airbnb.android:lottie:6.1.0")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
-    implementation ("com.github.sparrow007:carouselrecyclerview:1.2.6")
     implementation ("androidx.work:work-runtime:2.9.0")
     implementation ("com.google.code.gson:gson:2.10.1")
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation ("com.android.volley:volley:1.2.1")
     implementation(platform("com.google.firebase:firebase-bom:32.7.3"))
     implementation("com.google.firebase:firebase-storage")
-    implementation("androidx.viewpager2:viewpager2:1.0.0")
-    implementation("me.relex:circleindicator:2.1.6")
 
 }

@@ -34,6 +34,7 @@ class FeaturedEventsAdapter(
         Glide.with(holder.itemView.context)
             .load(item.image)
             .thumbnail(0.1f)
+            .placeholder(R.drawable.rectangle_bg)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .error(R.drawable.group)
             .into(holder.image)

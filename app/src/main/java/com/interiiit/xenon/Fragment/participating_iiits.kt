@@ -5,12 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.interiiit.xenon.DataClass.ParticipateIIITS
 import com.interiiit.xenon.databinding.FragmentParticipateBinding
 import com.google.firebase.firestore.FirebaseFirestore
-import ParticipatingAdapter
+import com.interiiit.xenon.Adapter.ParticipatingAdapter
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
@@ -18,7 +17,6 @@ import com.interiiit.xenon.Activity.Main
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.interiiit.xenon.R
 import com.interiiit.xenon.other.IIITSlogo
 
 class participating_iiits : Fragment() {
@@ -33,12 +31,6 @@ class participating_iiits : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentParticipateBinding.inflate(layoutInflater, container, false)
-        binding.refresh.isEnabled = false
-
-        binding.normal.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            // Enable or disable swipe refresh based on scroll position
-            binding.refresh.isEnabled = scrollY == 0
-        }
         sharedPreferences = requireActivity().getSharedPreferences("Participate", Context.MODE_PRIVATE)
         return binding.root
     }

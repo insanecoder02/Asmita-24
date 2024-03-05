@@ -24,7 +24,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.interiiit.xenon.other.ImageViewerDialog
 
 class Team : Fragment() {
     private lateinit var binding: FragmentTeamBinding
@@ -42,7 +41,6 @@ class Team : Fragment() {
         binding.refresh.isEnabled = false
 
         binding.normal.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            // Enable or disable swipe refresh based on scroll position
             binding.refresh.isEnabled = scrollY == 0
         }
         
@@ -63,9 +61,6 @@ class Team : Fragment() {
         wingAdapter = WingAdapter(requireContext(), teamSections)
         binding.teamRV.adapter = wingAdapter
         binding.teamRV.layoutManager = LinearLayoutManager(requireContext())
-//        binding.imageView4.setOnClickListener {
-//            loadFragment(AboutUs())
-//        }
         binding.refresh.setOnRefreshListener {
             fetchFromFirestore()
             Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
@@ -108,13 +103,6 @@ class Team : Fragment() {
         val mainActivity = requireActivity() as Main
         mainActivity.openDrawer()
     }
-
-    private fun loadFragment(fragment: Fragment) {
-        val transaction = parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-    }
     private fun fetchFromFirestore() {
         teamSections.clear()
         val db = FirebaseFirestore.getInstance()
@@ -156,7 +144,7 @@ class Team : Fragment() {
             updateSharedPreferences()
         }.addOnFailureListener { exception ->
             handleNetworkError()
-//            Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT).show()
         }
     }
     private fun saveDataToSharedPreferences(imgUrl: String) {

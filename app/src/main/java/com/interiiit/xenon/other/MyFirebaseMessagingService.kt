@@ -24,7 +24,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         if (message.notification != null) {
-//            val title = message.notification!!.title?:""
             val body = message.notification!!.body!!
             generateNotification(body)
         }
@@ -96,34 +95,4 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         super.onNewToken(token)
         Log.d("hello", "Refreshed token: $token")
     }
-
-
-//    private fun createIntentForPage(pageId: String): Intent {
-//        return when (pageId) {
-//            "dev" -> {
-//                load("dev")
-//            }
-//
-//            "gallery" -> {
-//                load("gal")
-//            }
-//
-//            "team" -> {
-//                load("team")
-//            }
-//
-//            "about" -> {
-//                load("abt")
-//            }
-//
-//            else -> Intent(this, Main::class.java)
-//        }
-//    }
-
-//    private fun load(value: String): Intent {
-//        val intent = Intent(this, Main::class.java)
-//        intent.putExtra("open", value)
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-//        return intent
-//    }
 }

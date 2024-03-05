@@ -1,12 +1,10 @@
 package com.interiiit.xenon.Fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
@@ -14,10 +12,7 @@ import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.FirebaseFirestore
 import com.interiiit.xenon.Adapter.EmloyeerAdapter
-import com.interiiit.xenon.Adapter.LeaderAdapter
-import com.interiiit.xenon.R
 import com.interiiit.xenon.databinding.FragmentLeaderBoardEmplBinding
 import com.interiiit.xenon.other.IIITSlogo
 import org.json.JSONException
@@ -115,15 +110,10 @@ class LeaderBoard_Empl : Fragment() {
                     binding.refresh.isRefreshing = false
                 } catch (e: JSONException) {
                     handleNetworkError()
-//                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
-                    Log.e("LeaderBoard_Stud", "Error parsing JSON", e)
                 }
             },
             { error ->
                 handleNetworkError()
-                // Handle failure to fetch data
-//                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT).show()
-                Log.e("LeaderBoard_Stud", "Error parsing JSON", error)
             }
         )
         requestQueue.add(jsonObjectRequest)

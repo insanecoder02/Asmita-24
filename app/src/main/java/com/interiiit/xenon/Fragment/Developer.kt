@@ -49,20 +49,6 @@ class Developer : Fragment() {
             openDrawer()
         }
         fetchIfNeeded()
-//        binding.esterEgg.setOnClickListener {
-//            binding.dil.visibility=View.GONE
-//            binding.lottie.visibility=View.VISIBLE
-//            Handler(Looper.getMainLooper()).postDelayed({
-//                val nextFragment = DevelopersImage()
-//                val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//                transaction.replace(
-//                    R.id.fragment_container, nextFragment
-//                )
-//                transaction.addToBackStack(null)
-//                transaction.commit()
-//            },5000)
-//            binding
-//        }
     }
     private fun openDrawer() {
         val mainActivity = requireActivity() as Main

@@ -25,7 +25,7 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window.statusBarColor = 0xFFE9BD3E.toInt()
+        window.statusBarColor = 0xFF000000.toInt()
         binding.navView.setNavigationItemSelectedListener(this)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Home())

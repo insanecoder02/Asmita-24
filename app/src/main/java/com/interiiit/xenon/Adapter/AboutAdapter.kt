@@ -33,6 +33,7 @@ class AboutAdapter(
         Glide.with(holder.itemView.context)
             .load(about.img)
             .thumbnail(0.1f)
+            .placeholder(R.drawable.rectangle_bg)
             .transform(CenterCrop(), RoundedCorners(10))
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .error(R.drawable.group)

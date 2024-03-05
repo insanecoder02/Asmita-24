@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
@@ -162,14 +161,10 @@ class Result_Sport : Fragment() {
                     binding.error.visibility = View.INVISIBLE
                 } catch (e: JSONException) {
                     handleNetworkError()
-//                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
-                    Log.e("fetchMatches", "Error parsing JSON", e)
                 }
             },
             { error ->
                 handleNetworkError()
-//                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT).show()
-                Log.e("fetchMatches", "Error fetching data", error)
             }
         )
 

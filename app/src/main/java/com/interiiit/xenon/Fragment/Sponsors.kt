@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.interiiit.xenon.Activity.Main
 import com.interiiit.xenon.Adapter.SponserAdapter
@@ -32,11 +31,9 @@ class Sponsors : Fragment() {
     ): View {
         binding = FragmentSponsorsBinding.inflate(layoutInflater, container, false)
 
-        // Disable SwipeRefreshLayout by default
         binding.refresh.isEnabled = false
 
         binding.normal.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            // Enable or disable swipe refresh based on scroll position
             binding.refresh.isEnabled = scrollY == 0
         }
         sharedPreferences = requireActivity().getSharedPreferences("Sponser", Context.MODE_PRIVATE)
@@ -75,9 +72,7 @@ class Sponsors : Fragment() {
         val lastFetchTime = sharedPreferences.getLong("lastSponFetchTime", 0)
         val currentTime = System.currentTimeMillis()
         val elapsedTime = currentTime - lastFetchTime
-        val fetchInterval = 24 * 60 * 60 * 1000 // 24 hours in milliseconds
-
-        // Check if data has never been fetched or if more than 24 hours have passed since last fetch
+        val fetchInterval = 24 * 60 * 60 * 1000
         return !sharedPreferences.getBoolean("dataSponFetched", false) || elapsedTime >= fetchInterval
     }
     private fun loadFromCache() {

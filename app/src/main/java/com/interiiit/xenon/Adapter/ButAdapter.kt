@@ -41,7 +41,6 @@ class ButAdapter(
 
         if (position == selectedItemPosition) {
             holder.day.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E9BD3E"))
-            // Display the value related to the selected item
             itemClickListener.onButClick(butt[position])
         } else {
             holder.day.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#000000"))
@@ -51,10 +50,5 @@ class ButAdapter(
     fun setSelectedPosition(position: Int) {
         selectedItemPosition = position
         notifyDataSetChanged()
-    }
-
-    // Method to get the selected item position
-    fun getSelectedPosition(): Int {
-        return selectedItemPosition
     }
 }

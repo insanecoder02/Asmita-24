@@ -16,6 +16,7 @@ class ResButAdapter(val butt:List<MatchDetails>,
     : RecyclerView.Adapter<ResButAdapter.ViewHolder>(){
 
     private var selectedItemPosition: Int = 0
+    private val uniqueDates: List<String> = butt.map { it.date }.distinct()
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val day: AppCompatButton = itemView.findViewById(R.id.day)
     }
@@ -26,43 +27,30 @@ class ResButAdapter(val butt:List<MatchDetails>,
     }
 
     override fun getItemCount(): Int {
-        return butt.size
+        return uniqueDates.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val bt = butt[position]
-        holder.day.text = bt.date
+        val date = uniqueDates[position]
+        holder.day.text = date
         holder.itemView.setOnClickListener {
             holder.day.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E9BD3E"))
-//            btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#000000"))
-            itemClickListener.onResClick(butt[position])
+            itemClickListener.onResClick(butt.first { it.date == date })
             setSelectedPosition(position)
         }
 
-//        btn.setOnClickListener{
-//            btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E9BD3E"))
-//            holder.day.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#000000"))
-//        }
-
         if (selectedItemPosition == position) {
             holder.day.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E9BD3E"))
+            itemClickListener.onResClick(butt[position])
         } else {
             holder.day.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#000000"))
         }
 
         holder.itemView.setOnClickListener {
             setSelectedPosition(position)
-
-            // Notify adapter about the item click
             itemClickListener.onResClick(butt[position])
         }
 
-
-//        if (position == selectedItemPosition) {
-//            holder.day.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E9BD3E"))
-//        } else {
-//            holder.day.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#000000"))
-//        }
     }
 
     fun setSelectedPosition(position: Int) {

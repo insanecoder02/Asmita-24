@@ -2,7 +2,6 @@ package com.interiiit.xenon.Fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import com.android.volley.Request
@@ -11,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.interiiit.xenon.Activity.Main
@@ -28,7 +26,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.interiiit.xenon.other.IIITSlogo
 import com.interiiit.xenon.other.ScalingLayoutManager
-import com.jackandphantom.carouselrecyclerview.CarouselLayoutManager
 import org.json.JSONException
 
 class Home : Fragment() {
@@ -39,7 +36,6 @@ class Home : Fragment() {
     private var upcomingMatchesList: MutableList<MatchDetails> = mutableListOf()
     private lateinit var firestore: FirebaseFirestore
     private var logo = IIITSlogo.logo
-    private val autoScrollManagers = mutableListOf<AutoScroll>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -49,12 +45,6 @@ class Home : Fragment() {
         binding.resultMRv.visibility = View.INVISIBLE
         binding.resLot.visibility = View.VISIBLE
         binding.matLot.visibility = View.VISIBLE
-
-//        binding.refresh.isEnabled = false
-
-//        binding.normal.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-//            binding.refresh.isEnabled = scrollY == 0
-//        }
         return binding.root
     }
 
@@ -109,20 +99,12 @@ class Home : Fragment() {
         binding.fixture.setOnClickListener {
             loadFragment(Fixture_Sport_Wise())
         }
-//        rotor(binding.resultMRv)
     }
 
     private fun openDrawer() {
         val mainActivity = requireActivity() as Main
         mainActivity.openDrawer()
     }
-
-//    private fun rotor(recyclerView: RecyclerView) {
-//        val autoScroll = AutoScroll(recyclerView)
-//        autoScroll.startAutoScroll()
-//        autoScrollManagers.add(autoScroll)
-//    }
-
     private fun loadFragment(fragment: Fragment) {
         requireActivity().window.statusBarColor = 0xFF000000.toInt()
         val transaction = parentFragmentManager.beginTransaction()
@@ -308,7 +290,6 @@ class Home : Fragment() {
                 }
             },
             { error ->
-//                Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT/2).show()
                 binding.resLot.visibility = View.INVISIBLE
                 binding.loadBtn.visibility = View.VISIBLE
                 binding.refresh.isRefreshing = false
@@ -349,18 +330,4 @@ class Home : Fragment() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
-
-
-
-//    fun onResClick(item: Matches) {
-//        val bundle = Bundle()
-//        bundle.putString("name", item.type ?: "Name")
-//        bundle.putString("dayListJson", Gson().toJson(item.match))
-//        val nextFragment = Fixture_Day_Wise()
-//        nextFragment.arguments = bundle
-//        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//        transaction.replace(R.id.fragment_container, nextFragment)
-//        transaction.addToBackStack(null)
-//        transaction.commit()
-//    }
 }
