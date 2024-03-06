@@ -150,7 +150,7 @@ class Event : Fragment() {
             { error ->
                 // Handle Volley error
                 handleNetworkError()
-                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Network Error", Toast.LENGTH_SHORT).show()
             }
         )
 
@@ -165,6 +165,7 @@ class Event : Fragment() {
         binding.refresh.isRefreshing = false
         binding.loadBtn.setOnClickListener {
             fetchFromFirestore()
+            binding.refresh.isRefreshing = true
         }
     }
 

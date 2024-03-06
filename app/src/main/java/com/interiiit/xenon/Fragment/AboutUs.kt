@@ -104,7 +104,7 @@ class AboutUs : Fragment() {
                 updateSharedPreferences()
             },
             { error ->
-                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Network Error", Toast.LENGTH_SHORT).show()
                 handleNetworkError()
             }
         )
@@ -117,6 +117,7 @@ class AboutUs : Fragment() {
         binding.refresh.isRefreshing = false
         binding.loadBtn.setOnClickListener {
             fetchFromFirestore()
+            binding.refresh.isRefreshing = true
         }
     }
     private fun updateSharedPreferences() {

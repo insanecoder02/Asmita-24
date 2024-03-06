@@ -151,13 +151,13 @@ class Team : Fragment() {
                     updateSharedPreferences()
                 } catch (e: JSONException) {
                     handleNetworkError()
-                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Network Error", Toast.LENGTH_SHORT).show()
 
                 }
             },
             { error ->
                 handleNetworkError()
-                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Network Error", Toast.LENGTH_SHORT).show()
             }
         )
         requestQueue.add(jsonObjectRequest)
@@ -169,6 +169,7 @@ class Team : Fragment() {
         binding.refresh.isRefreshing = false
         binding.loadBtn.setOnClickListener {
             fetchFromFirestore()
+            binding.refresh.isRefreshing = true
         }
     }
 

@@ -108,7 +108,7 @@ class Developer : Fragment() {
             updateSharedPreferences()
         }.addOnFailureListener { e ->
             handleNetworkError()
-            Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Network Error", Toast.LENGTH_SHORT).show()
             binding.refresh.isRefreshing = false
         }
     }
