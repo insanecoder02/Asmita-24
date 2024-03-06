@@ -6,7 +6,7 @@
     android:layout_height="120dp"
     android:layout_marginVertical="8dp"
     android:layout_marginHorizontal="10dp"
-    app:cardBackgroundColor="#151515"
+    app:cardBackgroundColor="#000000"
     app:cardCornerRadius="25dp">
 
     <ImageView

@@ -15,14 +15,14 @@ class ScalingLayoutManager(context: Context, orientation: Int, reverseLayout: Bo
     }
 
     private fun applyTransformation() {
-        val midpoint = width / 2f
-        val scaleFactor = 0.8f
-        val maxScaleFactor = 1.0f
+        val midpoint = width / 2.0f
+        val scaleFactor = 1.0f // Initial scale factor for items
+        val maxScaleFactor = 1.0f // Maximum scale factor for the item at the center
 
         for (i in 0 until childCount) {
             val child = getChildAt(i)
             val childMid = (getDecoratedRight(child!!) + getDecoratedLeft(child)) / 2f
-            val position = (childMid - midpoint) / midpoint
+            val position = (childMid - midpoint) / midpoint // Calculate position relative to center
             val scaleFactorForItem = scaleFactor + (1 - abs(position)) * (maxScaleFactor - scaleFactor)
             child.scaleY = scaleFactorForItem
             child.scaleX = scaleFactorForItem

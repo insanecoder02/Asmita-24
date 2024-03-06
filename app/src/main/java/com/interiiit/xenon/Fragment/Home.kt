@@ -55,7 +55,7 @@ class Home : Fragment() {
 
         resultAdapter = ResultAdapter(upcomingMatchesList,logo,this,true)
         binding.resultMRv.adapter = resultAdapter
-        binding.resultMRv.layoutManager = ScalingLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.resultMRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         fixAdapter = FixAdapter(fixture,this)
         binding.upcommingMatchsRV.adapter = fixAdapter
