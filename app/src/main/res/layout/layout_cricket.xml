@@ -108,8 +108,11 @@
                 android:paddingHorizontal="5dp"
                 android:textAllCaps="false"
                 android:textColor="#333c3c"
+                android:singleLine="true"
                 android:textColorHint="@color/white"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:maxLength="9"
+                android:ellipsize="end"/>
         </LinearLayout>
 
         <LinearLayout
@@ -214,7 +217,10 @@
                 android:textAllCaps="false"
                 android:textColor="#333c3c"
                 android:textColorHint="@color/white"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:maxLength="9"
+                android:singleLine="true"
+                android:ellipsize="end"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

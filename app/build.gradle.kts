@@ -13,8 +13,8 @@ android {
         applicationId = "com.interiiit.xenon"
         minSdk = 27
         targetSdk = 34
-        versionCode = 8
-        versionName = "1.2"
+        versionCode = 9
+        versionName = "1.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

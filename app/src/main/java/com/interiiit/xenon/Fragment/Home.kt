@@ -58,19 +58,20 @@ class Home : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         firestore = FirebaseFirestore.getInstance()
 
-        resultAdapter = ResultAdapter(upcomingMatchesList,logo,this,true)
+        resultAdapter = ResultAdapter(upcomingMatchesList, logo, this, true)
         binding.resultMRv.adapter = resultAdapter
-        binding.resultMRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.resultMRv.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        fixAdapter = FixAdapter(fixture,this)
+        fixAdapter = FixAdapter(fixture, this)
         binding.upcommingMatchsRV.adapter = fixAdapter
         binding.upcommingMatchsRV.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         val pagerSnapHelper = PagerSnapHelper()
         pagerSnapHelper.attachToRecyclerView(binding.resultMRv)
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.upcommingMatchsRV.isNestedScrollingEnabled=false
+        LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.upcommingMatchsRV.isNestedScrollingEnabled = false
 
 
         binding.refresh.setOnRefreshListener {
@@ -107,6 +108,7 @@ class Home : Fragment() {
         val mainActivity = requireActivity() as Main
         mainActivity.openDrawer()
     }
+
     private fun loadFragment(fragment: Fragment) {
         requireActivity().window.statusBarColor = 0xFF000000.toInt()
         val transaction = parentFragmentManager.beginTransaction()
@@ -114,6 +116,7 @@ class Home : Fragment() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
     private fun fetchFixtures() {
         fixture.clear()
         val url = "https://app-admin-api.asmitaiiita.org/api/fixtures/upcoming"
@@ -130,20 +133,18 @@ class Home : Fragment() {
                         val name = jsonObject.getString("Day") ?: ""
                         val type = jsonObject.getString("Sport") ?: ""
                         val html = jsonObject.getString("HTMLString") ?: ""
-                        val time = jsonObject.getString("createdAt")?:""
-                        val dayWise = Fixture_Day_DataClass(name,html,time)
-                        Log.d("hello",dayWise.toString())
+                        val time = jsonObject.getString("createdAt") ?: ""
+                        val dayWise = Fixture_Day_DataClass(name, html, time)
                         val teamSection = FixtureSportDataClass(type, mutableListOf(dayWise))
                         fixture.add(teamSection)
                     }
                     fixAdapter.notifyDataSetChanged()
-                    if(fixture.isEmpty()){
+                    if (fixture.isEmpty()) {
                         binding.t2.visibility = View.VISIBLE
                         binding.matLot.visibility = View.INVISIBLE
                         binding.upcommingMatchsRV.visibility = View.INVISIBLE
                         binding.seeText.visibility = View.INVISIBLE
-                    }
-                    else{
+                    } else {
                         binding.t2.visibility = View.INVISIBLE
                         binding.matLot.visibility = View.INVISIBLE
                         binding.upcommingMatchsRV.visibility = View.VISIBLE
@@ -153,22 +154,22 @@ class Home : Fragment() {
                     binding.loadBtn2.visibility = View.INVISIBLE
                     binding.refresh.isRefreshing = false
                 } catch (e: JSONException) {
-                    Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT/2).show()
+                    Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT / 2).show()
                     binding.matLot.visibility = View.INVISIBLE
                     binding.loadBtn2.visibility = View.VISIBLE
                     binding.seeText.visibility = View.INVISIBLE
-                    binding.loadBtn2.setOnClickListener{
+                    binding.loadBtn2.setOnClickListener {
                         fetchFixtures()
                         binding.refresh.isRefreshing = true
                     }
                 }
             },
             { error ->
-                Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT/2).show()
+                Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT / 2).show()
                 binding.matLot.visibility = View.INVISIBLE
                 binding.loadBtn2.visibility = View.VISIBLE
                 binding.seeText.visibility = View.INVISIBLE
-                binding.loadBtn2.setOnClickListener{
+                binding.loadBtn2.setOnClickListener {
                     fetchFixtures()
                     binding.refresh.isRefreshing = true
                 }
@@ -176,6 +177,7 @@ class Home : Fragment() {
         )
         requestQueue.add(jsonObjectRequest)
     }
+
     private fun fetchResult() {
         val allResult = mutableListOf<MatchDetails>()
         val url = "https://app-admin-api.asmitaiiita.org/api/results/getResults"
@@ -193,8 +195,8 @@ class Home : Fragment() {
                         val date = jsonObject.getString("Date") ?: ""
                         val time = jsonObject.getString("GroupStage") ?: ""
                         val type = jsonObject.getString("Type") ?: ""
-                        val sport = jsonObject.getString("SportName")?:""
-                        var clgName1: String =""
+                        val sport = jsonObject.getString("SportName") ?: ""
+                        var clgName1: String = ""
                         var clgImg1: String = ""
                         var clgName2: String = ""
                         var clgImg2: String = ""
@@ -217,6 +219,7 @@ class Home : Fragment() {
                                 ov1 = jsonObject.getString("Over1") ?: "0"
                                 ov2 = jsonObject.getString("Over2") ?: "0"
                             }
+
                             "football" -> {
                                 clgName1 = jsonObject.getString("ClgName1") ?: ""
                                 clgImg1 = jsonObject.getString("ClgImg1") ?: ""
@@ -224,6 +227,7 @@ class Home : Fragment() {
                                 clgImg2 = jsonObject.getString("ClgImg2") ?: ""
                                 pt = jsonObject.getString("Score") ?: "0"
                             }
+
                             else -> {
                                 p1 = jsonObject.getString("Player1") ?: "0"
                                 p2 = jsonObject.getString("Player2") ?: "0"
@@ -254,12 +258,11 @@ class Home : Fragment() {
                     }
                     upcomingMatchesList.clear()
                     upcomingMatchesList.addAll(allResult.take(5))
-                    if(upcomingMatchesList.isEmpty()){
+                    if (upcomingMatchesList.isEmpty()) {
                         binding.t1.visibility = View.VISIBLE
                         binding.resLot.visibility = View.INVISIBLE
                         binding.resultMRv.visibility = View.INVISIBLE
-                    }
-                    else{
+                    } else {
                         binding.t1.visibility = View.INVISIBLE
                         binding.resLot.visibility = View.INVISIBLE
                         binding.resultMRv.visibility = View.VISIBLE
@@ -268,19 +271,19 @@ class Home : Fragment() {
                     resultAdapter.notifyDataSetChanged()
                     binding.refresh.isRefreshing = false
                 } catch (e: JSONException) {
-                    Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT/2).show()
+                    Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT / 2).show()
                     binding.resLot.visibility = View.INVISIBLE
                     binding.loadBtn.visibility = View.VISIBLE
                     binding.refresh.isRefreshing = false
-                    binding.loadBtn.setOnClickListener{
+                    binding.loadBtn.setOnClickListener {
                         fetchResult()
                         binding.refresh.isRefreshing = true
                     }
-                    Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT/2).show()
+                    Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT / 2).show()
                     binding.resLot.visibility = View.INVISIBLE
                     binding.loadBtn.visibility = View.VISIBLE
                     binding.refresh.isRefreshing = false
-                    binding.loadBtn.setOnClickListener{
+                    binding.loadBtn.setOnClickListener {
                         fetchFixtures()
                         binding.refresh.isRefreshing = true
                     }
@@ -290,16 +293,16 @@ class Home : Fragment() {
                 binding.resLot.visibility = View.INVISIBLE
                 binding.loadBtn.visibility = View.VISIBLE
                 binding.refresh.isRefreshing = false
-                binding.loadBtn.setOnClickListener{
+                binding.loadBtn.setOnClickListener {
                     fetchResult()
                     binding.refresh.isRefreshing = true
                 }
-                Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT/2).show()
+                Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT / 2).show()
                 binding.resLot.visibility = View.INVISIBLE
                 binding.loadBtn.visibility = View.VISIBLE
-                binding.resultMRv.visibility=View.INVISIBLE
+                binding.resultMRv.visibility = View.INVISIBLE
                 binding.refresh.isRefreshing = false
-                binding.loadBtn.setOnClickListener{
+                binding.loadBtn.setOnClickListener {
                     fetchResult()
                     binding.refresh.isRefreshing = true
                 }

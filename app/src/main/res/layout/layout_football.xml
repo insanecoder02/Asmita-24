@@ -96,11 +96,10 @@
                 android:layout_height="80dp"
                 android:scaleType="fitCenter" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/clgName1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:gravity="center"
@@ -110,7 +109,12 @@
                 android:textAllCaps="false"
                 android:textColor="#333c3c"
                 android:textColorHint="@color/white"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:maxLength="9"
+                android:maxLines="1"
+                android:maxEms="10"
+                android:singleLine="true"
+                android:ellipsize="end"/>
         </LinearLayout>
 
         <TextView
@@ -142,7 +146,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-
                 android:fontFamily="@font/poppins_semibold"
                 android:gravity="center"
                 android:hint="clg-2"
@@ -151,7 +154,10 @@
                 android:textAllCaps="false"
                 android:textColor="#333c3c"
                 android:textColorHint="@color/white"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:maxLength="9"
+                android:singleLine="true"
+                android:ellipsize="end"/>
         </LinearLayout>
 
     </LinearLayout>

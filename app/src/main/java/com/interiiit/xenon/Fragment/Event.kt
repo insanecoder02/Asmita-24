@@ -87,7 +87,6 @@ class Event : Fragment() {
             eventClass.addAll(eveList)
             wingAdapter.notifyDataSetChanged()
             binding.resLot.visibility = View.INVISIBLE
-            binding.featuredRv.visibility = View.VISIBLE
             binding.teamRV.visibility = View.VISIBLE
         }
     }
@@ -103,7 +102,7 @@ class Event : Fragment() {
                 for (i in 0 until documents.length()) {
                     val document = documents.getJSONObject(i)
                     val name = document.getString("name") ?: ""
-                    val image = document.getString("img_url") ?: ""
+                    val image = document.getString("image") ?: ""
                     val wing = document.getString("wing") ?: ""
                     val event = Events(name, image, wing)
                     if (eveMap.containsKey(wing)) {
@@ -130,7 +129,6 @@ class Event : Fragment() {
                     binding.t1.visibility = View.INVISIBLE
                     binding.resLot.visibility = View.INVISIBLE
                     binding.refresh.isRefreshing = false
-                    binding.featuredRv.visibility = View.VISIBLE
                     binding.teamRV.visibility = View.VISIBLE
                     binding.normal.visibility = View.VISIBLE
                     binding.error.visibility = View.INVISIBLE
@@ -138,13 +136,10 @@ class Event : Fragment() {
                 }
             },
             { error ->
-                // Handle Volley error
                 handleNetworkError()
                 Toast.makeText(requireContext(), "Network Error", Toast.LENGTH_SHORT).show()
             }
         )
-
-        // Add the request to the RequestQueue.
         Volley.newRequestQueue(requireContext()).add(request)
     }
 

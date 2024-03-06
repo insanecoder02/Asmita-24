@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.interiiit.xenon.Activity.Main
 import com.interiiit.xenon.Adapter.Gallery2Adapter
 import com.interiiit.xenon.DataClass.GalleryDataClass.Gallery2
@@ -14,6 +17,8 @@ import com.interiiit.xenon.R
 import com.interiiit.xenon.databinding.FragmentGallery2Binding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
+import org.json.JSONException
+
 class Gallery2 : Fragment() {
 
 private lateinit var binding:FragmentGallery2Binding
@@ -38,70 +43,71 @@ private var gall:MutableList<Gallery2> = mutableListOf()
             openDrawer()
         }
         binding.refresh.setOnRefreshListener {
-            fetchfromfirestore()
+            fetchFromfirestore()
             Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
 
-        fetchfromfirestore()
+        fetchFromfirestore()
     }
     private fun openDrawer() {
         val mainActivity = requireActivity() as Main
         mainActivity.openDrawer()
     }
 
-    private fun fetchfromfirestore() {
+    private fun fetchFromfirestore() {
         gall.clear()
-        val db=FirebaseFirestore.getInstance()
-        db.collection("Gallery").get().addOnSuccessListener {documents->
-            for(document in documents){
-                val imageurl=document.getString("image")?:""
-                val title=document.getString("name")?:""
-                val url=document.getString("url")?:""
-                gall.add(Gallery2(title,imageurl,url))
-            }
-            gallAdapter.notifyDataSetChanged()
-            if(gall.isEmpty()){
-                binding.t1.visibility = View.VISIBLE
-                binding.resLot.visibility = View.INVISIBLE
-                binding.sportsRv.visibility = View.INVISIBLE
-                binding.normal.visibility = View.INVISIBLE
-                binding.error.visibility = View.INVISIBLE
-            }
-            else{
-                binding.t1.visibility = View.INVISIBLE
-                binding.resLot.visibility = View.INVISIBLE
-                binding.sportsRv.visibility = View.VISIBLE
-                binding.normal.visibility = View.VISIBLE
-                binding.error.visibility = View.INVISIBLE
-            }
+        val url = "https://app-admin-api.asmitaiiita.org/api/gallery"
+        val requestQueue = Volley.newRequestQueue(requireContext())
 
-            binding.refresh.isRefreshing=false
-        }.addOnFailureListener {
-            handleNetworkError()
-            Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
-        }
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                try {
+                    val documents = response.getJSONArray("data")
+                    for (i in 0 until documents.length()) {
+                        val document = documents.getJSONObject(i)
+                        val imageurl = document.getString("image")
+                        val title = document.getString("name")
+                        val url = document.getString("url")
+                        gall.add(Gallery2(title, imageurl, url))
+                    }
+
+                    gallAdapter.notifyDataSetChanged()
+                    if (gall.isEmpty()) {
+                        binding.t1.visibility = View.VISIBLE
+                        binding.resLot.visibility = View.INVISIBLE
+                        binding.sportsRv.visibility = View.INVISIBLE
+                        binding.normal.visibility = View.INVISIBLE
+                        binding.error.visibility = View.INVISIBLE
+                    } else {
+                        binding.t1.visibility = View.INVISIBLE
+                        binding.resLot.visibility = View.INVISIBLE
+                        binding.sportsRv.visibility = View.VISIBLE
+                        binding.normal.visibility = View.VISIBLE
+                        binding.error.visibility = View.INVISIBLE
+                    }
+
+                    binding.refresh.isRefreshing = false
+                } catch (e: JSONException) {
+                    handleNetworkError()
+                    Toast.makeText(requireContext(), "Netwrok error", Toast.LENGTH_SHORT).show()
+                }
+            },
+            { error ->
+                handleNetworkError()
+                Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT).show()
+            }
+        )
+        requestQueue.add(jsonObjectRequest)
     }
+
     private fun handleNetworkError() {
         binding.normal.visibility = View.INVISIBLE
         binding.error.visibility = View.VISIBLE
         binding.refresh.isRefreshing = false
         binding.loadBtn.setOnClickListener {
-            fetchfromfirestore()
+            fetchFromfirestore()
             binding.refresh.isRefreshing = true
         }
-    }
-    fun onItemClick(item: Gallery2) {
-        val bundle = Bundle()
-        bundle.putString("date", item.sport_img ?: "Date")
-        bundle.putString("details", item.sport_name)
-        bundle.putString("url", item.url)
-        val nextFragment = Gallery()
-        nextFragment.arguments = bundle
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(
-            R.id.fragment_container, nextFragment
-        )
-        transaction.addToBackStack(null)
-        transaction.commit()
     }
 }
