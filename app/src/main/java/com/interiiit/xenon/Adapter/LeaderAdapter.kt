@@ -28,6 +28,7 @@ class LeaderAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val users = usr[position]
+
         Glide.with(holder.itemView.context)
             .load(logo[usr[position].Name])
             .thumbnail(0.1f)
@@ -39,10 +40,7 @@ class LeaderAdapter(
 
         holder.score.text = users.Points.toString()
         holder.name.text = users.Name
-        val ranking = position + 4
-        holder.score.text = users.Points.toString()
-        holder.name.text = users.Name
-        holder.rank.text = ranking.toString()
+        holder.rank.text = users.Rank.toString()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -86,15 +86,16 @@
 
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/firstCard"
                 android:layout_width="90dp"
                 android:layout_height="104dp"
                 android:layout_marginBottom="72dp"
                 app:cardBackgroundColor="#FFD700"
                 app:cardCornerRadius="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-                app:layout_constraintEnd_toEndOf="@+id/imageView5"
+                app:layout_constraintBottom_toBottomOf="@+id/stand"
+                app:layout_constraintEnd_toEndOf="@+id/stand"
                 app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="@+id/imageView5">
+                app:layout_constraintStart_toStartOf="@+id/stand">
 
                 <ImageView
                     android:id="@+id/firImg"
@@ -129,15 +130,16 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/secondCard"
                 android:layout_width="90dp"
                 android:layout_height="104dp"
                 android:layout_marginBottom="60dp"
                 app:cardBackgroundColor="#C0C0C0"
                 app:cardCornerRadius="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-                app:layout_constraintEnd_toEndOf="@+id/imageView5"
+                app:layout_constraintBottom_toBottomOf="@+id/stand"
+                app:layout_constraintEnd_toEndOf="@+id/stand"
                 app:layout_constraintHorizontal_bias="0.093"
-                app:layout_constraintStart_toStartOf="@+id/imageView5">
+                app:layout_constraintStart_toStartOf="@+id/stand">
 
                 <ImageView
                     android:id="@+id/secImg"
@@ -172,15 +174,16 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/thirdCard"
                 android:layout_width="90dp"
                 android:layout_height="104dp"
                 android:layout_marginBottom="52dp"
                 app:cardBackgroundColor="#CD7F32"
                 app:cardCornerRadius="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-                app:layout_constraintEnd_toEndOf="@+id/imageView5"
+                app:layout_constraintBottom_toBottomOf="@+id/stand"
+                app:layout_constraintEnd_toEndOf="@+id/stand"
                 app:layout_constraintHorizontal_bias="0.909"
-                app:layout_constraintStart_toStartOf="@+id/imageView5">
+                app:layout_constraintStart_toStartOf="@+id/stand">
 
                 <ImageView
                     android:id="@+id/thiImg"
@@ -214,7 +217,7 @@
             </androidx.cardview.widget.CardView>
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/stand"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginStart="10dp"
@@ -235,7 +238,7 @@
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageView5"
+                app:layout_constraintTop_toBottomOf="@id/stand"
                 tools:listitem="@layout/layout_leaderboard" />
 
             <com.airbnb.lottie.LottieAnimationView
@@ -248,7 +251,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.524"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageView5"
+                app:layout_constraintTop_toBottomOf="@id/stand"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/asmita" />
