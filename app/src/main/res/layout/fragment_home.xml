@@ -305,7 +305,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/upcommingMatchsRV"
                 android:layout_width="0dp"
-                android:layout_height="400dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/seeText"

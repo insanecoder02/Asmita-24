@@ -9,19 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.interiiit.xenon.Adapter.EventsAdapter.FeaturedEventsAdapter
 import com.interiiit.xenon.Adapter.Team.EventsAdapter
 import com.interiiit.xenon.DataClass.EventDataClass.EveDataClass
 import com.interiiit.xenon.DataClass.EventDataClass.Events
-import com.interiiit.xenon.R
 import com.interiiit.xenon.databinding.FragmentEventBinding
-import com.interiiit.xenon.other.AutoScroll
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.interiiit.xenon.Activity.Main
@@ -30,7 +25,6 @@ class Event : Fragment() {
     private lateinit var binding: FragmentEventBinding
     private var eventClass: MutableList<EveDataClass> = mutableListOf()
     private lateinit var wingAdapter: EventsAdapter
-    private val autoScrollManagers = mutableListOf<AutoScroll>()
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
@@ -49,10 +43,6 @@ class Event : Fragment() {
         binding.teamRV.adapter = wingAdapter
         binding.teamRV.layoutManager = LinearLayoutManager(requireContext())
 
-//        eventsAdapter = FeaturedEventsAdapter(requireContext(), featuredClass)
-//        binding.featuredRv.adapter = eventsAdapter
-//        binding.featuredRv.layoutManager =
-//            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.back.setOnClickListener {
             openDrawer()
         }

@@ -107,7 +107,8 @@ class Fixture_Sport_Wise : Fragment() {
                         val name = jsonObject.getString("Day") ?: ""
                         val type = jsonObject.getString("Sport") ?: ""
                         val html = jsonObject.getString("HTMLString") ?: ""
-                        val dayWise = Fixture_Day_DataClass(name, html)
+                        val time = jsonObject.getString("createdAt")?:""
+                        val dayWise = Fixture_Day_DataClass(name, html,time)
                         if (fixMap.containsKey(type)) {
                             fixMap[type]?.add(dayWise)
                         } else {

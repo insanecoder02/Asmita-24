@@ -2,11 +2,13 @@ package com.interiiit.xenon.Fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import com.android.volley.Request
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -27,6 +29,9 @@ import com.google.gson.Gson
 import com.interiiit.xenon.other.IIITSlogo
 import com.interiiit.xenon.other.ScalingLayoutManager
 import org.json.JSONException
+import java.time.Duration
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
 class Home : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -73,14 +78,11 @@ class Home : Fragment() {
             fetchFixtures()
             Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
-
         binding.abtus.setOnClickListener {
             loadFragment(AboutUs())
         }
-
         fetchResult()
         fetchFixtures()
-
         binding.seeText.setOnClickListener {
             loadFragment(Fixture_Sport_Wise())
         }
@@ -122,22 +124,16 @@ class Home : Fragment() {
             null,
             { response ->
                 try {
-                    val fixMap = mutableMapOf<String, MutableList<Fixture_Day_DataClass>>()
                     val dataArray = response.getJSONArray("data")
                     for (i in 0 until minOf(dataArray.length(), 5)) {
                         val jsonObject = dataArray.getJSONObject(i)
                         val name = jsonObject.getString("Day") ?: ""
                         val type = jsonObject.getString("Sport") ?: ""
                         val html = jsonObject.getString("HTMLString") ?: ""
-                        val dayWise = Fixture_Day_DataClass(name,html)
-                        if (fixMap.containsKey(type)) {
-                            fixMap[type]?.add(dayWise)
-                        } else {
-                            fixMap[type] = mutableListOf(dayWise)
-                        }
-                    }
-                    for ((type, day) in fixMap) {
-                        val teamSection = FixtureSportDataClass(type, day)
+                        val time = jsonObject.getString("createdAt")?:""
+                        val dayWise = Fixture_Day_DataClass(name,html,time)
+                        Log.d("hello",dayWise.toString())
+                        val teamSection = FixtureSportDataClass(type, mutableListOf(dayWise))
                         fixture.add(teamSection)
                     }
                     fixAdapter.notifyDataSetChanged()
@@ -316,7 +312,7 @@ class Home : Fragment() {
         val bundle = Bundle()
         bundle.putString("name", item.type ?: "Name")
         bundle.putString("dayListJson", Gson().toJson(item.fix))
-        val nextFragment = Fixture_Day_Wise()
+        val nextFragment = Fixture_Upcoming()
         nextFragment.arguments = bundle
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, nextFragment)
