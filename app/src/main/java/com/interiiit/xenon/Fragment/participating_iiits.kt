@@ -53,7 +53,7 @@ class participating_iiits : Fragment() {
     private fun fetchIfNeeded() {
         if (shouldFetchData()) {
             binding.playingIits.visibility = View.INVISIBLE
-//            binding.resLot.visibility = View.VISIBLE
+            binding.resLot.visibility = View.VISIBLE
             fetch()
         } else {
             loadFromCache()
@@ -63,9 +63,7 @@ class participating_iiits : Fragment() {
         val lastFetchTime = sharedPreferences.getLong("lastPartFetchTime", 0)
         val currentTime = System.currentTimeMillis()
         val elapsedTime = currentTime - lastFetchTime
-        val fetchInterval = 24 * 60 * 60 * 1000 // 24 hours in milliseconds
-
-        // Check if data has never been fetched or if more than 24 hours have passed since last fetch
+        val fetchInterval = 24 * 60 * 60 * 1000
         return !sharedPreferences.getBoolean("partDataFetched", false) || elapsedTime >= fetchInterval
     }
     private fun loadFromCache() {
@@ -76,7 +74,7 @@ class participating_iiits : Fragment() {
             iiits.clear()
             iiits.addAll(partList)
             partAdapter.notifyDataSetChanged()
-//            binding.resLot.visibility = View.INVISIBLE
+            binding.resLot.visibility = View.INVISIBLE
             binding.playingIits.visibility = View.VISIBLE
         }
     }
@@ -97,7 +95,7 @@ class participating_iiits : Fragment() {
             Log.d("hello","data fetched")
             partAdapter.notifyDataSetChanged()
             binding.refresh.isRefreshing = false
-//            binding.resLot.visibility = View.INVISIBLE
+            binding.resLot.visibility = View.INVISIBLE
             binding.playingIits.visibility = View.VISIBLE
             binding.normal.visibility = View.VISIBLE
             binding.error.visibility = View.INVISIBLE

@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.interiiit.xenon.Adapter.AboutAdapter
 import com.interiiit.xenon.DataClass.AboutUs
 import com.interiiit.xenon.databinding.FragmentAboutUsBinding
@@ -78,25 +81,34 @@ class AboutUs : Fragment() {
     }
     private fun fetchFromFirestore() {
         abtus.clear()
-        val db = FirebaseFirestore.getInstance()
-        db.collection("AboutUs").orderBy("no").get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                val name = document.getString("info") ?: ""
-                val image = document.getString("image") ?: ""
-                val item = AboutUs(name, image)
-                abtus.add(item)
+
+        val url = "https://app-admin-api.asmitaiiita.org/api/about"
+
+        val request = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                val documents = response.getJSONArray("data")
+                for (i in 0 until documents.length()) {
+                    val document = documents.getJSONObject(i)
+                    val name = document.getString("info") ?: ""
+                    val image = document.getString("image") ?: ""
+                    val item = AboutUs(name, image)
+                    abtus.add(item)
+                }
+                abtAdapter.notifyDataSetChanged()
+                binding.refresh.isRefreshing = false
+                binding.resLot.visibility = View.INVISIBLE
+                binding.aboutRV.visibility = View.VISIBLE
+                binding.normal.visibility = View.VISIBLE
+                binding.error.visibility = View.INVISIBLE
+                updateSharedPreferences()
+            },
+            { error ->
+                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT).show()
+                handleNetworkError()
             }
-            abtAdapter.notifyDataSetChanged()
-            binding.refresh.isRefreshing = false
-            binding.resLot.visibility = View.INVISIBLE
-            binding.aboutRV.visibility = View.VISIBLE
-            binding.normal.visibility = View.VISIBLE
-            binding.error.visibility = View.INVISIBLE
-            updateSharedPreferences()
-        }.addOnFailureListener { e ->
-            Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
-            handleNetworkError()
-        }
+        )
+        Volley.newRequestQueue(requireContext()).add(request)
     }
 
     private fun handleNetworkError() {

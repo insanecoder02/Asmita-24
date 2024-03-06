@@ -12,8 +12,7 @@ import com.interiiit.xenon.DataClass.EventDataClass.EveDataClass
 import com.interiiit.xenon.R
 
 class EventsAdapter(private val context: Context,
-                    private val eve: MutableList<EveDataClass>,
-                    private val fragmentManager: FragmentManager) :
+                    private val eve: MutableList<EveDataClass>) :
     RecyclerView.Adapter<EventsAdapter.viewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_eve1, parent, false)
@@ -23,7 +22,7 @@ class EventsAdapter(private val context: Context,
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
         val eveSection = eve[position]
         holder.eveName.text = eveSection.eveType
-        holder.eveRv.adapter = Adapter(fragmentManager,eveSection.eve)
+        holder.eveRv.adapter = Adapter(eveSection.eve)
         holder.eveRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }

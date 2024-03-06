@@ -152,6 +152,7 @@ class Home : Fragment() {
                         binding.matLot.visibility = View.INVISIBLE
                         binding.upcommingMatchsRV.visibility = View.VISIBLE
                         binding.seeText.visibility = View.VISIBLE
+                        binding.loadBtn2.visibility = View.INVISIBLE
                     }
                     binding.loadBtn2.visibility = View.INVISIBLE
                     binding.refresh.isRefreshing = false

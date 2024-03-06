@@ -14,6 +14,7 @@ import com.interiiit.xenon.Fragment.participating_iiits
 import com.interiiit.xenon.R
 import com.interiiit.xenon.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 import com.interiiit.xenon.Fragment.Event
 import com.interiiit.xenon.Fragment.Fixture_Sport_Wise
 import com.interiiit.xenon.Fragment.LeaderBoard
@@ -32,6 +33,7 @@ class Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 .commit()
             binding.navView.setCheckedItem(R.id.nav_home)
         }
+        FirebaseMessaging.getInstance().subscribeToTopic("all")
     }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)

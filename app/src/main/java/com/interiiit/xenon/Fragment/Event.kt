@@ -10,6 +10,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.interiiit.xenon.Adapter.EventsAdapter.FeaturedEventsAdapter
 import com.interiiit.xenon.Adapter.Team.EventsAdapter
 import com.interiiit.xenon.DataClass.EventDataClass.EveDataClass
@@ -27,8 +30,6 @@ class Event : Fragment() {
     private lateinit var binding: FragmentEventBinding
     private var eventClass: MutableList<EveDataClass> = mutableListOf()
     private lateinit var wingAdapter: EventsAdapter
-    private var featuredClass: MutableList<Events> = mutableListOf()
-    private lateinit var eventsAdapter: FeaturedEventsAdapter
     private val autoScrollManagers = mutableListOf<AutoScroll>()
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -44,14 +45,14 @@ class Event : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        wingAdapter = EventsAdapter(requireContext(), eventClass, parentFragmentManager)
+        wingAdapter = EventsAdapter(requireContext(), eventClass)
         binding.teamRV.adapter = wingAdapter
         binding.teamRV.layoutManager = LinearLayoutManager(requireContext())
 
-        eventsAdapter = FeaturedEventsAdapter(requireContext(), featuredClass, this)
-        binding.featuredRv.adapter = eventsAdapter
-        binding.featuredRv.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+//        eventsAdapter = FeaturedEventsAdapter(requireContext(), featuredClass)
+//        binding.featuredRv.adapter = eventsAdapter
+//        binding.featuredRv.layoutManager =
+//            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.back.setOnClickListener {
             openDrawer()
         }
@@ -60,7 +61,6 @@ class Event : Fragment() {
             Snackbar.make(binding.root, "Data refreshed", Snackbar.LENGTH_SHORT).show()
         }
         fetchIfNeeded()
-        rotor(binding.featuredRv)
     }
     private fun openDrawer() {
         val mainActivity = requireActivity() as Main
@@ -70,7 +70,6 @@ class Event : Fragment() {
     private fun fetchIfNeeded() {
         if (shouldFetchData()) {
             binding.resLot.visibility = View.VISIBLE
-            binding.featuredRv.visibility = View.INVISIBLE
             binding.teamRV.visibility = View.INVISIBLE
             fetchFromFirestore()
         } else {
@@ -82,7 +81,7 @@ class Event : Fragment() {
         val lastFetchTime = sharedPreferences.getLong("lastEveFetchTime", 0)
         val currentTime = System.currentTimeMillis()
         val elapsedTime = currentTime - lastFetchTime
-        val fetchInterval = 5 * 60 * 1000
+        val fetchInterval = 24*60*60*1000
         return !sharedPreferences.getBoolean(
             "eveDataFetched",
             false
@@ -95,16 +94,7 @@ class Event : Fragment() {
             val type = object : TypeToken<List<EveDataClass>>() {}.type
             val eveList: List<EveDataClass> = Gson().fromJson(json, type)
             eventClass.clear()
-            featuredClass.clear()
             eventClass.addAll(eveList)
-            for (eveDataClass in eveList) {
-                for (event in eveDataClass.eve) {
-                    if (event.feat.equals("y", ignoreCase = true)) {
-                        featuredClass.add(event)
-                    }
-                }
-            }
-            eventsAdapter.notifyDataSetChanged()
             wingAdapter.notifyDataSetChanged()
             binding.resLot.visibility = View.INVISIBLE
             binding.featuredRv.visibility = View.VISIBLE
@@ -112,67 +102,41 @@ class Event : Fragment() {
         }
     }
 
-    private fun rotor(recyclerView: RecyclerView) {
-        recyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        val autoScroll = AutoScroll(recyclerView)
-        autoScroll.startAutoScroll()
-        autoScrollManagers.add(autoScroll)
-    }
-
     private fun fetchFromFirestore() {
-        featuredClass.clear()
         eventClass.clear()
-        FirebaseFirestore.getInstance().collection("Event").get()
-            .addOnSuccessListener { documents ->
+        val url = "https://app-admin-api.asmitaiiita.org/api/events"
+        val request = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
                 val eveMap = mutableMapOf<String, MutableList<Events>>()
-                for (document in documents) {
+                val documents = response.getJSONArray("data")
+                for (i in 0 until documents.length()) {
+                    val document = documents.getJSONObject(i)
                     val name = document.getString("name") ?: ""
-                    val image = document.getString("image") ?: ""
-                    val date = document.getString("date") ?: ""
-                    val discription = document.getString("description") ?: ""
-                    val heading = document.getString("heading") ?: ""
-                    val length = document.getString("length") ?: ""
-                    val location = document.getString("location") ?: ""
-                    val type = document.getString("type") ?: ""
+                    val image = document.getString("img_url") ?: ""
                     val wing = document.getString("wing") ?: ""
-                    val feat = document.getString("feat") ?: ""
-                    val event =
-                        Events(
-                            name,
-                            date,
-                            image,
-                            discription,
-                            heading,
-                            length,
-                            location,
-                            type,
-                            wing,
-                            feat
-                        )
+                    val event = Events(name, image, wing)
                     if (eveMap.containsKey(wing)) {
                         eveMap[wing]?.add(event)
                     } else {
                         eveMap[wing] = mutableListOf(event)
-                    }
-                    if (feat == "y") {
-                        featuredClass.add(event)
                     }
                 }
                 for ((wing, members) in eveMap) {
                     val eveSection = EveDataClass(wing, members)
                     eventClass.add(eveSection)
                 }
-                eventsAdapter.notifyDataSetChanged()
                 wingAdapter.notifyDataSetChanged()
 
-                if (eventClass.size == 0) {
+                if (eventClass.isEmpty()) {
+                    // Handle case when there are no events
                     binding.t1.visibility = View.VISIBLE
                     binding.resLot.visibility = View.INVISIBLE
                     binding.normal.visibility = View.INVISIBLE
                     binding.error.visibility = View.INVISIBLE
                     binding.refresh.isRefreshing = false
                 } else {
+                    // Handle case when there are events
                     binding.t1.visibility = View.INVISIBLE
                     binding.resLot.visibility = View.INVISIBLE
                     binding.refresh.isRefreshing = false
@@ -182,11 +146,18 @@ class Event : Fragment() {
                     binding.error.visibility = View.INVISIBLE
                     updateSharedPreferences()
                 }
-            }.addOnFailureListener { e ->
+            },
+            { error ->
+                // Handle Volley error
                 handleNetworkError()
-                Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT).show()
             }
+        )
+
+        // Add the request to the RequestQueue.
+        Volley.newRequestQueue(requireContext()).add(request)
     }
+
 
     private fun handleNetworkError() {
         binding.normal.visibility = View.INVISIBLE
@@ -205,24 +176,6 @@ class Event : Fragment() {
             putString("cachedEveData", json)
             apply()
         }
-    }
-
-    fun onItemClick(item: Events) {
-        val bundle = Bundle()
-        bundle.putString("name", item.name ?: "Name")
-        bundle.putString("date", item.date ?: "Date")
-        bundle.putString("image", item.image ?: "image")
-        bundle.putString("discription", item.discription ?: "Discription")
-        bundle.putString("heading", item.heading ?: "Heading")
-        bundle.putString("length", item.length ?: "Length")
-        bundle.putString("location", item.location ?: "Location")
-        bundle.putString("type", item.type ?: "Type")
-        val nextFragment = sport_detail()
-        nextFragment.arguments = bundle
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, nextFragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
     }
 }
 

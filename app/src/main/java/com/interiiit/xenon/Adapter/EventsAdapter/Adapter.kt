@@ -15,8 +15,7 @@ import com.interiiit.xenon.DataClass.EventDataClass.Events
 import com.interiiit.xenon.Fragment.sport_detail
 import com.interiiit.xenon.R
 
-class Adapter(private val fragmentManager: FragmentManager,
-              private val evee:List<Events>
+class Adapter(private val evee:List<Events>
 ) :RecyclerView.Adapter<Adapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,26 +37,6 @@ class Adapter(private val fragmentManager: FragmentManager,
             .error(R.drawable.group)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(holder.img)
-
-        holder.itemView.setOnClickListener {
-            val bundle = Bundle().apply {
-                putString("name", event.name ?: "Name")
-                putString("date", event.date ?: "Date")
-                putString("image", event.image ?: "image")
-                putString("discription", event.discription ?: "Discription")
-                putString("heading", event.heading ?: "Heading")
-                putString("length", event.length ?: "Length")
-                putString("location", event.location ?: "Location")
-                putString("type", event.type ?: "Type")
-            }
-            val fragment = sport_detail().apply {
-                arguments = bundle
-            }
-            fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit()
-        }
     }
 
     override fun getItemCount(): Int = evee.size

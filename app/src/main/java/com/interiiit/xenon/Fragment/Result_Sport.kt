@@ -139,20 +139,16 @@ class Result_Sport : Fragment() {
                             p2,
                             p3
                         )
-                        Log.d("Fragment",sprtWise.toString())
-
                         if (fixMap.containsKey(sport)) {
                             fixMap[sport]?.add(sprtWise)
                         } else {
                             fixMap[sport] = mutableListOf(sprtWise)
                         }
                     }
-
                     for ((type, day) in fixMap) {
                         val teamSection = Matches(type, day)
                         reSport.add(teamSection)
                     }
-
                     resultAdapter.notifyDataSetChanged()
                     binding.resLot.visibility = View.INVISIBLE
                     binding.refresh.isRefreshing = false

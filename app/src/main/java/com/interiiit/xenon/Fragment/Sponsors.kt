@@ -30,12 +30,6 @@ class Sponsors : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSponsorsBinding.inflate(layoutInflater, container, false)
-
-        binding.refresh.isEnabled = false
-
-        binding.normal.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            binding.refresh.isEnabled = scrollY == 0
-        }
         sharedPreferences = requireActivity().getSharedPreferences("Sponser", Context.MODE_PRIVATE)
         return binding.root
     }

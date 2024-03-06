@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Inter-IIIT 2024</string>
+    <string name="app_name">Asmita\'24</string>
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>
     <string name="leadeBoardurl">http://app-admin-api.asmitaiiita.org/api/leaderboard/</string>

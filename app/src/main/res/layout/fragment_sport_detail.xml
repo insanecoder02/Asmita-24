@@ -141,6 +141,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:drawablePadding="5dp"
+                android:visibility="invisible"
                 android:fontFamily="@font/poppins_medium"
                 android:paddingHorizontal="5dp"
                 android:textColor="#EEBD2F"

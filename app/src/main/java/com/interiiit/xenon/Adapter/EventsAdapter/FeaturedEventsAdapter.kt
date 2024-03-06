@@ -14,8 +14,7 @@ import com.interiiit.xenon.R
 
 class FeaturedEventsAdapter(
     val context: Context,
-    val datalist: MutableList<Events>,
-    private val itemClickListener: com.interiiit.xenon.Fragment.Event
+    val datalist: MutableList<Events>
 ) : RecyclerView.Adapter<FeaturedEventsAdapter.viewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
@@ -30,7 +29,6 @@ class FeaturedEventsAdapter(
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
         val item = datalist[position]
         holder.name.text = item.name
-        holder.date.text = item.date
         Glide.with(holder.itemView.context)
             .load(item.image)
             .thumbnail(0.1f)
@@ -38,10 +36,6 @@ class FeaturedEventsAdapter(
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .error(R.drawable.group)
             .into(holder.image)
-
-        holder.itemView.setOnClickListener {
-            itemClickListener.onItemClick(datalist[position])
-        }
     }
 
     inner class viewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

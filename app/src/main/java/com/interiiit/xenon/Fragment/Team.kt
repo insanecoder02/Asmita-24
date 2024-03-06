@@ -3,17 +3,20 @@ package com.interiiit.xenon.Fragment
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.interiiit.xenon.Activity.Main
 import com.interiiit.xenon.Adapter.Team.WingAdapter
 import com.interiiit.xenon.DataClass.Team.TeamMember
@@ -24,14 +27,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import org.json.JSONException
 
 class Team : Fragment() {
     private lateinit var binding: FragmentTeamBinding
     private var teamSections: MutableList<TeamSection> = mutableListOf()
     private lateinit var wingAdapter: WingAdapter
     private lateinit var sharedPreferences: SharedPreferences
-    private val SHARED_PREF_NAME = "MySharedPref"
-    private val IMG_URL_KEY = "imgUrl"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,21 +45,20 @@ class Team : Fragment() {
         binding.normal.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             binding.refresh.isEnabled = scrollY == 0
         }
-        
-        sharedPreferences = requireActivity().getSharedPreferences("Team", Context.MODE_PRIVATE)
+
+        sharedPreferences = requireActivity().getSharedPreferences("Teams", Context.MODE_PRIVATE)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedPreferences = requireContext().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
 
-        val imgUrl = sharedPreferences.getString(IMG_URL_KEY, "")
-        if (imgUrl.isNullOrEmpty()) {
-            fetchFromFirestore()
-        } else {
-            loadImageFromUrl(imgUrl)
-        }
+        Glide.with(requireContext())
+            .load(R.drawable.teamss)
+            .placeholder(R.drawable.rectangle_bg)
+            .transform(CenterCrop(), RoundedCorners(20))
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            .into(binding.imageView4)
         wingAdapter = WingAdapter(requireContext(), teamSections)
         binding.teamRV.adapter = wingAdapter
         binding.teamRV.layoutManager = LinearLayoutManager(requireContext())
@@ -70,6 +71,7 @@ class Team : Fragment() {
         }
         fetchIfNeeded()
     }
+
     private fun fetchIfNeeded() {
         if (shouldFetchData()) {
             binding.teamRV.visibility = View.INVISIBLE
@@ -85,8 +87,12 @@ class Team : Fragment() {
         val currentTime = System.currentTimeMillis()
         val elapsedTime = currentTime - lastFetchTime
         val fetchInterval = 24 * 60 * 60 * 1000
-        return !sharedPreferences.getBoolean("teamDataFetched", false) || elapsedTime >= fetchInterval
+        return !sharedPreferences.getBoolean(
+            "teamDataFetched",
+            false
+        ) || elapsedTime >= fetchInterval
     }
+
     private fun loadFromCache() {
         val json = sharedPreferences.getString("cachedTeamData", null)
         if (json != null) {
@@ -99,70 +105,62 @@ class Team : Fragment() {
             binding.teamRV.visibility = View.VISIBLE
         }
     }
+
     private fun openDrawer() {
         val mainActivity = requireActivity() as Main
         mainActivity.openDrawer()
     }
+
     private fun fetchFromFirestore() {
         teamSections.clear()
-        val db = FirebaseFirestore.getInstance()
-        db.collection("Meet").get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                val img = document.getString("img") ?: ""
-                saveDataToSharedPreferences(img)
-                loadImageFromUrl(img)
-            }
-        }.addOnFailureListener { exception ->
-                    Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT)
-                        .show()
+        val url = "https://app-admin-api.asmitaiiita.org/api/teamAsmita"
+        val requestQueue = Volley.newRequestQueue(requireContext())
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                try {
+                    val wingMap = mutableMapOf<String, MutableList<TeamMember>>()
+                    val documents = response.getJSONArray("data")
+                    for (i in 0 until documents.length()) {
+                        val document = documents.getJSONObject(i)
+                        val name = document.getString("name")?:""
+                        val img = document.getString("img_url")?:""
+                        val wing = document.getString("wing")?:""
+                        val teamMember = TeamMember(name, img)
+                        Log.d("hello",TeamMember(name, img).toString())
+                        if (wingMap.containsKey(wing)) {
+                            wingMap[wing]?.add(teamMember)
+                        } else {
+                            wingMap[wing] = mutableListOf(teamMember)
+                        }
+                    }
+                    for ((wing, members) in wingMap) {
+                        val teamSection = TeamSection(wing, members)
+                        teamSections.add(teamSection)
+                    }
+                    wingAdapter.notifyDataSetChanged()
+//                    if (teamSections.isEmpty()) {
+                        binding.resLot.visibility = View.INVISIBLE
+                        binding.teamRV.visibility = View.VISIBLE
+                        binding.refresh.isRefreshing = false
+                        binding.normal.visibility = View.VISIBLE
+                        binding.error.visibility = View.INVISIBLE
+//                    } else {
+//
+//                    }
+                    updateSharedPreferences()
+                } catch (e: JSONException) {
+                    handleNetworkError()
+                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
+
                 }
-        val teamCollection = db.collection("Team").orderBy("no")
-        teamCollection.get().addOnSuccessListener { documents ->
-            val wingMap = mutableMapOf<String, MutableList<TeamMember>>()
-            for (document in documents) {
-                val name = document.getString("name") ?: ""
-                val img = document.getString("image") ?: ""
-                val role = document.getString("role") ?: ""
-                val wing = document.getString("wing") ?: ""
-                val teamMember = TeamMember(name, img)
-                if (wingMap.containsKey(wing)) {
-                    wingMap[wing]?.add(teamMember)
-                } else {
-                    wingMap[wing] = mutableListOf(teamMember)
-                }
+            },
+            { error ->
+                handleNetworkError()
+                Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_SHORT).show()
             }
-            for ((wing, members) in wingMap) {
-                val teamSection = TeamSection(wing, members)
-                teamSections.add(teamSection)
-            }
-            wingAdapter.notifyDataSetChanged()
-            binding.resLot.visibility = View.INVISIBLE
-            binding.teamRV.visibility = View.VISIBLE
-            binding.refresh.isRefreshing = false
-            binding.normal.visibility = View.VISIBLE
-            binding.error.visibility = View.INVISIBLE
-            updateSharedPreferences()
-        }.addOnFailureListener { exception ->
-            handleNetworkError()
-            Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_SHORT).show()
-        }
-    }
-    private fun saveDataToSharedPreferences(imgUrl: String) {
-        val editor = sharedPreferences.edit()
-        editor.putString(IMG_URL_KEY, imgUrl)
-        editor.apply()
-    }
-    private fun loadImageFromUrl(imgUrl: String) {
-        Glide.with(requireContext())
-            .load(imgUrl)
-            .apply(
-                RequestOptions()
-                    .error(R.drawable.group)
-                    .placeholder(R.drawable.placeholder)
-                    .transform(CenterCrop(), RoundedCorners(20))
-                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-            )
-            .into(binding.imageView4)
+        )
+        requestQueue.add(jsonObjectRequest)
     }
 
     private fun handleNetworkError() {
@@ -173,6 +171,7 @@ class Team : Fragment() {
             fetchFromFirestore()
         }
     }
+
     private fun updateSharedPreferences() {
         val json = Gson().toJson(teamSections)
         sharedPreferences.edit().apply {
