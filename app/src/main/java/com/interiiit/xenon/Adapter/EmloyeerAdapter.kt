@@ -41,12 +41,8 @@ class EmloyeerAdapter(
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .circleCrop()
             .into(holder.logo)
-
         holder.score.text = users.Points.toString()
         holder.name.text = users.Name
-        val ranking = position + 4
-        holder.score.text = users.Points.toString()
-        holder.name.text = users.Name
-        holder.rank.text = ranking.toString()
+        holder.rank.text = users.Rank.toString()
     }
 }
