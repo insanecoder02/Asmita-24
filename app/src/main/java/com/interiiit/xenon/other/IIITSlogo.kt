@@ -16,7 +16,7 @@ object IIITSlogo {
 //        "Sonepat" to R.drawable.sonepat,
         "Surat" to R.drawable.surat,
         "Tiruchirappalli" to R.drawable.trichy,
-//        "Una" to R.drawable.una,
+        "Una" to R.drawable.una,
         "Vadodara" to R.drawable.vadodra,
         "Agartala" to R.drawable.agar,
 //        "Bhagalpur" to R.drawable.bhagalpur,

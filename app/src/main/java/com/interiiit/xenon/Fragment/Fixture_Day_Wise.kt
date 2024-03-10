@@ -49,7 +49,7 @@ class Fixture_Day_Wise : Fragment() {
                 "        color: #fff;\n" +
                 "    }\n" +
                 "\n" +
-                "    tr:first-of-type td {\n" +
+                "    tr:first-of-type * {\n" +
                 "        color: #e9bd3e;\n" +
                 "    }\n" +
                 "</style>"

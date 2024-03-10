@@ -138,7 +138,6 @@ class Home : Fragment() {
                         val teamSection = FixtureSportDataClass(type, mutableListOf(dayWise))
                         fixture.add(teamSection)
                     }
-                    fixAdapter.notifyDataSetChanged()
                     if (fixture.isEmpty()) {
                         binding.t2.visibility = View.VISIBLE
                         binding.matLot.visibility = View.INVISIBLE
@@ -149,8 +148,8 @@ class Home : Fragment() {
                         binding.matLot.visibility = View.INVISIBLE
                         binding.upcommingMatchsRV.visibility = View.VISIBLE
                         binding.seeText.visibility = View.VISIBLE
-                        binding.loadBtn2.visibility = View.INVISIBLE
                     }
+                    fixAdapter.notifyDataSetChanged()
                     binding.loadBtn2.visibility = View.INVISIBLE
                     binding.refresh.isRefreshing = false
                 } catch (e: JSONException) {

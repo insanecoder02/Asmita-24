@@ -37,7 +37,7 @@ class Fixture_Upcoming : Fragment() {
             append("        background: #1e1e1e;\n")
             append("        color: #fff;\n")
             append("    }\n")
-            append("    tr:first-of-type td {\n")
+            append("    tr:first-of-type * {\n")
             append("        color: #e9bd3e;\n")
             append("    }\n")
             append("</style></head><body>\n")

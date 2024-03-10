@@ -92,8 +92,6 @@ class LeaderBoard_Empl : Fragment() {
                         }
                     }
                     if (isCorrupt) {
-                        Toast.makeText(requireContext(), "dont know why ", Toast.LENGTH_SHORT)
-                            .show()
                         binding.firstcardEmp.visibility = View.GONE
                         binding.secondCardemp.visibility = View.GONE
                         binding.thirdCardEmp.visibility = View.GONE

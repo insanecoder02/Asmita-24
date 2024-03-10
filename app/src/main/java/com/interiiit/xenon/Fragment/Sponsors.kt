@@ -106,7 +106,6 @@ class Sponsors : Fragment() {
                 handleNetworkError()
             } else {
 //                Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT/2).show()
-                Log.e("FirestoreFetch", "Error fetching data from Firestore", e)
             }
         }
     }
